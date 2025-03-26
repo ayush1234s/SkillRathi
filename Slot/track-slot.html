@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Slot - Fearless Assignments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/assests/img/favicon.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    },
+                    animation: {
+                        'gradient': 'gradient 8s ease infinite',
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #e11d48, #f97316, #0f172a, #6366f1);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #10b981;
+            transition: width 0.5s ease;
+        }
+        .progress-step {
+            position: relative;
+        }
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #e5e7eb;
+            z-index: 0;
+        }
+        .progress-step:first-child::before {
+            display: none;
+        }
+        .progress-step.active .progress-step-icon {
+            background-color: #10b981;
+            color: white;
+        }
+        .progress-step.active::before {
+            background-color: #10b981;
+        }
+        .progress-step-icon {
+            position: relative;
+            z-index: 1;
+            background-color: #e5e7eb;
+            color: #6b7280;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="gradient-bg py-10 px-4 sm:px-6 lg:px-8 min-h-screen">
+        <div class="max-w-4xl mx-auto form-container rounded-2xl shadow-2xl overflow-hidden">
+            <!-- Header with Logo -->
+            <div class="bg-white p-6 text-center border-b border-gray-200">
+                <div class="flex justify-center mb-4">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0rjmc9EGbFP1jS2sEtLtOkMhPal4C8.png" alt="Fearless Assignments Logo" class="h-20">
+                </div>
+                <h1 class="text-3xl font-bold text-secondary">Track Your Slot Process</h1>
+                <p class="text-gray-600 mt-2">Enter your details to check the status of your application</p>
+            </div>
+            
+            <!-- Tracking Form -->
+            <div id="trackingForm" class="bg-white p-6 sm:p-8">
+                <form id="slotTrackingForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Ticket Number -->
+                        <div>
+                            <label for="ticketNumber" class="block text-gray-700 mb-2">Ticket Number <span class="text-red-500">*</span></label>
+                            <input type="text" id="ticketNumber" name="ticketNumber" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your 8-digit ticket number" required>
+                        </div>
+                        
+                        <!-- Email Address -->
+                        <div>
+                            <label for="trackEmail" class="block text-gray-700 mb-2">Email Address <span class="text-red-500">*</span></label>
+                            <input type="email" id="trackEmail" name="trackEmail" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your email address" required>
+                        </div>
+                        
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="trackPhone" class="block text-gray-700 mb-2">Phone Number <span class="text-red-500">*</span></label>
+                            <div class="flex">
+                                <div class="bg-gray-100 px-3 py-3 border border-gray-300 rounded-l-lg text-gray-700 flex items-center">+91</div>
+                                <input type="tel" id="trackPhone" name="trackPhone" pattern="[0-9]{10}" maxlength="10" class="input-field flex-1 px-4 py-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your 10-digit phone number" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Date of Birth -->
+                        <div>
+                            <label for="trackDob" class="block text-gray-700 mb-2">Date of Birth <span class="text-red-500">*</span></label>
+                            <input type="date" id="trackDob" name="trackDob" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                    </div>
+                    
+                    <div id="trackingError" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"></div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="bg-primary hover:bg-red-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all hover:shadow-lg transform hover:-translate-y-1">
+                            <i class="fas fa-search mr-2"></i> Track Application
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Tracking Result (Hidden by default) -->
+            <div id="trackingResult" class="bg-white p-6 sm:p-8 hidden">
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold text-secondary">Application Details</h2>
+                        <button id="backToFormBtn" class="text-primary hover:text-red-700 transition">
+                            <i class="fas fa-arrow-left mr-1"></i> Back to Form
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-gray-500 text-sm">Full Name</p>
+                                <p id="resultFullName" class="font-semibold text-secondary"></p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Email Address</p>
+                                <p id="resultEmail" class="font-semibold text-secondary"></p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Phone Number</p>
+                                <p id="resultPhone" class="font-semibold text-secondary"></p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Slot Type</p>
+                                <p id="resultSlotType" class="font-semibold text-secondary"></p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Ticket Number</p>
+                                <p id="resultTicketNumber" class="font-semibold text-secondary"></p>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-sm">Submission Date</p>
+                                <p id="resultSubmissionDate" class="font-semibold text-secondary"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-secondary mb-4">Application Progress</h2>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Progress</span>
+                            <span id="progressPercentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressBarFill" class="progress-bar-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="progress-step active">
+                            <div class="progress-step-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <p class="text-center text-sm mt-2">Submitted</p>
+                        </div>
+                        <div id="progressStep2" class="progress-step">
+                            <div class="progress-step-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <p class="text-center text-sm mt-2">Processing</p>
+                        </div>
+                        <div id="progressStep3" class="progress-step">
+                            <div class="progress-step-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="text-center text-sm mt-2">Completed</p>
+                        </div>
+                    </div>
+                    
+                    <div id="statusMessage" class="bg-blue-50 p-4 rounded-md text-blue-800">
+                        <p><i class="fas fa-info-circle mr-2"></i> Your application has been submitted successfully. We will start processing it soon.</p>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="/index.html" class="bg-secondary hover:bg-gray-800 text-white px-6 py-3 rounded-md transition inline-block">
+                        <i class="fas fa-home mr-2"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-6 mt-10">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center items-center mb-4">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0rjmc9EGbFP1jS2sEtLtOkMhPal4C8.png" alt="Fearless Assignments Logo" class="h-10 bg-white rounded-full p-1">
+                <span class="ml-2 text-xl font-bold">Fearless Assignments</span>
+            </div>
+            <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+            <div class="flex justify-center space-x-4 mb-4">
+                <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p class="text-gray-400">&copy; 2025 Fearless Assignments. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Track Application Form Submission
+        document.getElementById('slotTrackingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const ticketNumber = document.getElementById('ticketNumber').value.toUpperCase();
+            const email = document.getElementById('trackEmail').value;
+            const phone = document.getElementById('trackPhone').value;
+            const dob = document.getElementById('trackDob').value;
+            
+            // Get stored data from localStorage
+            const storedData = localStorage.getItem('fearlessBookingData_' + ticketNumber);
+            
+            if (!storedData) {
+                showTrackingError('No application found with this ticket number. Please check and try again.');
+                return;
+            }
+            
+            const userData = JSON.parse(storedData);
+            
+            // Validate user details
+            if (userData.email !== email || userData.phone !== phone || userData.dob !== dob) {
+                showTrackingError('The details provided do not match our records. Please check and try again.');
+                return;
+            }
+            
+            // Calculate progress based on submission date
+            const submissionDate = new Date(userData.submissionDate);
+            const currentDate = new Date();
+            const daysDifference = Math.floor((currentDate - submissionDate) / (1000 * 60 * 60 * 24));
+            
+            // Increase progress by 30% each day, max 100%
+            let progress = Math.min(30 * (daysDifference + 1), 100);
+            
+            // Update userData with current progress
+            userData.progress = progress;
+            localStorage.setItem('fearlessBookingData_' + ticketNumber, JSON.stringify(userData));
+            
+            // Show tracking result
+            displayTrackingResult(userData);
+        });
+        
+        // Show tracking error
+        function showTrackingError(message) {
+            const errorElement = document.getElementById('trackingError');
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+        
+        // Display tracking result
+        function displayTrackingResult(userData) {
+            // Hide form and show result
+            document.getElementById('trackingForm').classList.add('hidden');
+            document.getElementById('trackingResult').classList.remove('hidden');
+            
+            // Fill in user details
+            document.getElementById('resultFullName').textContent = userData.firstName + ' ' + userData.lastName;
+            document.getElementById('resultEmail').textContent = userData.email;
+            document.getElementById('resultPhone').textContent = '+91 ' + userData.phone;
+            document.getElementById('resultSlotType').textContent = userData.slotTypes.join(', ');
+            document.getElementById('resultTicketNumber').textContent = userData.ticketNumber;
+            
+            // Format submission date
+            const submissionDate = new Date(userData.submissionDate);
+            document.getElementById('resultSubmissionDate').textContent = submissionDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Update progress bar
+            const progress = userData.progress;
+            document.getElementById('progressPercentage').textContent = progress + '%';
+            document.getElementById('progressBarFill').style.width = progress + '%';
+            
+            // Update progress steps
+            if (progress >= 30) {
+                document.getElementById('progressStep2').classList.add('active');
+            }
+            
+            if (progress >= 90) {
+                document.getElementById('progressStep3').classList.add('active');
+            }
+            
+            // Update status message
+            const statusMessage = document.getElementById('statusMessage');
+            if (progress < 30) {
+                statusMessage.innerHTML = '<p><i class="fas fa-info-circle mr-2"></i> Your application has been submitted successfully. We will start processing it soon.</p>';
+                statusMessage.className = 'bg-blue-50 p-4 rounded-md text-blue-800';
+            } else if (progress < 60) {
+                statusMessage.innerHTML = '<p><i class="fas fa-cog fa-spin mr-2"></i> We have received your form details and are currently reviewing your information.</p>';
+                statusMessage.className = 'bg-blue-50 p-4 rounded-md text-blue-800';
+            } else if (progress < 90) {
+                statusMessage.innerHTML = '<p><i class="fas fa-cog fa-spin mr-2"></i> We are processing your request. This may take a few more days.</p>';
+                statusMessage.className = 'bg-yellow-50 p-4 rounded-md text-yellow-800';
+            } else {
+                statusMessage.innerHTML = '<p><i class="fas fa-check-circle mr-2"></i> Your application has been processed successfully! We will contact you shortly.</p>';
+                statusMessage.className = 'bg-green-50 p-4 rounded-md text-green-800';
+            }
+        }
+        
+        // Back to form button
+        document.getElementById('backToFormBtn').addEventListener('click', function() {
+            document.getElementById('trackingResult').classList.add('hidden');
+            document.getElementById('trackingForm').classList.remove('hidden');
+            document.getElementById('trackingError').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us - Skill Rathi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="assests/img/favicon.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #e11d48;
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #c81e44;
+        }
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .mobile-profile-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .file-input-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .file-input-label:hover {
+            border-color: #e11d48;
+        }
+        .file-preview {
+            max-width: 100%;
+            max-height: 150px;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="font-sans bg-light">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="/assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-12">
+                    <span class="ml-2 text-xl font-bold text-secondary md:block hidden">Skill Rathi</span>
+                </div>
+                
+                <!-- Navigation Links - Desktop -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/index.html" class="text-secondary hover:text-primary font-medium">Home</a>
+                    <a href="/Slot/bookmyslot.php.html" class="text-secondary hover:text-primary font-medium">Book Your Slots</a>
+                    <a href="/JOIN/joinus.html" class="text-primary font-medium border-b-2 border-primary">Join Us</a>
+                    <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                    <a href="/payment.html" class="text-secondary hover:text-primary font-medium">Payments</a>
+                    <a href="/contact.php.htm" class="text-secondary hover:text-primary font-medium">Contact Us</a>
+                </div>
+                
+                <!-- Cart and Login - Desktop -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="/FearlessStore/fearlessStore.html" class="text-secondary hover:text-primary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </a>
+                   
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <a href="/FearlessStore/fearlessStore.html" class="text-secondary hover:text-primary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </a>
+                    <!-- Mobile Profile Icon (hidden by default) -->
+                    <div id="mobileProfileDropdown" class="hidden">
+                        <button id="mobileProfileBtn" class="flex items-center">
+                            <img id="mobileAvatarImg" src="/placeholder.svg?height=40&width=40" alt="Profile" class="mobile-profile-avatar">
+                        </button>
+                    </div>
+                     <button id="mobileMenuBtn" class="text-secondary focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu (hidden by default) -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <a href="/index.html" class="text-secondary hover:text-primary font-medium">Home</a>
+                <a href="/Slot/bookmyslot.php.html" class="text-secondary hover:text-primary font-medium">Book Your Slots</a>
+                <a href="/JOIN/joinus.html" class="text-secondary hover:text-primary font-medium">Join Us</a>
+                <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                <a href="/payment.html" class="text-secondary hover:text-primary font-medium">Payments</a>
+                <a href="/contact.php.htm" class="text-secondary hover:text-primary font-medium">Contact Us</a>
+            <div id="mobileProfileMenu" class="hidden border-t border-gray-200 mt-2 pt-2">
+                    <p id="mobileProfileName" class="py-2 font-medium text-secondary"></p>
+                    <a href="#" id="mobileViewProfileBtn" class="block py-2 text-secondary hover:text-primary">Profile</a>
+                    <a href="#" id="mobileLogoutBtn" class="block py-2 text-secondary hover:text-primary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login/Signup Modal -->
+    <div id="authModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+            <!-- Login Form -->
+            <div id="loginForm" class="p-6 modal-content">
+                <div class="flex justify-center mb-4">
+                    <img src="/assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-16">
+                </div>
+                <h2 class="text-2xl font-bold text-center text-secondary mb-6">Skill Rathi Login</h2>
+                <div id="loginError" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+                <div class="mb-4">
+                    <label for="loginEmail" class="block text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="loginEmail" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div class="mb-4">
+                    <label for="loginPassword" class="block text-gray-700 mb-2">Password</label>
+                    <input type="password" id="loginPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div class="mb-4 flex items-center">
+                    <input type="checkbox" id="rememberMe" class="mr-2">
+                    <label for="rememberMe" class="text-gray-700">Remember me</label>
+                </div>
+                <button id="loginSubmitBtn" class="w-full bg-primary text-white py-2 rounded-md hover:bg-red-700 transition mb-4">Login</button>
+                <p class="text-center text-gray-700">Don't have an account? <a href="#" id="showSignupBtn" class="text-primary hover:underline">Signup</a></p>
+            </div>
+            
+            <!-- Signup Form -->
+            <div id="signupForm" class="p-6 hidden modal-content">
+                <div class="flex justify-center mb-4">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0rjmc9EGbFP1jS2sEtLtOkMhPal4C8.png" alt="Skill Rathi Logo" class="h-16">
+                </div>
+                <h2 class="text-2xl font-bold text-center text-secondary mb-6">Create an Account</h2>
+                <div id="signupError" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+                <div class="mb-4">
+                    <label for="signupName" class="block text-gray-700 mb-2">Full Name</label>
+                    <input type="text" id="signupName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div class="mb-4">
+                    <label for="signupEmail" class="block text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="signupEmail" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div class="mb-4">
+                    <label for="signupPassword" class="block text-gray-700 mb-2">Password</label>
+                    <input type="password" id="signupPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <button id="signupSubmitBtn" class="w-full bg-primary text-white py-2 rounded-md hover:bg-red-700 transition mb-4">Signup</button>
+                <p class="text-center text-gray-700">Already registered? <a href="#" id="showLoginBtn" class="text-primary hover:underline">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div class="p-6 modal-content">
+                <div class="flex justify-center mb-4">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0rjmc9EGbFP1jS2sEtLtOkMhPal4C8.png" alt="Skill Rathi Logo" class="h-16">
+                </div>
+                <h2 class="text-2xl font-bold text-center text-secondary mb-6"><span id="profileFullName"></span> Profile</h2>
+                
+                <!-- Profile Photo -->
+                <div class="flex flex-col items-center mb-6">
+                    <div class="relative">
+                        <img id="profilePhotoPreview" src="/placeholder.svg?height=100&width=100" alt="Profile Photo" class="h-24 w-24 rounded-full object-cover border-4 border-primary">
+                        <label for="profilePhotoUpload" class="absolute bottom-0 right-0 bg-primary text-white rounded-full p-2 cursor-pointer">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                        <input type="file" id="profilePhotoUpload" class="hidden" accept="image/*">
+                    </div>
+                </div>
+                
+                <!-- Profile Details -->
+                <div class="mb-4">
+                    <label for="profileNameInput" class="block text-gray-700 mb-2">Full Name</label>
+                    <input type="text" id="profileNameInput" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div class="mb-4">
+                    <label for="profileEmailInput" class="block text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="profileEmailInput" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Password</label>
+                    <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50" id="maskedPassword"></div>
+                </div>
+                
+                <!-- Change Password Section (hidden by default) -->
+                <div id="changePasswordSection" class="hidden">
+                    <h3 class="text-lg font-semibold text-secondary mb-4">Change Password</h3>
+                    <div class="mb-4">
+                        <label for="oldPassword" class="block text-gray-700 mb-2">Old Password</label>
+                        <input type="password" id="oldPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <div class="mb-4">
+                        <label for="newPassword" class="block text-gray-700 mb-2">New Password</label>
+                        <input type="password" id="newPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <div class="mb-4">
+                        <label for="repeatPassword" class="block text-gray-700 mb-2">Repeat Password</label>
+                        <input type="password" id="repeatPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <div id="passwordError" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"></div>
+                    <button id="savePasswordBtn" class="w-full bg-primary text-white py-2 rounded-md hover:bg-red-700 transition mb-4">Verify and Save</button>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <button id="changePasswordBtn" class="w-1/2 bg-secondary text-white py-2 rounded-md hover:bg-gray-800 transition">Change Password</button>
+                    <button id="saveProfileBtn" class="w-1/2 bg-primary text-white py-2 rounded-md hover:bg-red-700 transition">Save Profile</button>
+                </div>
+                <button id="closeProfileBtn" class="w-full mt-4 bg-gray-200 text-gray-800 py-2 rounded-md hover:bg-gray-300 transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-10 bg-gradient-to-r from-gray-50 to-gray-100">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-secondary mb-4 text-center">Join Our Team</h1>
+            <p class="text-xl text-gray-600 text-center max-w-3xl mx-auto">Become a part of Skill Rathi and help students excel in their academic journey. Fill out the form below to apply.</p>
+        </div>
+    </section>
+
+    <!-- Join Us Form Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-md p-8">
+                <form id="joinUsForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="ef0fb220-f367-40df-afec-6ffabe99c111">
+                    <input type="hidden" name="subject" value="New Join Us Application - Skill Rathi">
+                    <input type="hidden" name="from_name" value="Skill Rathi">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                    <!-- Form Fields -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <!-- First Name & Last Name -->
+                        <div>
+                            <label for="firstName" class="block text-gray-700 mb-2">First Name <span class="text-primary">*</span></label>
+                            <input type="text" id="firstName" name="firstName" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-gray-700 mb-2">Last Name <span class="text-primary">*</span></label>
+                            <input type="text" id="lastName" name="lastName" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        </div>
+
+                        <!-- Email & Phone -->
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">Email Address <span class="text-primary">*</span></label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-gray-700 mb-2">Phone Number <span class="text-primary">*</span></label>
+                            <div class="flex">
+                                <span class="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
+                                    +91
+                                </span>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-primary" pattern="[0-9]{10}" maxlength="10" required>
+                            </div>
+                        </div>
+
+                        <!-- Gender & DOB -->
+                        <div>
+                            <label for="gender" class="block text-gray-700 mb-2">Gender <span class="text-primary">*</span></label>
+                            <select id="gender" name="gender" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                                <option value="" selected disabled>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="dob" class="block text-gray-700 mb-2">Date of Birth <span class="text-primary">*</span></label>
+                            <input type="date" id="dob" name="dob" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        </div>
+
+                        <!-- College -->
+                        <div class="md:col-span-2">
+                            <label for="college" class="block text-gray-700 mb-2">College <span class="text-primary">*</span></label>
+                            <select id="college" name="college" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                                <option value="" selected disabled>Select College</option>
+                                <option value="Galgotias College of Engineering and Technology">Galgotias College of Engineering and Technology</option>
+                                <option value="Greater Noida Institute of Technology">Greater Noida Institute of Technology</option>
+                                <option value="DronaCharya Engineering College">DronaCharya Engineering College</option>
+                                <option value="Noida Institute of Engineering and Technology">Noida Institute of Engineering and Technology</option>
+                                <option value="Ganeshi lal Bajaj Engineering College">Ganeshi lal Bajaj Engineering College</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Other College (conditionally shown) -->
+                        <div id="otherCollegeContainer" class="md:col-span-2 hidden">
+                            <label for="otherCollege" class="block text-gray-700 mb-2">Specify Your College <span class="text-primary">*</span></label>
+                            <input type="text" id="otherCollege" name="otherCollege" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+
+                        <!-- College Year & Semester -->
+                        <div>
+                            <label for="collegeYear" class="block text-gray-700 mb-2">College Year <span class="text-primary">*</span></label>
+                            <select id="collegeYear" name="collegeYear" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                                <option value="" selected disabled>Select Year</option>
+                                <option value="1st Year">1st Year</option>
+                                <option value="2nd Year">2nd Year</option>
+                                <option value="3rd Year">3rd Year</option>
+                                <option value="4th Year">4th Year</option>
+                                <option value="5th Year">5th Year</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="semester" class="block text-gray-700 mb-2">Semester <span class="text-primary">*</span></label>
+                            <select id="semester" name="semester" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                                <option value="" selected disabled>Select Semester</option>
+                                <option value="1st Semester">1st Semester</option>
+                                <option value="2nd Semester">2nd Semester</option>
+                                <option value="3rd Semester">3rd Semester</option>
+                                <option value="4th Semester">4th Semester</option>
+                                <option value="5th Semester">5th Semester</option>
+                                <option value="6th Semester">6th Semester</option>
+                                <option value="7th Semester">7th Semester</option>
+                                <option value="8th Semester">8th Semester</option>
+                                <option value="9th Semester">9th Semester</option>
+                                <option value="10th Semester">10th Semester</option>
+                            </select>
+                        </div>
+
+                        <!-- City, State & Pincode -->
+                        <div>
+                            <label for="city" class="block text-gray-700 mb-2">City <span class="text-primary">*</span></label>
+                            <input type="text" id="city" name="city" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        </div>
+                        <div>
+                            <label for="state" class="block text-gray-700 mb-2">State <span class="text-primary">*</span></label>
+                            <input type="text" id="state" name="state" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="pincode" class="block text-gray-700 mb-2">Pincode <span class="text-primary">*</span></label>
+                            <input type="text" id="pincode" name="pincode" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" pattern="[0-9]{6}" maxlength="6" required>
+                        </div>
+
+                        <!-- Profile Picture Upload -->
+                        <div>
+                            <label class="block text-gray-700 mb-2">Upload Profile Picture <span class="text-primary">*</span></label>
+                            <label for="profilePicture" class="file-input-label">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                <span class="text-gray-500">Click to upload or drag and drop</span>
+                                <span class="text-xs text-gray-400 mt-1">JPG, PNG or JPEG (Max 2MB)</span>
+                                <input type="file" id="profilePicture" name="profilePicture" class="hidden" accept="image/png, image/jpeg, image/jpg" required>
+                                <img id="profilePreview" class="file-preview hidden" alt="Profile Preview">
+                            </label>
+                        </div>
+
+                        <!-- Signature Upload -->
+                        <div>
+                            <label class="block text-gray-700 mb-2">Upload Fresh Signature <span class="text-primary">*</span></label>
+                            <label for="signature" class="file-input-label">
+                                <i class="fas fa-signature text-3xl text-gray-400 mb-2"></i>
+                                <span class="text-gray-500">Click to upload or drag and drop</span>
+                                <span class="text-xs text-gray-400 mt-1">JPG, PNG or JPEG (Max 2MB)</span>
+                                <input type="file" id="signature" name="signature" class="hidden" accept="image/png, image/jpeg, image/jpg" required>
+                                <img id="signaturePreview" class="file-preview hidden" alt="Signature Preview">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Terms Checkbox -->
+                    <div class="mb-6">
+                        <div class="flex items-start">
+                            <input type="checkbox" id="termsCheck" name="termsCheck" class="mt-1 mr-2" required>
+                            <label for="  name="termsCheck" class="mt-1 mr-2" required>
+                            <label for="termsCheck" class="text-gray-700">I confirm that all information provided is accurate and correct. If any information is wrong, it's my fault and not the service of Skill Rathi.</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="bg-primary text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-red-700 transition">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Join Us Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-secondary mb-2">Why Join Skill Rathi?</h2>
+                <p class="text-xl text-gray-600">Benefits of becoming a part of our team</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-4">Competitive Pay</h3>
+                    <p class="text-gray-600">Earn competitive compensation for your expertise and skills while helping students succeed.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-4">Flexible Hours</h3>
+                    <p class="text-gray-600">Work on your own schedule and balance your academic commitments with ease.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-4">Remote Work</h3>
+                    <p class="text-gray-600">Work from anywhere with an internet connection - no commuting required.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-4">Skill Development</h3>
+                    <p class="text-gray-600">Enhance your knowledge and skills while working on diverse academic projects.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-4">Networking</h3>
+                    <p class="text-gray-600">Connect with professionals and peers in your field and build valuable relationships.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-secondary mb-4">Recognition</h3>
+                    <p class="text-gray-600">Get recognized for your contributions and build a portfolio of your work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0rjmc9EGbFP1jS2sEtLtOkMhPal4C8.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
+                        <span class="ml-2 text-xl font-bold">Skill Rathi</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-primary">Home</a></li>
+                        <li><a href="/Slot/bookmyslot.php.html" class="text-gray-300 hover:text-primary">Book Your Slots</a></li>
+                        <li><a href="/JOIN/joinus.html" class="text-gray-300 hover:text-primary">Join Us</a></li>
+                        <li><a href="/payment.html" class="text-gray-300 hover:text-primary">Payments</a></li>
+                        <li><a href="/contact.php.htm" class="text-gray-300 hover:text-primary">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/Assignmnet/assignment.html" class="text-gray-300 hover:text-primary">Assignments</a></li>
+                        <li><a href="/Lb-File/labFile.html" class="text-gray-300 hover:text-primary">Practical Lab Files</a></li>
+                        <li><a href="/graphic/g&d.html" class="text-gray-300 hover:text-primary">Graphic Design</a></li>
+                        <li><a href="/Slot/track-slot.html" class="text-gray-300 hover:text-primary">Track Slot</a></li>
+                        <li><a href="/terms-conditions.html" class="text-gray-300 hover:text-primary">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>+91 8006968576</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span>info@fearlessassignments.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
+                <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
+                <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+        // Toggle mobile menu
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+        
+        // Login/Signup Modal
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            document.getElementById('authModal').classList.remove('hidden');
+        });
+        
+        document.getElementById('mobileLoginBtn').addEventListener('click', function() {
+            document.getElementById('authModal').classList.remove('hidden');
+        });
+        
+        document.getElementById('showSignupBtn').addEventListener('click', function() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+        });
+        
+        document.getElementById('showLoginBtn').addEventListener('click', function() {
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.add('hidden');
+            }
+        });
+        
+        // College dropdown logic
+        document.getElementById('college').addEventListener('change', function() {
+            const otherCollegeContainer = document.getElementById('otherCollegeContainer');
+            const otherCollegeInput = document.getElementById('otherCollege');
+            
+            if (this.value === 'other') {
+                otherCollegeContainer.classList.remove('hidden');
+                otherCollegeInput.setAttribute('required', 'required');
+            } else {
+                otherCollegeContainer.classList.add('hidden');
+                otherCollegeInput.removeAttribute('required');
+            }
+        });
+        
+        // File upload preview for profile picture
+        document.getElementById('profilePicture').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('profilePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.classList.add('hidden');
+            }
+        });
+        
+        // File upload preview for signature
+        document.getElementById('signature').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('signaturePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.classList.add('hidden');
+            }
+        });
+        
+        // Form submission
+        document.getElementById('joinUsForm').addEventListener('submit', function(e) {
+            // Form validation is handled by HTML5 required attributes
+            // Additional validation can be added here if needed
+            
+            // Web3Forms will handle the actual submission
+        });
+         // Mobile Menu Toggle
+ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+ const mobileMenu = document.getElementById('mobileMenu');
+ 
+ mobileMenuBtn.addEventListener('click', () => {
+     mobileMenu.classList.toggle('hidden');
+ });
+ 
+ // Auth Modal
+ const loginBtn = document.getElementById('loginBtn');
+ const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+ const authModal = document.getElementById('authModal');
+ const loginForm = document.getElementById('loginForm');
+ const signupForm = document.getElementById('signupForm');
+ const showSignupBtn = document.getElementById('showSignupBtn');
+ const showLoginBtn = document.getElementById('showLoginBtn');
+ 
+ // Show/Hide Auth Modal
+ function toggleAuthModal() {
+     authModal.classList.toggle('hidden');
+ }
+ 
+ loginBtn.addEventListener('click', toggleAuthModal);
+ mobileLoginBtn.addEventListener('click', toggleAuthModal);
+ 
+ // Close modal when clicking outside
+ authModal.addEventListener('click', (e) => {
+     if (e.target === authModal) {
+         toggleAuthModal();
+     }
+ });
+ 
+ // Switch between login and signup forms
+ showSignupBtn.addEventListener('click', (e) => {
+     e.preventDefault();
+     loginForm.classList.add('hidden');
+     signupForm.classList.remove('hidden');
+ });
+ 
+ showLoginBtn.addEventListener('click', (e) => {
+     e.preventDefault();
+     signupForm.classList.add('hidden');
+     loginForm.classList.remove('hidden');
+ });
+ 
+ // Login Form Submission
+ const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+ const loginEmail = document.getElementById('loginEmail');
+ const loginPassword = document.getElementById('loginPassword');
+ const loginError = document.getElementById('loginError');
+ const profileDropdown = document.getElementById('profileDropdown');
+ const mobileProfileDropdown = document.getElementById('mobileProfileDropdown');
+ const profileBtn = document.getElementById('profileBtn');
+ const mobileProfileBtn = document.getElementById('mobileProfileBtn');
+ const dropdownMenu = document.getElementById('dropdownMenu');
+ const profileName = document.getElementById('profileName');
+ const mobileProfileName = document.getElementById('mobileProfileName');
+ const avatarImg = document.getElementById('avatarImg');
+ const mobileAvatarImg = document.getElementById('mobileAvatarImg');
+ const mobileProfileMenu = document.getElementById('mobileProfileMenu');
+ 
+ loginSubmitBtn.addEventListener('click', () => {
+     // Simple validation
+     if (!loginEmail.value || !loginPassword.value) {
+         loginError.textContent = 'Please fill in all fields';
+         loginError.classList.remove('hidden');
+         return;
+     }
+     
+     // Check if user exists (simulated)
+     const users = JSON.parse(localStorage.getItem('users') || '[]');
+     const user = users.find(u => u.email === loginEmail.value && u.password === loginPassword.value);
+     
+     if (user) {
+         // Login successful
+         localStorage.setItem('currentUser', JSON.stringify(user));
+         toggleAuthModal();
+         updateUserInterface();
+     } else {
+         // Login failed
+         loginError.textContent = 'Invalid email or password';
+         loginError.classList.remove('hidden');
+     }
+ });
+ 
+ // Signup Form Submission
+ const signupSubmitBtn = document.getElementById('signupSubmitBtn');
+ const signupName = document.getElementById('signupName');
+ const signupEmail = document.getElementById('signupEmail');
+ const signupPassword = document.getElementById('signupPassword');
+ const signupError = document.getElementById('signupError');
+ 
+ signupSubmitBtn.addEventListener('click', () => {
+     // Simple validation
+     if (!signupName.value || !signupEmail.value || !signupPassword.value) {
+         signupError.textContent = 'Please fill in all fields';
+         signupError.classList.remove('hidden');
+         return;
+     }
+     
+     // Check if email already exists (simulated)
+     const users = JSON.parse(localStorage.getItem('users') || '[]');
+     if (users.some(u => u.email === signupEmail.value)) {
+         signupError.textContent = 'Email already registered';
+         signupError.classList.remove('hidden');
+         return;
+     }
+     
+     // Add new user
+     const newUser = {
+         name: signupName.value,
+         email: signupEmail.value,
+         password: signupPassword.value,
+         photo: null
+     };
+     
+     users.push(newUser);
+     localStorage.setItem('users', JSON.stringify(users));
+     localStorage.setItem('currentUser', JSON.stringify(newUser));
+     
+     // Show success and update UI
+     toggleAuthModal();
+     updateUserInterface();
+ });
+ 
+ // Profile Dropdown Toggle
+ profileBtn?.addEventListener('click', () => {
+     dropdownMenu.classList.toggle('hidden');
+ });
+ 
+ mobileProfileBtn?.addEventListener('click', () => {
+     if (mobileMenu.classList.contains('hidden')) {
+         mobileMenu.classList.remove('hidden');
+     }
+     mobileProfileMenu.classList.toggle('hidden');
+ });
+ 
+ // Logout
+ const logoutBtn = document.getElementById('logoutBtn');
+ const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+ 
+ logoutBtn?.addEventListener('click', (e) => {
+     e.preventDefault();
+     localStorage.removeItem('currentUser');
+     updateUserInterface();
+     dropdownMenu.classList.add('hidden');
+ });
+ 
+ mobileLogoutBtn?.addEventListener('click', (e) => {
+     e.preventDefault();
+     localStorage.removeItem('currentUser');
+     updateUserInterface();
+     mobileMenu.classList.add('hidden');
+ });
+ 
+ // Profile Modal
+ const profileModal = document.getElementById('profileModal');
+ const viewProfileBtn = document.getElementById('viewProfileBtn');
+ const mobileViewProfileBtn = document.getElementById('mobileViewProfileBtn');
+ const closeProfileBtn = document.getElementById('closeProfileBtn');
+ const profileFullName = document.getElementById('profileFullName');
+ const profileNameInput = document.getElementById('profileNameInput');
+ const profileEmailInput = document.getElementById('profileEmailInput');
+ const maskedPassword = document.getElementById('maskedPassword');
+ const profilePhotoPreview = document.getElementById('profilePhotoPreview');
+ const profilePhotoUpload = document.getElementById('profilePhotoUpload');
+ const changePasswordBtn = document.getElementById('changePasswordBtn');
+ const changePasswordSection = document.getElementById('changePasswordSection');
+ const oldPassword = document.getElementById('oldPassword');
+ const newPassword = document.getElementById('newPassword');
+ const repeatPassword = document.getElementById('repeatPassword');
+ const passwordError = document.getElementById('passwordError');
+ const savePasswordBtn = document.getElementById('savePasswordBtn');
+ const saveProfileBtn = document.getElementById('saveProfileBtn');
+ 
+ // Show Profile Modal
+ function showProfileModal() {
+     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+     if (currentUser) {
+         profileFullName.textContent = currentUser.name;
+         profileNameInput.value = currentUser.name;
+         profileEmailInput.value = currentUser.email;
+         
+         // Mask password
+         const passwordLength = currentUser.password.length;
+         const lastThree = currentUser.password.slice(-3);
+         const maskedPart = '*'.repeat(passwordLength - 3);
+         maskedPassword.textContent = maskedPart + lastThree;
+         
+         // Set profile photo if exists
+         if (currentUser.photo) {
+             profilePhotoPreview.src = currentUser.photo;
+         } else {
+             // Generate avatar with initials
+             const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+             const canvas = document.createElement('canvas');
+             canvas.width = 200;
+             canvas.height = 200;
+             const ctx = canvas.getContext('2d');
+             
+             // Draw background
+             ctx.fillStyle = '#e11d48';
+             ctx.fillRect(0, 0, canvas.width, canvas.height);
+             
+             // Draw text
+             ctx.fillStyle = '#FFFFFF';
+             ctx.font = 'bold 100px Arial';
+             ctx.textAlign = 'center';
+             ctx.textBaseline = 'middle';
+             ctx.fillText(initials, canvas.width/2, canvas.height/2);
+             
+             profilePhotoPreview.src = canvas.toDataURL('image/png');
+         }
+         
+         profileModal.classList.remove('hidden');
+         dropdownMenu.classList.add('hidden');
+         mobileMenu.classList.add('hidden');
+     }
+ }
+ 
+ viewProfileBtn?.addEventListener('click', (e) => {
+     e.preventDefault();
+     showProfileModal();
+ });
+ 
+ mobileViewProfileBtn?.addEventListener('click', (e) => {
+     e.preventDefault();
+     showProfileModal();
+ });
+ 
+ // Close Profile Modal
+ closeProfileBtn.addEventListener('click', () => {
+     profileModal.classList.add('hidden');
+     changePasswordSection.classList.add('hidden');
+ });
+ 
+ profileModal.addEventListener('click', (e) => {
+     if (e.target === profileModal) {
+         profileModal.classList.add('hidden');
+         changePasswordSection.classList.add('hidden');
+     }
+ });
+ 
+ // Profile Photo Upload
+ profilePhotoUpload.addEventListener('change', (e) => {
+     const file = e.target.files[0];
+     if (file) {
+         const reader = new FileReader();
+         reader.onload = (e) => {
+             profilePhotoPreview.src = e.target.result;
+         };
+         reader.readAsDataURL(file);
+     }
+ });
+ 
+ // Toggle Change Password Section
+ changePasswordBtn.addEventListener('click', () => {
+     changePasswordSection.classList.toggle('hidden');
+     oldPassword.value = '';
+     newPassword.value = '';
+     repeatPassword.value = '';
+     passwordError.classList.add('hidden');
+ });
+ 
+ // Save Password
+ savePasswordBtn.addEventListener('click', () => {
+     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+     
+     // Validate
+     if (!oldPassword.value || !newPassword.value || !repeatPassword.value) {
+         passwordError.textContent = 'Please fill in all password fields';
+         passwordError.classList.remove('hidden');
+         return;
+     }
+     
+     if (oldPassword.value !== currentUser.password) {
+         passwordError.textContent = 'Old password is incorrect';
+         passwordError.classList.remove('hidden');
+         return;
+     }
+     
+     if (newPassword.value !== repeatPassword.value) {
+         passwordError.textContent = 'New passwords do not match';
+         passwordError.classList.remove('hidden');
+         return;
+     }
+     
+     // Update password
+     currentUser.password = newPassword.value;
+     localStorage.setItem('currentUser', JSON.stringify(currentUser));
+     
+     // Update users array
+     const users = JSON.parse(localStorage.getItem('users') || '[]');
+     const userIndex = users.findIndex(u => u.email === currentUser.email);
+     if (userIndex !== -1) {
+         users[userIndex].password = newPassword.value;
+         localStorage.setItem('users', JSON.stringify(users));
+     }
+     
+     // Update UI
+     const passwordLength = currentUser.password.length;
+     const lastThree = currentUser.password.slice(-3);
+     const maskedPart = '*'.repeat(passwordLength - 3);
+     maskedPassword.textContent = maskedPart + lastThree;
+     
+     // Hide section and show success
+     changePasswordSection.classList.add('hidden');
+     alert('Password updated successfully');
+ });
+ 
+ // Save Profile
+ saveProfileBtn.addEventListener('click', () => {
+     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+     
+     // Update name
+     currentUser.name = profileNameInput.value;
+     
+     // Update photo
+     currentUser.photo = profilePhotoPreview.src;
+     
+     // Save to localStorage
+     localStorage.setItem('currentUser', JSON.stringify(currentUser));
+     
+     // Update users array
+     const users = JSON.parse(localStorage.getItem('users') || '[]');
+     const userIndex = users.findIndex(u => u.email === currentUser.email);
+     if (userIndex !== -1) {
+         users[userIndex].name = currentUser.name;
+         users[userIndex].photo = currentUser.photo;
+         localStorage.setItem('users', JSON.stringify(users));
+     }
+     
+     // Update UI
+     profileModal.classList.add('hidden');
+     updateUserInterface();
+     alert('Profile updated successfully');
+ });
+ 
+ // Update UI based on login status
+ function updateUserInterface() {
+     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+     
+     if (currentUser) {
+         // User is logged in
+         loginBtn.classList.add('hidden');
+         mobileLoginBtn.classList.add('hidden');
+         profileDropdown.classList.remove('hidden');
+         mobileProfileDropdown.classList.remove('hidden');
+         mobileProfileMenu.classList.add('hidden'); // Initially hidden on mobile
+         profileName.textContent = currentUser.name;
+         mobileProfileName.textContent = currentUser.name;
+         
+         // Set avatar
+         if (currentUser.photo) {
+             avatarImg.src = currentUser.photo;
+             mobileAvatarImg.src = currentUser.photo;
+         } else {
+             // Generate avatar with initials
+             const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+             const canvas = document.createElement('canvas');
+             canvas.width = 200;
+             canvas.height = 200;
+             const ctx = canvas.getContext('2d');
+             
+             // Draw background
+             ctx.fillStyle = '#e11d48';
+             ctx.fillRect(0, 0, canvas.width, canvas.height);
+             
+             // Draw text
+             ctx.fillStyle = '#FFFFFF';
+             ctx.font = 'bold 100px Arial';
+             ctx.textAlign = 'center';
+             ctx.textBaseline = 'middle';
+             ctx.fillText(initials, canvas.width/2, canvas.height/2);
+             
+             const avatarDataUrl = canvas.toDataURL('image/png');
+             avatarImg.src = avatarDataUrl;
+             mobileAvatarImg.src = avatarDataUrl;
+         }
+     } else {
+         // User is logged out
+         loginBtn.classList.remove('hidden');
+         mobileLoginBtn.classList.remove('hidden');
+         profileDropdown.classList.add('hidden');
+         mobileProfileDropdown.classList.add('hidden');
+         mobileProfileMenu.classList.add('hidden');
+         avatarImg.src = '/placeholder.svg?height=40&width=40';
+         mobileAvatarImg.src = '/placeholder.svg?height=40&width=40';
+     }
+ }
+ 
+ // Check login status on page load
+ document.addEventListener('DOMContentLoaded', updateUserInterface);
+ 
+ // Close dropdowns when clicking outside
+ document.addEventListener('click', (e) => {
+     if (!profileBtn?.contains(e.target) && !dropdownMenu?.contains(e.target)) {
+         dropdownMenu?.classList.add('hidden');
+     }
+     
+     if (!mobileProfileBtn?.contains(e.target) && !mobileMenu?.contains(e.target) && !mobileMenuBtn?.contains(e.target)) {
+         mobileProfileMenu?.classList.add('hidden');
+     }
+ });
+
+    </script>
+</body>
+</html>
+

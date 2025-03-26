@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Receipt - Skill Rathi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="assests/img/Skill_Rathi_Logo.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100">
+    <!-- Print Button -->
+    <div class="fixed top-4 right-4 z-50 no-print">
+        <button onclick="window.print()" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition flex items-center">
+            <i class="fas fa-print mr-2"></i> Print Receipt
+        </button>
+    </div>
+    
+    <!-- Back Button -->
+    <div class="fixed top-4 left-4 z-50 no-print">
+        <a href="payment.html" class="bg-secondary text-white px-4 py-2 rounded-md hover:bg-gray-800 transition flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Payment
+        </a>
+    </div>
+    
+    <!-- Receipt Container -->
+    <div class="min-h-screen flex items-center justify-center py-12 px-4">
+        <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full p-8">
+            <!-- Receipt Header -->
+            <div class="text-center mb-8">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0rjmc9EGbFP1jS2sEtLtOkMhPal4C8.png" alt="Skill Rathi Logo" class="h-20 mx-auto mb-4">
+                <h1 class="text-3xl font-bold text-secondary">Skill Rathi</h1>
+                <p class="text-gray-600">Payment Receipt</p>
+            </div>
+            
+            <!-- Receipt Number and Date -->
+            <div class="flex justify-between mb-8">
+                <div>
+                    <p class="text-gray-600">Receipt No:</p>
+                    <p class="font-semibold" id="receiptNumber">FA-2025-0001</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-600">Date:</p>
+                    <p class="font-semibold" id="receiptDate"></p>
+                </div>
+            </div>
+            
+            <!-- User Information -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-secondary mb-4 pb-2 border-b border-gray-200">User Information</h2>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <table class="w-full">
+                        <tbody>
+                            <tr>
+                                <td class="py-2 text-gray-600 w-1/3">Full Name:</td>
+                                <td class="py-2 font-semibold" id="receiptName"></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 text-gray-600">Email Address:</td>
+                                <td class="py-2" id="receiptEmail"></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 text-gray-600">Phone Number:</td>
+                                <td class="py-2" id="receiptPhone"></td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 text-gray-600">Gender:</td>
+                                <td class="py-2" id="receiptGender"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Service Information -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-secondary mb-4 pb-2 border-b border-gray-200">Service Information</h2>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div id="assignmentSection" class="mb-4 hidden">
+                        <h3 class="font-semibold text-secondary mb-2">Assignments</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="py-2 px-4 border-b text-left">Subject</th>
+                                        <th class="py-2 px-4 border-b text-left">Chapters</th>
+                                        <th class="py-2 px-4 border-b text-left">Year</th>
+                                        <th class="py-2 px-4 border-b text-left">Semester</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="receiptAssignmentTableBody">
+                                    <!-- Assignment rows will be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div id="labFileSection" class="mb-4 hidden">
+                        <h3 class="font-semibold text-secondary mb-2">Lab Files</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="py-2 px-4 border-b text-left">Subject</th>
+                                        <th class="py-2 px-4 border-b text-left">Experiments</th>
+                                        <th class="py-2 px-4 border-b text-left">Year</th>
+                                        <th class="py-2 px-4 border-b text-left">Semester</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="receiptLabTableBody">
+                                    <!-- Lab file rows will be added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div id="graphicDesignSection" class="hidden">
+                        <h3 class="font-semibold text-secondary mb-2">Graphic & Design</h3>
+                        <p class="text-gray-700">Graphic design services requested.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Information -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-secondary mb-4 pb-2 border-b border-gray-200">Payment Information</h2>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-2 px-4 text-left">S.No.</th>
+                                <th class="py-2 px-4 text-left">Payment From</th>
+                                <th class="py-2 px-4 text-left">Payment App</th>
+                                <th class="py-2 px-4 text-left">Payment By</th>
+                                <th class="py-2 px-4 text-left">UPI Address</th>
+                                <th class="py-2 px-4 text-left">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4">1</td>
+                                <td class="py-2 px-4">UPI</td>
+                                <td class="py-2 px-4" id="receiptPaymentApp">UPI App</td>
+                                <td class="py-2 px-4" id="receiptPaymentBy"></td>
+                                <td class="py-2 px-4" id="receiptUpiAddress"></td>
+                                <td class="py-2 px-4 font-semibold" id="receiptAmount"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <p class="text-gray-600">Date & Time:</p>
+                            <p id="receiptDateTime"></p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Status:</p>
+                            <p class="text-green-600 font-semibold">Successfully</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Thank You Message -->
+            <div class="text-center border-t border-gray-200 pt-6">
+                <p class="text-lg font-semibold text-secondary mb-2">Thank you for your payment!</p>
+                <p class="text-gray-600">For any queries, please contact us at <span class="text-primary">support@fearlessassignments.com</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get payment details from localStorage
+            const paymentDetails = JSON.parse(localStorage.getItem('paymentDetails') || '{}');
+            
+            // Get user data if available
+            const userData = JSON.parse(localStorage.getItem('fearlessUser') || {});
+            
+            // Set current date if not available
+            const currentDate = new Date();
+            document.getElementById('receiptDate').textContent = paymentDetails.paymentDate || currentDate.toLocaleDateString();
+            
+            // Fill user information
+            document.getElementById('receiptName').textContent = paymentDetails.fullName || userData.name || 'John Doe';
+            document.getElementById('receiptEmail').textContent = paymentDetails.email || userData.email || 'john.doe@example.com';
+            document.getElementById('receiptPhone').textContent = '+91 ' + (paymentDetails.phone || '9876543210');
+            document.getElementById('receiptGender').textContent = paymentDetails.gender || 'Not specified';
+            
+            // Fill service information
+            if (paymentDetails.assignments && paymentDetails.assignments.length > 0) {
+                document.getElementById('assignmentSection').classList.remove('hidden');
+                const assignmentTableBody = document.getElementById('receiptAssignmentTableBody');
+                
+                paymentDetails.assignments.forEach(assignment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="py-2 px-4 border-b">${assignment.subject}</td>
+                        <td class="py-2 px-4 border-b">${assignment.chapters}</td>
+                        <td class="py-2 px-4 border-b">${assignment.year}${getOrdinal(assignment.year)} Year</td>
+                        <td class="py-2 px-4 border-b">${assignment.semester}${getOrdinal(assignment.semester)} Semester</td>
+                    `;
+                    assignmentTableBody.appendChild(row);
+                });
+            }
+            
+            if (paymentDetails.labFiles && paymentDetails.labFiles.length > 0) {
+                document.getElementById('labFileSection').classList.remove('hidden');
+                const labTableBody = document.getElementById('receiptLabTableBody');
+                
+                paymentDetails.labFiles.forEach(lab => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="py-2 px-4 border-b">${lab.subject}</td>
+                        <td class="py-2 px-4 border-b">${lab.experiments}</td>
+                        <td class="py-2 px-4 border-b">${lab.year}${getOrdinal(lab.year)} Year</td>
+                        <td class="py-2 px-4 border-b">${lab.semester}${getOrdinal(lab.semester)} Semester</td>
+                    `;
+                    labTableBody.appendChild(row);
+                });
+            }
+            
+            if (paymentDetails.graphicDesign) {
+                document.getElementById('graphicDesignSection').classList.remove('hidden');
+            }
+            
+            // Fill payment information
+            document.getElementById('receiptPaymentApp').textContent = window.innerWidth >= 768 ? 'Desktop Browser' : 'Mobile UPI App';
+            document.getElementById('receiptPaymentBy').textContent = paymentDetails.fullName || userData.name || 'John Doe';
+            document.getElementById('receiptUpiAddress').textContent = paymentDetails.upiAddress || '7895896594@ptyes';
+            document.getElementById('receiptAmount').textContent = '₹' + (paymentDetails.amount || '0.00');
+            
+            // Set date and time
+            document.getElementById('receiptDateTime').textContent = 
+                (paymentDetails.paymentDate || currentDate.toLocaleDateString()) + 
+                ' at ' + 
+                (paymentDetails.paymentTime || currentDate.toLocaleTimeString());
+            
+            // Generate random receipt number if not available
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('receiptNumber').textContent = 'FA-' + currentDate.getFullYear() + '-' + randomNum;
+        });
+        
+        // Get ordinal suffix (1st, 2nd, 3rd, etc.)
+        function getOrdinal(n) {
+            const s = ["th", "st", "nd", "rd"];
+            const v = n % 100;
+            return (s[(v - 20) % 10] || s[v] || s[0]);
+        }
+    </script>
+</body>
+</html>
+

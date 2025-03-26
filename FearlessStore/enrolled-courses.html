@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrolled Courses - Skill Rathi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/assests/img/favicon.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .php-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .php-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="/assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-12">
+                    <span class="ml-2 text-xl font-bold text-secondary md:block hidden">Skill Rathi</span>
+                </div>
+                
+                <!-- Navigation Links - Desktop -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a class='text-secondary hover:text-primary font-medium' href='/'>Home</a>
+                    <a class='text-secondary hover:text-primary font-medium' href='/slot/bookmyslot.php'>Book Your Slots</a>
+                    <a class='text-secondary hover:text-primary font-medium' href='/join/joinus'>Join Us</a>
+                    <a class='text-primary font-medium border-b-2 border-primary' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                    <a class='text-secondary hover:text-primary font-medium' href='/payment'>Payments</a>
+                    
+                    <a class='text-secondary hover:text-primary font-medium' href='/contact.php'>Contact Us</a>
+               
+                </div>
+                
+                <!-- Cart and Login - Desktop -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a class='text-secondary hover:text-primary font-medium' href='/fearlessstore/fearlessstore'>
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <a href="store.html" class="text-secondary hover:text-primary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </a>
+                    <button id="mobileMenuBtn" class="text-secondary focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu (hidden by default) -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <a class='block py-2 text-secondary hover:text-primary' href='/'>Home</a>
+                <a class='block py-2 text-secondary hover:text-primary' href='/slot/bookmyslot.php'>Book Your Slots</a>
+                <a class='block py-2 text-secondary hover:text-primary' href='/join/joinus'>Join Us</a>
+                <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                <a class='block py-2 text-secondary hover:text-primary' href='/payment'>Payments</a>
+                <a class='block py-2 text-secondary hover:text-primary' href='/contact.php'>Contact Us</a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enrolled Courses Content -->
+    <div class="pt-28 pb-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-secondary mb-8">My Enrolled Courses</h1>
+            
+            <!-- No Courses Message (hidden by default) -->
+            <div id="noCourses" class="hidden bg-gray-100 rounded-lg p-8 text-center">
+                <i class="fas fa-sad-tear text-gray-400 text-5xl mb-4"></i>
+                <h2 class="text-2xl font-bold text-secondary mb-2">You have not purchased or enrolled in any course!</h2>
+                <p class="text-gray-600 mb-6">Browse our courses and start your learning journey today.</p>
+                <a href="cyberCourse.html" class="bg-primary text-white px-6 py-3 rounded-md hover:bg-red-700 transition inline-block">Explore Courses</a>
+            </div>
+            
+            <!-- Enrolled Courses List -->
+            <div id="enrolledCourses" class="hidden">
+                <!-- Cyber Security Course Card -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+                    <div class="flex flex-col md:flex-row">
+                        <!-- Course Thumbnail -->
+                        <div class="md:w-1/4">
+                            <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-full h-48 md:h-full object-cover">
+                        </div>
+                        
+                        <!-- Course Details -->
+                        <div class="md:w-3/4 p-6">
+                            <div class="flex flex-col md:flex-row justify-between">
+                                <div>
+                                    <h2 class="text-2xl font-bold text-secondary mb-2">Cyber Security Full Course</h2>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Network Security</span>
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Ethical Hacking</span>
+                                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Cryptography</span>
+                                    </div>
+                                    <div class="flex items-center mb-4">
+                                        <div class="flex text-yellow-400 mr-2">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <span class="text-gray-600 text-sm">4.8 (256 reviews)</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600 mb-2">
+                                        <i class="fas fa-clock mr-2"></i>
+                                        <span>40+ hours of content</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600 mb-4">
+                                        <i class="fas fa-certificate mr-2 text-primary"></i>
+                                        <span>Certificate of completion</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-500 line-through mr-2">₹2999</span>
+                                        <span class="font-bold text-secondary">₹2499</span>
+                                        <span class="text-xs text-gray-500 ml-1">(Tax included)</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 md:mt-0 flex flex-col items-start md:items-end">
+                                    <div class="bg-green-100 text-green-800 px-3 py-1 rounded-md mb-4">
+                                        <i class="fas fa-check-circle mr-1"></i> Purchased Course
+                                    </div>
+                                    <button id="accessCourseBtn" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition mb-2 w-full md:w-auto">
+                                        Access Course
+                                    </button>
+                                    <button id="viewRecordingsBtn" class="bg-secondary text-white px-4 py-2 rounded-md hover:bg-gray-800 transition w-full md:w-auto">
+                                        <i class="fas fa-play-circle mr-1"></i> View Recordings
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Course Content Popup -->
+    <div id="courseContentPopup" class="php-popup-overlay hidden">
+        <div class="php-popup">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-secondary">Cyber Security Course Content</h3>
+                <button id="closeCourseContentBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-secondary mb-3">About This Course</h4>
+                <p class="text-gray-700 mb-4">
+                    This comprehensive Cyber Security course is designed to take you from beginner to professional level. You'll learn essential skills to protect systems, networks, and data from digital attacks. Our expert instructors will guide you through practical, hands-on exercises that simulate real-world scenarios.
+                </p>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-secondary mb-3">Course Modules</h4>
+                <div class="space-y-3">
+                    <div class="border border-gray-200 rounded-md p-3">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-medium">Module 1: Introduction to Cyber Security</h5>
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Completed</span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-md p-3">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-medium">Module 2: Network Security Fundamentals</h5>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">In Progress</span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-md p-3">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-medium">Module 3: Ethical Hacking and Penetration Testing</h5>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Upcoming</span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-md p-3">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-medium">Module 4: Cryptography and Secure Communications</h5>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Upcoming</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-secondary mb-3">Course Resources</h4>
+                <div class="space-y-3">
+                    <a href="#" class="flex items-center p-3 border border-gray-200 rounded-md hover:bg-gray-50">
+                        <i class="fas fa-file-pdf text-red-500 text-xl mr-3"></i>
+                        <div>
+                            <h5 class="font-medium">Cyber Security Fundamentals PDF</h5>
+                            <p class="text-sm text-gray-600">Complete guide to cyber security basics</p>
+                        </div>
+                        <i class="fas fa-download ml-auto text-gray-500"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-3 border border-gray-200 rounded-md hover:bg-gray-50">
+                        <i class="fas fa-file-pdf text-red-500 text-xl mr-3"></i>
+                        <div>
+                            <h5 class="font-medium">Network Security Cheatsheet</h5>
+                            <p class="text-sm text-gray-600">Quick reference for network security concepts</p>
+                        </div>
+                        <i class="fas fa-download ml-auto text-gray-500"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <a href="https://t.me/joinchat/example" target="_blank" class="flex items-center justify-center p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                    <i class="fab fa-telegram-plane mr-2"></i> Join Telegram Channel
+                </a>
+                <a href="#" class="flex items-center justify-center p-3 bg-green-500 text-white rounded-md hover:bg-green-600">
+                    <i class="fas fa-video mr-2"></i> Join Live Class
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recorded Classes Popup -->
+    <div id="recordedClassesPopup" class="php-popup-overlay hidden">
+        <div class="php-popup">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-secondary">Recorded Classes</h3>
+                <button id="closeRecordedClassesBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <!-- Class 1 -->
+                <div class="border border-gray-200 rounded-md overflow-hidden">
+                    <div class="relative">
+                        <img src="/placeholder.svg?height=120&width=240" alt="Introduction to Cyber Security" class="w-full h-32 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <button class="play-video-btn" data-video-id="dQw4w9WgXcQ">
+                                <i class="fas fa-play-circle text-white text-4xl hover:text-primary transition"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h5 class="font-medium mb-1">Introduction to Cyber Security</h5>
+                        <p class="text-sm text-gray-600">Duration: 45 minutes</p>
+                    </div>
+                </div>
+                
+                <!-- Class 2 -->
+                <div class="border border-gray-200 rounded-md overflow-hidden">
+                    <div class="relative">
+                        <img src="/placeholder.svg?height=120&width=240" alt="Network Security Basics" class="w-full h-32 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <button class="play-video-btn" data-video-id="dQw4w9WgXcQ">
+                                <i class="fas fa-play-circle text-white text-4xl hover:text-primary transition"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h5 class="font-medium mb-1">Network Security Basics</h5>
+                        <p class="text-sm text-gray-600">Duration: 52 minutes</p>
+                    </div>
+                </div>
+                
+                <!-- Class 3 -->
+                <div class="border border-gray-200 rounded-md overflow-hidden">
+                    <div class="relative">
+                        <img src="/placeholder.svg?height=120&width=240" alt="Ethical Hacking Introduction" class="w-full h-32 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <button class="play-video-btn" data-video-id="dQw4w9WgXcQ">
+                                <i class="fas fa-play-circle text-white text-4xl hover:text-primary transition"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h5 class="font-medium mb-1">Ethical Hacking Introduction</h5>
+                        <p class="text-sm text-gray-600">Duration: 48 minutes</p>
+                    </div>
+                </div>
+                
+                <!-- Class 4 -->
+                <div class="border border-gray-200 rounded-md overflow-hidden">
+                    <div class="relative">
+                        <img src="/placeholder.svg?height=120&width=240" alt="Cryptography Basics" class="w-full h-32 object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <button class="play-video-btn" data-video-id="dQw4w9WgXcQ">
+                                <i class="fas fa-play-circle text-white text-4xl hover:text-primary transition"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h5 class="font-medium mb-1">Cryptography Basics</h5>
+                        <p class="text-sm text-gray-600">Duration: 55 minutes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Video Player Popup -->
+    <div id="videoPlayerPopup" class="php-popup-overlay hidden">
+        <div class="php-popup">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="videoTitle" class="text-xl font-bold text-secondary">Video Title</h3>
+                <button id="closeVideoPlayerBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="video-container mb-4">
+                <iframe id="videoFrame" width="560" height="315" src="/placeholder.svg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="/assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
+                        <span class="ml-2 text-xl font-bold">Skill Rathi</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-primary">Home</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='/slot/bookmyslot.php'>Book Your Slots</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='/join/joinus'>Join Us</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='/payment'>Payments</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='/contact.php'>Contact Us</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='enrolled-courses.html'>Enrolled Courses</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a class='text-gray-300 hover:text-primary' href='/assignmnet/assignment'>Assignments</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='/lb-file/labfile'>Practical Lab Files</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='/graphic/g&d'>Graphic Design</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='/slot/track-slot'>Track Slot</a></li>
+                        <li><a class='text-gray-300 hover:text-primary' href='/terms-conditions'>Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>+91 8006968576</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6dfd8d0d9f6d0d3d7c4dad3c5c5d7c5c5dfd1d8dbd3d8c2c598d5d9db">[email&#160;protected]</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
+                <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
+                <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="/assests/JS/enrolledCourse.js"></script>
+</body>
+</html>

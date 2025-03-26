@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Receipt - Fearless Assignments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/assests/img/favicon.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .print-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 20px !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4">
+        <div class="print-container max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8 border-b pb-4">
+                <div class="flex items-center">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0rjmc9EGbFP1jS2sEtLtOkMhPal4C8.png" alt="Fearless Assignments Logo" class="h-16">
+                    <div class="ml-4">
+                        <h1 class="text-2xl font-bold text-secondary">Fearless Assignments</h1>
+                        <p class="text-gray-600">Payment Receipt</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-600">Receipt #: <span id="receiptNumber">--</span></p>
+                    <p class="text-gray-600">Date: <span id="receiptDate">--</span></p>
+                </div>
+            </div>
+            
+            <!-- Customer Information -->
+            <div class="mb-8">
+                <h2 class="text-lg font-bold text-secondary mb-3">Customer Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-600">Name: <span id="customerName" class="font-semibold text-gray-800">--</span></p>
+                        <p class="text-gray-600">Email: <span id="customerEmail" class="font-semibold text-gray-800">--</span></p>
+                        <p class="text-gray-600">Phone: <span id="customerPhone" class="font-semibold text-gray-800">--</span></p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">College: <span id="customerCollege" class="font-semibold text-gray-800">--</span></p>
+                        <p class="text-gray-600">City: <span id="customerCity" class="font-semibold text-gray-800">--</span></p>
+                        <p class="text-gray-600">State: <span id="customerState" class="font-semibold text-gray-800">--</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Purchase Details -->
+            <div class="mb-8">
+                <h2 class="text-lg font-bold text-secondary mb-3">Purchase Details</h2>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="flex items-center mb-4">
+                        <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-16 h-16 object-cover rounded-md mr-4">
+                        <div>
+                            <h3 class="font-semibold text-secondary">Cyber Security Full Course</h3>
+                            <p class="text-gray-600 text-sm">Comprehensive training from basics to advanced</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 pt-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Base Price:</span>
+                            <span class="font-semibold">₹2499.00</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Tax (5%):</span>
+                            <span class="font-semibold">₹124.95</span>
+                        </div>
+                        <div id="discountRow" class="flex justify-between mb-2 hidden">
+                            <span class="text-green-600">Discount:</span>
+                            <span id="discountAmount" class="font-semibold text-green-600">-₹500.00</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-lg border-t border-gray-200 pt-2 mt-2">
+                            <span>Total:</span>
+                            <span id="totalAmount">₹2623.95</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Information -->
+            <div class="mb-8">
+                <h2 class="text-lg font-bold text-secondary mb-3">Payment Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-600">Transaction ID: <span id="transactionId" class="font-semibold text-gray-800">--</span></p>
+                        <p class="text-gray-600">Payment Method: <span class="font-semibold text-gray-800">UPI</span></p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">Payment Date: <span id="paymentDate" class="font-semibold text-gray-800">--</span></p>
+                        <p class="text-gray-600">Payment Time: <span id="paymentTime" class="font-semibold text-gray-800">--</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="border-t border-gray-200 pt-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-600 mb-1">Thank you for your purchase!</p>
+                        <p class="text-gray-500 text-sm">For any queries, please contact us at <a href="mailto:support@fearlessassignments.com" class="text-primary">support@fearlessassignments.com</a></p>
+                    </div>
+                    <div class="text-right">
+                        <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-check-circle mr-1"></i> Paid
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="mt-8 flex justify-center space-x-4 no-print">
+                <button onclick="window.print()" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
+                    <i class="fas fa-print mr-2"></i> Print Receipt
+                </button>
+                <a href="/FearlessStore/enrolled-courses.html" class="bg-secondary text-white px-4 py-2 rounded-md hover:bg-gray-800 transition">
+                    <i class="fas fa-graduation-cap mr-2"></i> Go to Course
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get receipt data from localStorage
+            const receiptData = localStorage.getItem('receiptData');
+            
+            if (receiptData) {
+                const data = JSON.parse(receiptData);
+                
+                // Fill receipt details
+                document.getElementById('receiptNumber').textContent = data.transactionId || 'TXN' + Math.floor(Math.random() * 1000000000);
+                document.getElementById('receiptDate').textContent = data.date || new Date().toLocaleDateString('en-IN');
+                
+                // Fill customer information
+                document.getElementById('customerName').textContent = data.name || '--';
+                document.getElementById('customerEmail').textContent = data.email || '--';
+                document.getElementById('customerPhone').textContent = data.phone || '--';
+                document.getElementById('customerCollege').textContent = data.college || '--';
+                document.getElementById('customerCity').textContent = data.city || '--';
+                document.getElementById('customerState').textContent = data.state || '--';
+                
+                // Fill payment information
+                document.getElementById('transactionId').textContent = data.transactionId || 'TXN' + Math.floor(Math.random() * 1000000000);
+                document.getElementById('paymentDate').textContent = data.date || new Date().toLocaleDateString('en-IN');
+                document.getElementById('paymentTime').textContent = data.time || new Date().toLocaleTimeString('en-IN');
+                
+                // Fill total amount
+                document.getElementById('totalAmount').textContent = data.amount || '₹2623.95';
+                
+                // Show discount if coupon was applied
+                if (data.couponApplied === 'Yes' && data.couponCode) {
+                    document.getElementById('discountRow').classList.remove('hidden');
+                    document.getElementById('discountAmount').textContent = '-₹500.00';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

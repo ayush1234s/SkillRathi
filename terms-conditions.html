@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - Skill Rathi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="assests/img/Skill_Rathi_Logo.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #e11d48;
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #c81e44;
+        }
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .mobile-profile-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .terms-section h3 {
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .terms-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .terms-section ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .terms-section ul li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="font-sans bg-light">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-12">
+                    <span class="ml-2 text-xl font-bold text-secondary md:block hidden">Skill Rathi</span>
+                </div>
+                
+                <!-- Navigation Links - Desktop -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-secondary hover:text-primary font-medium">Home</a>
+                    <a href="Slot/bookmyslot.php.html" class="text-secondary hover:text-primary font-medium">Book Your Slots</a>
+                    <a href="JOIN/joinus.html" class="text-secondary hover:text-primary font-medium">Join Us</a>
+                    <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                    <a href="payment.html" class="text-secondary hover:text-primary font-medium">Payments</a>
+                    <a href="contact.php.htm" class="text-secondary hover:text-primary font-medium">Contact Us</a>
+                </div>
+                
+                <!-- Cart and Login - Desktop -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="/FearlessStore/fearlessStore.html" class="text-secondary hover:text-primary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </a>
+                    
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <a href="FearlessStore/fearlessStore.html" class="text-secondary hover:text-primary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </a>
+                    <!-- Mobile Profile Icon (hidden by default) -->
+                    <div id="mobileProfileDropdown" class="hidden">
+                        <button id="mobileProfileBtn" class="flex items-center">
+                            <img id="mobileAvatarImg" src="/placeholder.svg?height=40&width=40" alt="Profile" class="mobile-profile-avatar">
+                        </button>
+                    </div>
+                     <button id="mobileMenuBtn" class="text-secondary focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu (hidden by default) -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <a href="index.html" class="block py-2 text-secondary hover:text-primary">Home</a>
+                <a href="Slot/bookmyslot.php.html" class="block py-2 text-secondary hover:text-primary">Book Your Slots</a>
+                <a href="JOIN/joinus.html" class="block py-2 text-secondary hover:text-primary">Join Us</a>
+                <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                <a href="payment.html" class="block py-2 text-secondary hover:text-primary">Payments</a>
+                <a href="contact.php.htm" class="block py-2 text-secondary hover:text-primary">Contact Us</a>
+                <div id="mobileProfileMenu" class="hidden border-t border-gray-200 mt-2 pt-2">
+                    <p id="mobileProfileName" class="py-2 font-medium text-secondary"></p>
+                    <a href="#" id="mobileViewProfileBtn" class="block py-2 text-secondary hover:text-primary">Profile</a>
+                    <a href="#" id="mobileLogoutBtn" class="block py-2 text-secondary hover:text-primary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+   
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-10 bg-gradient-to-r from-gray-50 to-gray-100">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-secondary mb-4 text-center">Terms & Conditions</h1>
+            <p class="text-xl text-gray-600 text-center max-w-3xl mx-auto">Please read these terms and conditions carefully before using our services.</p>
+        </div>
+    </section>
+
+    <!-- Terms & Conditions Content -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-md p-8 terms-section">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">1. Introduction</h2>
+                    <p>Welcome to Skill Rathi. These Terms and Conditions govern your use of our website, products, and services. By accessing or using our services, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, you may not access our services.</p>
+                    <p>Skill Rathi provides academic assistance services including handwritten assignments, lab files, graphic design services, educational courses, electronic gadgets, and college projects at suitable prices.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">2. Services Description</h2>
+                    <p>Skill Rathi offers the following services:</p>
+                    <ul>
+                        <li><strong>Handwritten Assignments:</strong> Custom-written academic assignments tailored to your requirements.</li>
+                        <li><strong>Lab Files:</strong> Comprehensive lab reports and documentation for various academic disciplines.</li>
+                        <li><strong>Graphic Design Services:</strong> Design solutions for academic and professional needs.</li>
+                        <li><strong>Educational Courses:</strong> Online and offline courses on various subjects.</li>
+                        <li><strong>Electronic Gadgets:</strong> Sale of electronic devices relevant to academic purposes.</li>
+                        <li><strong>College Projects:</strong> Assistance with college-level projects across different fields.</li>
+                    </ul>
+                    <p>All services are provided for educational and reference purposes only.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">3. User Accounts</h2>
+                    <h3>3.1 Account Creation</h3>
+                    <p>When you create an account with us, you must provide accurate, complete, and current information. You are responsible for safeguarding the password and for all activities that occur under your account.</p>
+                    
+                    <h3>3.2 Account Responsibilities</h3>
+                    <p>You agree not to disclose your password to any third party. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.</p>
+                    
+                    <h3>3.3 Account Termination</h3>
+                    <p>We reserve the right to terminate or suspend your account immediately, without prior notice or liability, for any reason, including without limitation if you breach the Terms and Conditions.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">4. Orders and Payments</h2>
+                    <h3>4.1 Order Placement</h3>
+                    <p>By placing an order, you agree to provide accurate and complete information regarding your requirements. We reserve the right to refuse any order you place with us.</p>
+                    
+                    <h3>4.2 Payment Terms</h3>
+                    <p>All payments must be made in advance unless otherwise agreed. We accept various payment methods as indicated on our website. Prices for our services are subject to change without notice.</p>
+                    
+                    <h3>4.3 Refunds</h3>
+                    <p>Refund requests will be considered on a case-by-case basis. Refunds may be issued if we fail to deliver the services as promised or if the quality of work does not meet the agreed standards. No refunds will be provided for completed work that meets the specified requirements.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">5. Intellectual Property</h2>
+                    <h3>5.1 Ownership</h3>
+                    <p>All materials provided by Skill Rathi, including but not limited to assignments, lab files, designs, and course content, are for your personal use only. Upon full payment, you are granted a non-exclusive license to use the materials for your educational purposes.</p>
+                    
+                    <h3>5.2 Restrictions</h3>
+                    <p>You may not reproduce, distribute, display, sell, lease, transmit, create derivative works from, translate, modify, reverse-engineer, disassemble, decompile, or otherwise exploit any content provided by Skill Rathi unless explicitly authorized by us.</p>
+                    
+                    <h3>5.3 User Content</h3>
+                    <p>By submitting content to us, you grant Skill Rathi a worldwide, non-exclusive, royalty-free license to use, reproduce, adapt, publish, translate, and distribute your content in any existing or future media formats.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">6. Academic Integrity</h2>
+                    <p>Skill Rathi provides services for reference and educational purposes only. We do not condone or support academic dishonesty, plagiarism, or any violation of academic integrity policies.</p>
+                    <p>You agree to use our services ethically and in compliance with your institution's academic integrity policies. You are solely responsible for how you use the materials provided by us.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">7. Disclaimers and Limitations of Liability</h2>
+                    <h3>7.1 Service Disclaimer</h3>
+                    <p>Our services are provided "as is" without any warranty of any kind, either express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+                    
+                    <h3>7.2 Limitation of Liability</h3>
+                    <p>In no event shall Skill Rathi, its directors, employees, partners, agents, suppliers, or affiliates be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the services.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">8. Privacy Policy</h2>
+                    <p>Your use of our services is also governed by our Privacy Policy, which is incorporated into these Terms and Conditions by reference. Please review our Privacy Policy to understand our practices regarding your personal information.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">9. Termination</h2>
+                    <p>We may terminate or suspend access to our services immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms and Conditions.</p>
+                    <p>All provisions of the Terms and Conditions which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">10. Governing Law</h2>
+                    <p>These Terms shall be governed and construed in accordance with the laws of India, without regard to its conflict of law provisions.</p>
+                    <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-secondary mb-4">11. Changes to Terms</h2>
+                    <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+                    <p>By continuing to access or use our services after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using our services.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-secondary mb-4">12. Contact Us</h2>
+                    <p>If you have any questions about these Terms and Conditions, please contact us at:</p>
+                    <p class="font-medium">Email: <a href="mailto:support@fearlessassignments.com" class="text-primary hover:underline">support@fearlessassignments.com</a></p>
+                    <p class="font-medium">Phone: +91 8006968576</p>
+                    <p class="font-medium">Address: Stanza Living Knowledge Park III, Gautam Buddh Nagar, Greater Noida</p>
+                </div>
+
+                <div class="mt-8 pt-8 border-t border-gray-200">
+                    <p class="text-gray-600 text-sm">Last updated: March 24, 2025</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Footer -->
+   <footer class="bg-secondary text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
+                    <span class="ml-2 text-xl font-bold">Skill Rathi</span>
+                </div>
+                <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-300 hover:text-primary">Home</a></li>
+                    <li><a href="Slot/bookmyslot.php.html" class="text-gray-300 hover:text-primary">Book Your Slots</a></li>
+                    <li><a href="JOIN/joinus.html" class="text-gray-300 hover:text-primary">Join Us</a></li>
+                    <li><a href="payment.html" class="text-gray-300 hover:text-primary">Payments</a></li>
+                    <li><a href="contact.php.htm" class="text-gray-300 hover:text-primary">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Services</h3>
+                <ul class="space-y-2">
+                    <li><a href="Assignmnet/assignment.html" class="text-gray-300 hover:text-primary">Assignments</a></li>
+                    <li><a href="Lb-File/labFile.html" class="text-gray-300 hover:text-primary">Practical Lab Files</a></li>
+                    <li><a href="graphic/g&d.html" class="text-gray-300 hover:text-primary">Graphic Design</a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-primary">Programming Help</a></li>
+                    <li><a href="terms-conditions.html" class="text-gray-300 hover:text-primary">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                        <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span>+91 8006968576</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-envelope mt-1 mr-2"></i>
+                        <span>info@fearlessassignments.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+            <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
+            <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
+            <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+        </div>
+    </div>
+</footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle mobile menu
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+        
+        // Login/Signup Modal
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            document.getElementById('authModal').classList.remove('hidden');
+        });
+        
+        document.getElementById('mobileLoginBtn').addEventListener('click', function() {
+            document.getElementById('authModal').classList.remove('hidden');
+        });
+        
+        document.getElementById('showSignupBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+        });
+        
+        document.getElementById('showLoginBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.add('hidden');
+            }
+        });
+        
+        // Login Form Submission
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+        const loginEmail = document.getElementById('loginEmail');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginError = document.getElementById('loginError');
+        const profileDropdown = document.getElementById('profileDropdown');
+        const mobileProfileDropdown = document.getElementById('mobileProfileDropdown');
+        const profileBtn = document.getElementById('profileBtn');
+        const mobileProfileBtn = document.getElementById('mobileProfileBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const profileName = document.getElementById('profileName');
+        const mobileProfileName = document.getElementById('mobileProfileName');
+        const avatarImg = document.getElementById('avatarImg');
+        const mobileAvatarImg = document.getElementById('mobileAvatarImg');
+        const mobileProfileMenu = document.getElementById('mobileProfileMenu');
+        
+        loginSubmitBtn.addEventListener('click', () => {
+            // Simple validation
+            if (!loginEmail.value || !loginPassword.value) {
+                loginError.textContent = 'Please fill in all fields';
+                loginError.classList.remove('hidden');
+                return;
+            }
+            
+            // Check if user exists (simulated)
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === loginEmail.value && u.password === loginPassword.value);
+            
+            if (user) {
+                // Login successful
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                document.getElementById('authModal').classList.add('hidden');
+                updateUserInterface();
+            } else {
+                // Login failed
+                loginError.textContent = 'Invalid email or password';
+                loginError.classList.remove('hidden');
+            }
+        });
+        
+        // Signup Form Submission
+        const signupSubmitBtn = document.getElementById('signupSubmitBtn');
+        const signupName = document.getElementById('signupName');
+        const signupEmail = document.getElementById('signupEmail');
+        const signupPassword = document.getElementById('signupPassword');
+        const signupError = document.getElementById('signupError');
+        
+        signupSubmitBtn.addEventListener('click', () => {
+            // Simple validation
+            if (!signupName.value || !signupEmail.value || !signupPassword.value) {
+                signupError.textContent = 'Please fill in all fields';
+                signupError.classList.remove('hidden');
+                return;
+            }
+            
+            // Check if email already exists (simulated)
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            if (users.some(u => u.email === signupEmail.value)) {
+                signupError.textContent = 'Email already registered';
+                signupError.classList.remove('hidden');
+                return;
+            }
+            
+            // Add new user
+            const newUser = {
+                name: signupName.value,
+                email: signupEmail.value,
+                password: signupPassword.value,
+                photo: null
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            // Show success and update UI
+            document.getElementById('authModal').classList.add('hidden');
+            updateUserInterface();
+        });
+        
+        // Profile Dropdown Toggle
+        profileBtn?.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+        
+        mobileProfileBtn?.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            }
+            mobileProfileMenu.classList.toggle('hidden');
+        });
+        
+        // Logout
+        const logoutBtn = document.getElementById('logoutBtn');
+        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+        
+        logoutBtn?.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('currentUser');
+            updateUserInterface();
+            dropdownMenu.classList.add('hidden');
+        });
+        
+        mobileLogoutBtn?.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('currentUser');
+            updateUserInterface();
+            mobileMenu.classList.add('hidden');
+        });
+        
+        // Profile Modal
+        const profileModal = document.getElementById('profileModal');
+        const viewProfileBtn = document.getElementById('viewProfileBtn');
+        const mobileViewProfileBtn = document.getElementById('mobileViewProfileBtn');
+        const closeProfileBtn = document.getElementById('closeProfileBtn');
+        const profileFullName = document.getElementById('profileFullName');
+        const profileNameInput = document.getElementById('profileNameInput');
+        const profileEmailInput = document.getElementById('profileEmailInput');
+        const maskedPassword = document.getElementById('maskedPassword');
+        const profilePhotoPreview = document.getElementById('profilePhotoPreview');
+        const profilePhotoUpload = document.getElementById('profilePhotoUpload');
+        const changePasswordBtn = document.getElementById('changePasswordBtn');
+        const changePasswordSection = document.getElementById('changePasswordSection');
+        const oldPassword = document.getElementById('oldPassword');
+        const newPassword = document.getElementById('newPassword');
+        const repeatPassword = document.getElementById('repeatPassword');
+        const passwordError = document.getElementById('passwordError');
+        const savePasswordBtn = document.getElementById('savePasswordBtn');
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        
+        // Show Profile Modal
+        function showProfileModal() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                profileFullName.textContent = currentUser.name;
+                profileNameInput.value = currentUser.name;
+                profileEmailInput.value = currentUser.email;
+                
+                // Mask password
+                const passwordLength = currentUser.password.length;
+                const lastThree = currentUser.password.slice(-3);
+                const maskedPart = '*'.repeat(passwordLength - 3);
+                maskedPassword.textContent = maskedPart + lastThree;
+                
+                // Set profile photo if exists
+                if (currentUser.photo) {
+                    profilePhotoPreview.src = currentUser.photo;
+                } else {
+                    // Generate avatar with initials
+                    const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 200;
+                    canvas.height = 200;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Draw background
+                    ctx.fillStyle = '#e11d48';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw text
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 100px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(initials, canvas.width/2, canvas.height/2);
+                    
+                    profilePhotoPreview.src = canvas.toDataURL('image/png');
+                }
+                
+                profileModal.classList.remove('hidden');
+                dropdownMenu.classList.add('hidden');
+                mobileMenu.classList.add('hidden');
+            }
+        }
+        
+        viewProfileBtn?.addEventListener('click', (e) => {
+            e.preventDefault();
+            showProfileModal();
+        });
+        
+        mobileViewProfileBtn?.addEventListener('click', (e) => {
+            e.preventDefault();
+            showProfileModal();
+        });
+        
+        // Close Profile Modal
+        closeProfileBtn.addEventListener('click', () => {
+            profileModal.classList.add('hidden');
+            changePasswordSection.classList.add('hidden');
+        });
+        
+        profileModal.addEventListener('click', (e) => {
+            if (e.target === profileModal) {
+                profileModal.classList.add('hidden');
+                changePasswordSection.classList.add('hidden');
+            }
+        });
+        
+        // Profile Photo Upload
+        profilePhotoUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profilePhotoPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Toggle Change Password Section
+        changePasswordBtn.addEventListener('click', () => {
+            changePasswordSection.classList.toggle('hidden');
+            oldPassword.value = '';
+            newPassword.value = '';
+            repeatPassword.value = '';
+            passwordError.classList.add('hidden');
+        });
+        
+        // Save Password
+        savePasswordBtn.addEventListener('click', () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            // Validate
+            if (!oldPassword.value || !newPassword.value || !repeatPassword.value) {
+                passwordError.textContent = 'Please fill in all password fields';
+                passwordError.classList.remove('hidden');
+                return;
+            }
+            
+            if (oldPassword.value !== currentUser.password) {
+                passwordError.textContent = 'Old password is incorrect';
+                passwordError.classList.remove('hidden');
+                return;
+            }
+            
+            if (newPassword.value !== repeatPassword.value) {
+                passwordError.textContent = 'New passwords do not match';
+                passwordError.classList.remove('hidden');
+                return;
+            }
+            
+            // Update password
+            currentUser.password = newPassword.value;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update users array
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            if (userIndex !== -1) {
+                users[userIndex].password = newPassword.value;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            // Update UI
+            const passwordLength = currentUser.password.length;
+            const lastThree = currentUser.password.slice(-3);
+            const maskedPart = '*'.repeat(passwordLength - 3);
+            maskedPassword.textContent = maskedPart + lastThree;
+            
+            // Hide section and show success
+            changePasswordSection.classList.add('hidden');
+            alert('Password updated successfully');
+        });
+        
+        // Save Profile
+        saveProfileBtn.addEventListener('click', () => {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            // Update name
+            currentUser.name = profileNameInput.value;
+            
+            // Update photo
+            currentUser.photo = profilePhotoPreview.src;
+            
+            // Save to localStorage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update users array
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            if (userIndex !== -1) {
+                users[userIndex].name = currentUser.name;
+                users[userIndex].photo = currentUser.photo;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            // Update UI
+            profileModal.classList.add('hidden');
+            updateUserInterface();
+            alert('Profile updated successfully');
+        });
+        
+        // Update UI based on login status
+        function updateUserInterface() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (currentUser) {
+                // User is logged in
+                document.getElementById('loginBtn').classList.add('hidden');
+                document.getElementById('mobileLoginBtn').classList.add('hidden');
+                profileDropdown.classList.remove('hidden');
+                mobileProfileDropdown.classList.remove('hidden');
+                mobileProfileMenu.classList.add('hidden'); // Initially hidden on mobile
+                profileName.textContent = currentUser.name;
+                mobileProfileName.textContent = currentUser.name;
+                
+                // Set avatar
+                if (currentUser.photo) {
+                    avatarImg.src = currentUser.photo;
+                    mobileAvatarImg.src = currentUser.photo;
+                } else {
+                    // Generate avatar with initials
+                    const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 200;
+                    canvas.height = 200;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Draw background
+                    ctx.fillStyle = '#e11d48';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw text
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 100px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(initials, canvas.width/2, canvas.height/2);
+                    
+                    const avatarDataUrl = canvas.toDataURL('image/png');
+                    avatarImg.src = avatarDataUrl;
+                    mobileAvatarImg.src = avatarDataUrl;
+                }
+            } else {
+                // User is logged out
+                document.getElementById('loginBtn').classList.remove('hidden');
+                document.getElementById('mobileLoginBtn').classList.remove('hidden');
+                profileDropdown.classList.add('hidden');
+                mobileProfileDropdown.classList.add('hidden');
+                mobileProfileMenu.classList.add('hidden');
+                avatarImg.src = '/placeholder.svg?height=40&width=40';
+                mobileAvatarImg.src = '/placeholder.svg?height=40&width=40';
+            }
+        }
+        
+        // Check login status on page load
+        document.addEventListener('DOMContentLoaded', updateUserInterface);
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!profileBtn?.contains(e.target) && !dropdownMenu?.contains(e.target)) {
+                dropdownMenu?.classList.add('hidden');
+            }
+            
+            if (!mobileProfileBtn?.contains(e.target) && !mobileMenu?.contains(e.target) && !mobileMenuBtn?.contains(e.target)) {
+                mobileProfileMenu?.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
+

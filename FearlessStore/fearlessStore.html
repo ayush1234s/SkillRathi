@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Rathi Store - Assignments Made Easy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/assests/img/favicon.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #e11d48;
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #c81e44;
+        }
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .mobile-profile-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .banner-slider {
+            animation: slide 15s infinite linear;
+        }
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-light">
+     <!-- Navbar -->
+     <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="/assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-12">
+                    <span class="ml-2 text-xl font-bold text-secondary md:block hidden">Skill Rathi</span>
+                </div>
+                
+                <!-- Navigation Links - Desktop -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/index.html" class="text-secondary hover:text-primary font-medium">Home</a>
+                    <a href="/Slot/bookmyslot.php.html" class="text-secondary hover:text-primary font-medium">Book Your Slots</a>
+                    <a href="/JOIN/joinus.html" class="text-secondary hover:text-primary font-medium">Join Us</a>
+                    <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                    <a href="/payment.html" class="text-secondary hover:text-primary font-medium">Payments</a>
+                    <a href="/contact.php.htm" class="text-secondary hover:text-primary font-medium">Contact Us</a>
+                </div>
+                
+                <!-- Cart and Login - Desktop -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="/FearlessStore/fearlessStore.html" class="text-primary font-medium border-b-2 border-primary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </a>
+                    
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <a href="/FearlessStore/fearlessStore.html" class="text-secondary hover:text-primary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                    </a>
+                    <!-- Mobile Profile Icon (hidden by default) -->
+                    <div id="mobileProfileDropdown" class="hidden">
+                        <button id="mobileProfileBtn" class="flex items-center">
+                            <img id="mobileAvatarImg" src="/placeholder.svg?height=40&width=40" alt="Profile" class="mobile-profile-avatar">
+                        </button>
+                    </div>
+                     <button id="mobileMenuBtn" class="text-secondary focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu (hidden by default) -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <a href="/index.html" class="block py-2 text-secondary hover:text-primary">Home</a>
+                <a href="/Slot/bookmyslot.php.html" class="block py-2 text-secondary hover:text-primary">Book Your Slots</a>
+                <a href="/JOIN/joinus.html" class="block py-2 text-secondary hover:text-primary">Join Us</a>
+                <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                <a href="/payment.html" class="block py-2 text-secondary hover:text-primary">Payments</a>
+                <a href="/contact.php.htm" class="block py-2 text-primary">Contact Us</a>
+                <div id="mobileProfileMenu" class="hidden border-t border-gray-200 mt-2 pt-2">
+                    <p id="mobileProfileName" class="py-2 font-medium text-secondary"></p>
+                    <a href="#" id="mobileViewProfileBtn" class="block py-2 text-secondary hover:text-primary">Profile</a>
+                    <a href="#" id="mobileLogoutBtn" class="block py-2 text-secondary hover:text-primary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Search Bar -->
+    <div class="pt-28 pb-6 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center">
+                <div class="relative w-full max-w-2xl">
+                    <input type="text" placeholder="Search in Fearless Store..." class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-primary hover:text-red-700">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner Slider -->
+    <div class="bg-white py-4 overflow-hidden">
+        <div class="relative">
+            <div class="flex banner-slider">
+                <!-- Banner 1 -->
+                <div class="min-w-full md:min-w-[50%] px-4">
+                    <div class="bg-gradient-to-r from-primary to-red-800 text-white rounded-lg p-6 h-40 flex items-center">
+                        <div class="w-2/3">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">Cyber Security Course</h3>
+                            <p class="text-sm md:text-base mb-4">Learn from industry experts. Limited time offer!</p>
+                            <a href="courses.html" class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">Explore Now</a>
+                        </div>
+                        <div class="w-1/3 flex justify-end">
+                            <img src="/assests/img/cyber.webp" alt="Cyber Security" class="h-24 w-24 object-cover rounded-full">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Banner 2 -->
+                <div class="min-w-full md:min-w-[50%] px-4">
+                    <div class="bg-gradient-to-r from-blue-600 to-blue-900 text-white rounded-lg p-6 h-40 flex items-center">
+                        <div class="w-2/3">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">Electronics Projects</h3>
+                            <p class="text-sm md:text-base mb-4">Build your own projects with our kits!</p>
+                            <a href="#" class="bg-white text-blue-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">Shop Now</a>
+                        </div>
+                        <div class="w-1/3 flex justify-end">
+                            <img src="/assests/img/arduino.webp" alt="Electronics" class="h-24 w-24 object-cover rounded-full">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Banner 3 -->
+                <div class="min-w-full md:min-w-[50%] px-4">
+                    <div class="bg-gradient-to-r from-green-600 to-green-900 text-white rounded-lg p-6 h-40 flex items-center">
+                        <div class="w-2/3">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">College Projects</h3>
+                            <p class="text-sm md:text-base mb-4">Get ready-made projects for your college assignments!</p>
+                            <a href="#" class="bg-white text-green-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">View Projects</a>
+                        </div>
+                        <div class="w-1/3 flex justify-end">
+                            <img src="/assests/img/face.webp" alt="College Projects" class="h-24 w-24 object-cover rounded-full">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Duplicate banners for continuous scrolling -->
+                <div class="min-w-full md:min-w-[50%] px-4">
+                    <div class="bg-gradient-to-r from-primary to-red-800 text-white rounded-lg p-6 h-40 flex items-center">
+                        <div class="w-2/3">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">Cyber Security Course</h3>
+                            <p class="text-sm md:text-base mb-4">Learn from industry experts. Limited time offer!</p>
+                            <a href="courses.html" class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">Explore Now</a>
+                        </div>
+                        <div class="w-1/3 flex justify-end">
+                            <img src="/placeholder.svg?height=100&width=100" alt="Cyber Security" class="h-24 w-24 object-cover rounded-full">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="py-6 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="relative w-full max-w-xs mx-auto md:mx-0">
+                <select id="categoryFilter" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary appearance-none">
+                    <option value="all">All Categories</option>
+                    <option value="courses">Courses</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="projects">College Projects</option>
+                </select>
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    <i class="fas fa-chevron-down text-gray-500"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="py-8 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-secondary mb-6">Featured Products</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Course Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="courses">
+                    <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-secondary mb-2">Fearless Cyber Security Course</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">coding</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">cyber</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">pdf</span>
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">videos</span>
+                        </div>
+                        <a href="courses.html"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
+                    </div>
+                </div>
+                
+               
+                
+                <!-- Electronics Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="electronics">
+                    <img src="/assests/img/arduino.webp" alt="Arduino Kit" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-secondary mb-2">Arduino Starter Kit</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Arduino</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Breadboard</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Jumper wires</span>
+                        </div>
+                        <a href="#" onclick="alert('Not Available yet! Comming Soon...!')"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
+                    </div>
+                </div>
+                
+                <!-- Electronics Card 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="electronics">
+                    <img src="/assests/img/Raspberry Pi 4 board.webp" alt="Raspberry Pi Kit" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-secondary mb-2">Raspberry Pi 4 Complete Kit</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Raspberry Pi</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">SD Card</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Power Supply</span>
+                        </div>
+                        <a href="#" onclick="alert('Not Available yet! Comming Soon...!')"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
+                    </div>
+                </div>
+                
+                <!-- Project Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="projects">
+                    <img src="/assests/img/iot.webp" alt="IoT Project" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-secondary mb-2">IoT Home Automation Project</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">IoT</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Arduino</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Sensors</span>
+                        </div>
+                        <a href="#" onclick="alert('Not Available yet! Comming Soon...!')"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
+                    </div>
+                </div>
+                
+                <!-- Project Card 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="projects">
+                    <img src="/assests/img/face.webp" alt="AI Project" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-secondary mb-2">AI Face Recognition System</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">AI</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Python</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">OpenCV</span>
+                        </div>
+                        <a href="#" onclick="alert('Not Available yet! Comming Soon...!')"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+     <!-- Footer -->
+     <footer class="bg-secondary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="/assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
+                        <span class="ml-2 text-xl font-bold">Skill Rathi</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-primary">Home</a></li>
+                        <li><a href="/Slot/bookmyslot.php.html" class="text-gray-300 hover:text-primary">Book Your Slots</a></li>
+                        <li><a href="/JOIN/joinus.html" class="text-gray-300 hover:text-primary">Join Us</a></li>
+                        <li><a href="/payment.html" class="text-gray-300 hover:text-primary">Payments</a></li>
+                        <li><a href="/contact.php.htm" class="text-gray-300 hover:text-primary">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/Assignmnet/assignment.html" class="text-gray-300 hover:text-primary">Assignments</a></li>
+                        <li><a href="/Lb-File/labFile.html" class="text-gray-300 hover:text-primary">Practical Lab Files</a></li>
+                        <li><a href="/graphic/g&d.html" class="text-gray-300 hover:text-primary">Graphic Design</a></li>
+                        <li><a href="/Slot/track-slot.html" class="text-gray-300 hover:text-primary">Track Slot</a></li>
+                        <li><a href="/terms-conditions.html" class="text-gray-300 hover:text-primary">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>+91 8006968576</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span>info@fearlessassignments.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
+                <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
+                <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/assests/JS/store.js"></script>
+</body>
+</html>

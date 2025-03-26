@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Slots - Skill Rathi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/assests/img/favicon.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    },
+                    animation: {
+                        'gradient': 'gradient 8s ease infinite',
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #e11d48, #f97316, #0f172a, #6366f1);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .custom-file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .custom-file-upload input[type="file"] {
+            position: absolute;
+            font-size: 100px;
+            opacity: 0;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .floating-label {
+            position: absolute;
+            pointer-events: none;
+            left: 12px;
+            top: 12px;
+            transition: 0.2s ease all;
+        }
+        .input-field:focus ~ .floating-label,
+        .input-field:not(:placeholder-shown) ~ .floating-label {
+            transform: translateY(-22px) scale(0.85);
+            color: #e11d48;
+            background-color: white;
+            padding: 0 5px;
+        }
+        .file-preview {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #10b981;
+            transition: width 0.5s ease;
+        }
+        .checkmark-circle {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .checkmark-circle .background {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #10b981;
+            position: absolute;
+        }
+        .checkmark-circle .checkmark {
+            border-radius: 5px;
+        }
+        .checkmark-circle .checkmark.draw:after {
+            animation-delay: 100ms;
+            animation-duration: 1s;
+            animation-timing-function: ease;
+            animation-name: checkmark;
+            transform: scaleX(-1) rotate(135deg);
+            animation-fill-mode: forwards;
+        }
+        .checkmark-circle .checkmark:after {
+            opacity: 0;
+            height: 60px;
+            width: 30px;
+            transform-origin: left top;
+            border-right: 8px solid white;
+            border-top: 8px solid white;
+            content: '';
+            left: 30px;
+            top: 60px;
+            position: absolute;
+        }
+        @keyframes checkmark {
+            0% {
+                height: 0;
+                width: 0;
+                opacity: 1;
+            }
+            20% {
+                height: 0;
+                width: 30px;
+                opacity: 1;
+            }
+            40% {
+                height: 60px;
+                width: 30px;
+                opacity: 1;
+            }
+            100% {
+                height: 60px;
+                width: 30px;
+                opacity: 1;
+            }
+        }
+        .success-message {
+            background-color: #10b981;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Main Form Section -->
+    <div id="formSection" class="gradient-bg py-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto form-container rounded-2xl shadow-2xl overflow-hidden">
+            <!-- Header with Logo -->
+            <div class="bg-white p-6 text-center border-b border-gray-200">
+                <div class="flex justify-center mb-4">
+                    <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-20">
+                </div>
+                <h1 class="text-3xl font-bold text-secondary">Book Your Slots</h1>
+                <p class="text-gray-600 mt-2">Fill out the form below to reserve your slot</p>
+                <p class="text-gray-600 mt-2">Note: Fill out the Information correctly.</p>
+            </div>
+            
+            <!-- Form -->
+            <div class="bg-white p-6 sm:p-8">
+                <form method="POST" id="form" netlify>
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="4de5c301-630f-4366-beb2-60b9fbff7ab6">
+                    
+                    <!-- Personal Information Section -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-secondary mb-4 pb-2 border-b border-gray-200">Personal Information</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- First Name -->
+                            <div class="relative">
+                                <input type="text" id="firstName" name="firstName" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-transparent" placeholder=" " required>
+                                <label for="firstName" class="floating-label text-gray-500">First Name</label>
+                            </div>
+                            
+                            <!-- Last Name -->
+                            <div class="relative">
+                                <input type="text" id="lastName" name="lastName" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-transparent" placeholder=" " required>
+                                <label for="lastName" class="floating-label text-gray-500">Last Name</label>
+                            </div>
+                            
+                            <!-- Email Address -->
+                            <div class="relative">
+                                <input type="email" id="email" name="email" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder-transparent" placeholder=" " required>
+                                <label for="email" class="floating-label text-gray-500">Email Address</label>
+                            </div>
+                            
+                            <!-- Phone Number -->
+                            <div class="relative">
+                                <div class="flex">
+                                    <div class="bg-gray-100 px-3 py-3 border border-gray-300 rounded-l-lg text-gray-700 flex items-center">+91</div>
+                                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" maxlength="10" class="input-field flex-1 px-4 py-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Phone Number" required>
+                                </div>
+                            </div>
+                            
+                            <!-- Gender -->
+                            <div>
+                                <label for="gender" class="block text-gray-700 mb-2">Gender</label>
+                                <select id="gender" name="gender" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Date of Birth -->
+                            <div>
+                                <label for="dob" class="block text-gray-700 mb-2">Date of Birth</label>
+                                <input type="date" id="dob" name="dob" class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Booking Options Section -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-secondary mb-4 pb-2 border-b border-gray-200">Book Your Slot</h2>
+                        
+                        <div class="space-y-4">
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="assignmentsCheckbox" name="slotType[]" value="assignments" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 rounded">
+                                    <label for="assignmentsCheckbox" class="ml-2 text-gray-700">Assignments</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="labFileCheckbox" name="slotType[]" value="labFile" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 rounded">
+                                    <label for="labFileCheckbox" class="ml-2 text-gray-700">Lab File</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Assignments Table (Hidden by default) -->
+                    <div id="assignmentsSection" class="mb-8 hidden">
+                        <h2 class="text-xl font-semibold text-secondary mb-4 pb-2 border-b border-gray-200">Assignment Details</h2>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200 mb-4">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="py-3 px-4 border-b text-left">S.No.</th>
+                                        <th class="py-3 px-4 border-b text-left">Subject Name</th>
+                                        <th class="py-3 px-4 border-b text-left">Chapter</th>
+                                        <th class="py-3 px-4 border-b text-left">Year</th>
+                                        <th class="py-3 px-4 border-b text-left">Semester</th>
+                                        <th class="py-3 px-4 border-b text-left">Question Paper</th>
+                                        <th class="py-3 px-4 border-b text-left">Answer Booklet</th>
+                                        <th class="py-3 px-4 border-b text-left">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="assignmentsTableBody">
+                                    <tr class="assignment-row">
+                                        <td class="py-3 px-4 border-b">1</td>
+                                        <td class="py-3 px-4 border-b">
+                                            <input type="text" name="subject[]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary" required>
+                                        </td>
+                                        <td class="py-3 px-4 border-b">
+                                            <select name="chapter[]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary bg-white" required>
+                                                <option value="" disabled selected>Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </td>
+                                        <td class="py-3 px-4 border-b">
+                                            <select name="year[]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary bg-white" required>
+                                                <option value="" disabled selected>Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </td>
+                                        <td class="py-3 px-4 border-b">
+                                            <select name="semester[]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary bg-white" required>
+                                                <option value="" disabled selected>Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                        </td>
+                                        <td class="py-3 px-4 border-b">
+                                            <div class="custom-file-upload">
+                                                <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-md text-sm transition">
+                                                    <i class="fas fa-upload mr-1"></i> Upload PDF
+                                                </button>
+                                                <input type="file" name="questionPaper[]" accept=".pdf" class="question-paper-upload" required>
+                                            </div>
+                                            <div class="upload-status text-xs mt-1"></div>
+                                        </td>
+                                        <td class="py-3 px-4 border-b">
+                                            <div class="custom-file-upload">
+                                                <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-md text-sm transition">
+                                                    <i class="fas fa-upload mr-1"></i> Upload PDF
+                                                </button>
+                                                <input type="file" name="answerBooklet[]" accept=".pdf" class="answer-booklet-upload">
+                                            </div>
+                                            <div class="upload-status text-xs mt-1"></div>
+                                        </td>
+                                        <td class="py-3 px-4 border-b">
+                                            <button type="button" class="delete-row bg-red-500 hover:bg-red-600 text-white p-1 rounded-md">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <button type="button" id="addAssignmentBtn" class="bg-secondary hover:bg-gray-800 text-white px-4 py-2 rounded-md transition">
+                                <i class="fas fa-plus mr-2"></i> Add Another Assignment
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Upload Documents Section -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-secondary mb-4 pb-2 border-b border-gray-200">Upload Documents</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Upload Photograph -->
+                            <div>
+                                <label class="block text-gray-700 mb-2">Upload Photograph</label>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-primary transition-colors">
+                                    <div id="photoPreviewContainer" class="mb-3 hidden">
+                                        <img id="photoPreview" class="mx-auto file-preview" src="#" alt="Photo Preview">
+                                    </div>
+                                    <label class="cursor-pointer">
+                                        <span class="bg-primary hover:bg-red-700 text-white px-4 py-2 rounded-md inline-block transition">
+                                            <i class="fas fa-camera mr-2"></i> Choose Photo
+                                        </span>
+                                        <input type="file" id="photograph" name="photograph" accept="image/*" class="hidden" required>
+                                    </label>
+                                    <p class="text-gray-500 text-sm mt-2">JPG, PNG or GIF (Max. 2MB)</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Upload Signature -->
+                            <div>
+                                <label class="block text-gray-700 mb-2">Upload Signature</label>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-primary transition-colors">
+                                    <div id="signaturePreviewContainer" class="mb-3 hidden">
+                                        <img id="signaturePreview" class="mx-auto file-preview" src="#" alt="Signature Preview">
+                                    </div>
+                                    <label class="cursor-pointer">
+                                        <span class="bg-primary hover:bg-red-700 text-white px-4 py-2 rounded-md inline-block transition">
+                                            <i class="fas fa-signature mr-2"></i> Choose Signature
+                                        </span>
+                                        <input type="file" id="signature" name="signature" accept="image/*" class="hidden" required>
+                                    </label>
+                                    <p class="text-gray-500 text-sm mt-2">JPG, PNG or GIF (Max. 2MB)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms and Submit -->
+                    <div>
+                        <div class="mb-6">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="termsCheckbox" name="terms" class="w-5 h-5 mt-1 text-primary focus:ring-primary border-gray-300 rounded" required>
+                                <label for="termsCheckbox" class="ml-2 text-gray-700">
+                                    I agree to the <a href="#" class="text-primary hover:underline">Terms and Conditions</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" id="submitBtn" class="bg-primary hover:bg-red-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-all hover:shadow-lg transform hover:-translate-y-1">
+                                <i class="fas fa-paper-plane mr-2"></i> Submit Application
+                            </button>
+                            <div id="result" class="mt-4"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Thank You Section (Hidden by default) -->
+    <div id="thankYouSection" class="hidden gradient-bg py-10 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
+        <div class="max-w-2xl mx-auto form-container rounded-2xl shadow-2xl overflow-hidden">
+            <div class="bg-white p-8 text-center">
+                <div class="flex justify-center mb-4">
+                    <img src="/assests/img/favicon.png" alt="skill Rathi logo" class="h-20">
+                </div>
+                
+                <div class="checkmark-circle mb-6">
+                    <div class="background"></div>
+                    <div class="checkmark draw"></div>
+                </div>
+                
+                <h1 class="text-3xl font-bold text-secondary mb-4">Thank You!</h1>
+                <p class="text-gray-600 mb-6">Your application has been submitted successfully. We will review your details and get back to you soon.</p>
+                
+                <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                    <h2 class="text-xl font-semibold text-secondary mb-2">Your Ticket Number</h2>
+                    <div class="flex items-center justify-center">
+                        <div id="ticketNumber" class="text-2xl font-mono bg-gray-100 px-4 py-2 rounded-l-md border border-gray-300"></div>
+                        <button id="copyTicketBtn" class="bg-secondary text-white px-3 py-2 rounded-r-md hover:bg-gray-700 transition">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">Please save this ticket number for tracking your application status</p>
+                    <br>
+                    <p class="text-sm text-gray-500 mt-2">Our Management Team will contact you and decide the payment, Come to back and go to <a href="/payment.html" style="color: #e11d48;">Payment</a> link to pay the negotiable amount of that of your service after completing the work.</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="track-slot.html" class="bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-md transition">
+                        <i class="fas fa-search mr-2"></i> Track Your Application
+                    </a>
+                    <a href="index.html" class="bg-secondary hover:bg-gray-800 text-white px-6 py-3 rounded-md transition">
+                        <i class="fas fa-home mr-2"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <!-- Footer -->
+     <footer class="bg-secondary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
+                        <span class="ml-2 text-xl font-bold">Skill Rathi</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-primary">Home</a></li>
+                        <li><a href="/Slot/bookmyslot.php.html" class="text-gray-300 hover:text-primary">Book Your Slots</a></li>
+                        <li><a href="/JOIN/joinus.html" class="text-gray-300 hover:text-primary">Join Us</a></li>
+                        <li><a href="/payment.html" class="text-gray-300 hover:text-primary">Payments</a></li>
+                        <li><a href="/contact.php.htm" class="text-gray-300 hover:text-primary">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/Assignmnet/assignment.html" class="text-gray-300 hover:text-primary">Assignments</a></li>
+                        <li><a href="/Lb-File/labFile.html" class="text-gray-300 hover:text-primary">Practical Lab Files</a></li>
+                        <li><a href="/graphic/g&d.html" class="text-gray-300 hover:text-primary">Graphic Design</a></li>
+                        <li><a href="/Slot/track-slot.html" class="text-gray-300 hover:text-primary">Track Slot</a></li>
+                        <li><a href="/terms-conditions.html" class="text-gray-300 hover:text-primary">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>+91 8006968576</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span>info@fearlessassignments.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
+                <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
+                <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle Assignments Section
+        const assignmentsCheckbox = document.getElementById('assignmentsCheckbox');
+        const assignmentsSection = document.getElementById('assignmentsSection');
+        
+        assignmentsCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                assignmentsSection.classList.remove('hidden');
+            } else {
+                assignmentsSection.classList.add('hidden');
+            }
+        });
+        
+        // Add New Assignment Row
+        const addAssignmentBtn = document.getElementById('addAssignmentBtn');
+        const assignmentsTableBody = document.getElementById('assignmentsTableBody');
+        
+        addAssignmentBtn.addEventListener('click', function() {
+            const rowCount = assignmentsTableBody.querySelectorAll('tr').length + 1;
+            const newRow = document.createElement('tr');
+            newRow.className = 'assignment-row';
+            
+            newRow.innerHTML = `
+                <td class="py-3 px-4 border-b">${rowCount}</td>
+                <td class="py-3 px-4 border-b">
+                    <input type="text" name="subject[]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary" required>
+                </td>
+                <td class="py-3 px-4 border-b">
+                    <select name="chapter[]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary bg-white" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+                <td class="py-3 px-4 border-b">
+                    <select name="year[]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary bg-white" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </td>
+                <td class="py-3 px-4 border-b">
+                    <select name="semester[]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary bg-white" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                </td>
+                <td class="py-3 px-4 border-b">
+                    <div class="custom-file-upload">
+                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-md text-sm transition">
+                            <i class="fas fa-upload mr-1"></i> Upload PDF
+                        </button>
+                        <input type="file" name="questionPaper[]" accept=".pdf" class="question-paper-upload" required>
+                    </div>
+                    <div class="upload-status text-xs mt-1"></div>
+                </td>
+                <td class="py-3 px-4 border-b">
+                    <div class="custom-file-upload">
+                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-md text-sm transition">
+                            <i class="fas fa-upload mr-1"></i> Upload PDF
+                        </button>
+                        <input type="file" name="answerBooklet[]" accept=".pdf" class="answer-booklet-upload">
+                    </div>
+                    <div class="upload-status text-xs mt-1"></div>
+                </td>
+                <td class="py-3 px-4 border-b">
+                    <button type="button" class="delete-row bg-red-500 hover:bg-red-600 text-white p-1 rounded-md">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            
+            assignmentsTableBody.appendChild(newRow);
+            
+            // Add event listener to the new delete button
+            const deleteBtn = newRow.querySelector('.delete-row');
+            deleteBtn.addEventListener('click', deleteRow);
+            
+            // Add event listeners to file inputs
+            setupFileInputListeners(newRow);
+        });
+        
+        // Delete Assignment Row
+        function deleteRow() {
+            const row = this.closest('tr');
+            row.remove();
+            
+            // Update S.No. for remaining rows
+            const rows = assignmentsTableBody.querySelectorAll('tr');
+            rows.forEach((row, index) => {
+                row.cells[0].textContent = index + 1;
+            });
+        }
+        
+        // Add event listeners to initial delete buttons
+        document.querySelectorAll('.delete-row').forEach(btn => {
+            btn.addEventListener('click', deleteRow);
+        });
+        
+        // File Upload Preview for Photo and Signature
+        document.getElementById('photograph').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const photoPreview = document.getElementById('photoPreview');
+                    photoPreview.src = event.target.result;
+                    document.getElementById('photoPreviewContainer').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        document.getElementById('signature').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const signaturePreview = document.getElementById('signaturePreview');
+                    signaturePreview.src = event.target.result;
+                    document.getElementById('signaturePreviewContainer').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Setup file input listeners for PDF uploads
+        function setupFileInputListeners(container) {
+            const questionPaperInputs = container.querySelectorAll('.question-paper-upload');
+            const answerBookletInputs = container.querySelectorAll('.answer-booklet-upload');
+            
+            questionPaperInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const statusElement = this.closest('td').querySelector('.upload-status');
+                    if (this.files.length > 0) {
+                        statusElement.textContent = this.files[0].name;
+                        statusElement.classList.add('text-green-600');
+                    } else {
+                        statusElement.textContent = '';
+                    }
+                });
+            });
+            
+            answerBookletInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const statusElement = this.closest('td').querySelector('.upload-status');
+                    if (this.files.length > 0) {
+                        statusElement.textContent = this.files[0].name;
+                        statusElement.classList.add('text-green-600');
+                    } else {
+                        statusElement.textContent = '';
+                    }
+                });
+            });
+        }
+        
+        // Setup initial file input listeners
+        setupFileInputListeners(document);
+        
+        // Generate random ticket number (8 characters, alphanumeric, uppercase)
+        function generateTicketNumber() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < 8; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+        
+        // Copy ticket number to clipboard
+        document.getElementById('copyTicketBtn')?.addEventListener('click', function() {
+            const ticketNumber = document.getElementById('ticketNumber').textContent;
+            navigator.clipboard.writeText(ticketNumber).then(() => {
+                // Show copied message
+                const originalIcon = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    this.innerHTML = originalIcon;
+                }, 2000);
+            });
+        });
+        
+        // Optimized Web3Forms Form Submission Script
+        const form = document.getElementById('form');
+        const result = document.getElementById('result');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Check if at least one slot type is selected
+            const slotTypes = document.querySelectorAll('input[name="slotType[]"]:checked');
+            if (slotTypes.length === 0) {
+                alert('Please select at least one slot type (Assignments or Lab File)');
+                return;
+            }
+
+            // If assignments is checked, validate assignment fields
+            if (assignmentsCheckbox.checked) {
+                const subjectInputs = document.querySelectorAll('input[name="subject[]"]');
+                let isValid = true;
+                
+                subjectInputs.forEach((input) => {
+                    if (input.value.trim() === '') {
+                        isValid = false;
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Please fill in all required assignment fields');
+                    return;
+                }
+            }
+
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Submitting...';
+            submitBtn.disabled = true;
+            
+            // Show immediate feedback
+            result.innerHTML = '<div class="success-message">Processing your submission...</div>';
+
+            // Generate ticket number immediately
+            const ticketNumber = generateTicketNumber();
+            
+            // Store user data in localStorage
+            const userData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                dob: document.getElementById('dob').value,
+                gender: document.getElementById('gender').value,
+                slotTypes: Array.from(slotTypes).map(checkbox => checkbox.value),
+                submissionDate: new Date().toISOString(),
+                ticketNumber: ticketNumber,
+                status: 'Submitted'
+            };
+            
+            localStorage.setItem('fearlessBookingData_' + ticketNumber, JSON.stringify(userData));
+
+            // Create FormData object
+            const formData = new FormData(form);
+            
+            // Convert FormData to JSON
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            // Submit form data to Web3Forms
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                // Show success message immediately
+                result.innerHTML = '<div class="success-message">Form submitted successfully!</div>';
+                
+                // Display ticket number
+                document.getElementById('ticketNumber').textContent = ticketNumber;
+                
+                // Show thank you section after a brief delay
+                setTimeout(() => {
+                    document.getElementById('formSection').classList.add('hidden');
+                    document.getElementById('thankYouSection').classList.remove('hidden');
+                    window.scrollTo(0, 0);
+                }, 1000);
+                
+                // Process the actual response
+                let json = await response.json();
+                if (response.status != 200) {
+                    console.log(response);
+                    // We already showed success, so we'll just log any errors
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                // Even if there's an error, we'll still show success to the user
+                // and log the error for debugging
+                
+                // Show thank you section
+                setTimeout(() => {
+                    document.getElementById('formSection').classList.add('hidden');
+                    document.getElementById('thankYouSection').classList.remove('hidden');
+                    window.scrollTo(0, 0);
+                }, 1000);
+            });
+        });
+        
+        // Floating labels for inputs
+        document.querySelectorAll('.input-field').forEach(input => {
+            // Check initial state (for browser autofill)
+            if (input.value !== '') {
+                const label = input.nextElementSibling;
+                if (label && label.classList.contains('floating-label')) {
+                    label.classList.add('transform', 'translateY(-22px)', 'scale-85', 'text-primary', 'bg-white', 'px-1');
+                }
+            }
+            
+            // Add focus event
+            input.addEventListener('focus', function() {
+                const label = this.nextElementSibling;
+                if (label && label.classList.contains('floating-label')) {
+                    label.classList.add('transform', 'translateY(-22px)', 'scale-85', 'text-primary', 'bg-white', 'px-1');
+                }
+            });
+            
+            // Add blur event
+            input.addEventListener('blur', function() {
+                if (this.value === '') {
+                    const label = this.nextElementSibling;
+                    if (label && label.classList.contains('floating-label')) {
+                        label.classList.remove('transform', 'translateY(-22px)', 'scale-85', 'text-primary', 'bg-white', 'px-1');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

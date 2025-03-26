@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments - Skill Rathi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/assests/img/favicon.png" type="image/x-icon">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        secondary: '#0f172a',
+                        accent: '#f97316',
+                        light: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .mobile-profile-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        .step-card {
+            position: relative;
+        }
+        .step-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background-color: #e11d48;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .step-card:not(:last-child)::after {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+ <!-- Navbar -->
+ <nav class="bg-white shadow-md fixed w-full z-50">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center h-20">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-12">
+                <span class="ml-2 text-xl font-bold text-secondary md:block hidden">Skill Rathi</span>
+            </div>
+            
+            <!-- Navigation Links - Desktop -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/index.html" class="text-secondary hover:text-primary font-medium">Home</a>
+                <a href="/Slot/bookmyslot.php.html" class="text-secondary hover:text-primary font-medium">Book Your Slots</a>
+                <a href="/JOIN/joinus.html" class="text-secondary hover:text-primary font-medium">Join Us</a>
+                <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                <a href="/payment.html" class="text-secondary hover:text-primary font-medium">Payments</a>
+                <a href="/contact.php.htm" class="text-secondary hover:text-primary font-medium">Contact Us</a>
+            </div>
+            
+            <!-- Cart and Login - Desktop -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="/FearlessStore/fearlessStore.html" class="text-secondary hover:text-primary">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                </a>
+              
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center space-x-4">
+                <a href="/FearlessStore/fearlessStore.html" class="text-secondary hover:text-primary">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                </a>
+                <!-- Mobile Profile Icon (hidden by default) -->
+                <div id="mobileProfileDropdown" class="hidden">
+                    <button id="mobileProfileBtn" class="flex items-center">
+                        <img id="mobileAvatarImg" src="/placeholder.svg?height=40&width=40" alt="Profile" class="mobile-profile-avatar">
+                    </button>
+                </div>
+                 <button id="mobileMenuBtn" class="text-secondary focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu (hidden by default) -->
+        <div id="mobileMenu" class="hidden md:hidden pb-4">
+            <a href="/index.html" class="text-secondary hover:text-primary font-medium">Home</a>
+            <a href="/Slot/bookmyslot.php.html" class="text-secondary hover:text-primary font-medium">Book Your Slots</a>
+            <a href="/JOIN/joinus.html" class="text-secondary hover:text-primary font-medium">Join Us</a>
+            <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+            <a href="/payment.html" class="text-secondary hover:text-primary font-medium">Payments</a>
+            <a href="/contact.php.htm" class="text-secondary hover:text-primary font-medium">Contact Us</a>
+        <div id="mobileProfileMenu" class="hidden border-t border-gray-200 mt-2 pt-2">
+                <p id="mobileProfileName" class="py-2 font-medium text-secondary"></p>
+                <a href="#" id="mobileViewProfileBtn" class="block py-2 text-secondary hover:text-primary">Profile</a>
+                <a href="#" id="mobileLogoutBtn" class="block py-2 text-secondary hover:text-primary">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <div class="pt-28 pb-12 bg-gradient-to-r from-secondary to-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Academic Assignments</h1>
+                    <p class="text-xl mb-6">Get expert help with your academic assignments and achieve better grades</p>
+                    <a href="/Slot/bookmyslot.php.html" class="bg-white text-primary hover:bg-gray-100 px-6 py-3 rounded-md font-semibold transition inline-block">
+                        <i class="fas fa-calendar-check mr-2"></i> Book Your Slot Now
+                    </a>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="/assests/img/assignments.png" alt="Assignments Illustration" class="max-w-full h-auto rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Left Column - About Assignments -->
+                <div class="w-full lg:w-2/3">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                        <img src="/assests/img/assignments.png" alt="Students working on assignments" class="w-full h-64 object-cover">
+                        
+                        <div class="p-6">
+                            <h2 class="text-2xl font-bold text-secondary mb-4">About Our Assignment Services</h2>
+                            
+                            <p class="text-gray-700 mb-4">
+                                At Skill Rathi, we understand the challenges students face with complex academic assignments. Our expert team of academic professionals is dedicated to helping you achieve academic excellence through high-quality, plagiarism-free assignments tailored to your specific requirements.
+                            </p>
+                            
+                            <p class="text-gray-700 mb-6">
+                                Whether you're struggling with research papers, case studies, essays, or any other academic task, our specialists across various disciplines are here to provide the guidance and support you need to succeed.
+                            </p>
+                            
+                            <div class="mb-8">
+                                <h3 class="text-xl font-semibold text-secondary mb-4">Why Choose Our Assignment Services?</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="flex items-start">
+                                        <div class="bg-primary text-white p-2 rounded-md mr-3">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Expert Writers</h4>
+                                            <p class="text-gray-600">Qualified professionals with advanced degrees</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-primary text-white p-2 rounded-md mr-3">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Plagiarism-Free</h4>
+                                            <p class="text-gray-600">100% original content with plagiarism reports</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-primary text-white p-2 rounded-md mr-3">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">On-Time Delivery</h4>
+                                            <p class="text-gray-600">Meet your deadlines with our prompt service</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-primary text-white p-2 rounded-md mr-3">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">24/7 Support</h4>
+                                            <p class="text-gray-600">Get assistance whenever you need it</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <h3 class="text-xl font-semibold text-secondary mb-4">How It Works</h3>
+                                
+                                <div class="flex flex-col md:flex-row gap-4 md:gap-8">
+                                    <div class="step-card bg-gray-50 p-4 rounded-lg text-center flex-1">
+                                        <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                            <span class="font-bold">1</span>
+                                        </div>
+                                        <h4 class="font-semibold mb-2">Book Your Slot</h4>
+                                        <p class="text-gray-600 text-sm">Fill out the booking form with your assignment details</p>
+                                    </div>
+                                    
+                                    <div class="step-card bg-gray-50 p-4 rounded-lg text-center flex-1">
+                                        <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                            <span class="font-bold">2</span>
+                                        </div>
+                                        <h4 class="font-semibold mb-2">Get a Quote</h4>
+                                        <p class="text-gray-600 text-sm">Our team will review and provide a price quote</p>
+                                    </div>
+                                    
+                                    <div class="step-card bg-gray-50 p-4 rounded-lg text-center flex-1">
+                                        <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                            <span class="font-bold">3</span>
+                                        </div>
+                                        <h4 class="font-semibold mb-2">Make Payment</h4>
+                                        <p class="text-gray-600 text-sm">Complete the payment through our secure payment gateway</p>
+                                    </div>
+                                    
+                                    <div class="step-card bg-gray-50 p-4 rounded-lg text-center flex-1">
+                                        <div class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3">
+                                            <span class="font-bold">4</span>
+                                        </div>
+                                        <h4 class="font-semibold mb-2">Receive Solution</h4>
+                                        <p class="text-gray-600 text-sm">Get your completed assignment within the deadline</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                                <h3 class="text-lg font-semibold text-blue-800 mb-2">Payment Information</h3>
+                                <p class="text-blue-700 mb-3">
+                                    The pricing for assignments varies based on complexity, deadline, and academic level. Please contact our management team for a personalized quote.
+                                </p>
+                                <p class="text-blue-700">
+                                    After receiving your quote, you can complete the payment through our secure payment page to initiate work on your assignment.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonials -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="p-6">
+                            <h2 class="text-2xl font-bold text-secondary mb-6">What Our Students Say</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex items-center mb-3">
+                                        <img src="/assests/img/avtaar.png" alt="Student" class="w-12 h-12 rounded-full mr-3">
+                                        <div>
+                                            <h4 class="font-semibold">Rahul Sharma</h4>
+                                            <div class="flex text-yellow-400">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700">
+                                        "The assignment help I received was exceptional. The content was well-researched and perfectly formatted. I got an A+ and couldn't be happier!"
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex items-center mb-3">
+                                        <img src="/assests/img/author2.png" alt="Student" class="w-12 h-12 rounded-full mr-3">
+                                        <div>
+                                            <h4 class="font-semibold">Priya Patel</h4>
+                                            <div class="flex text-yellow-400">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700">
+                                        "I was struggling with my research paper until I found Skill Rathi. Their expert guidance helped me understand the topic better and submit quality work."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Summary and CTA -->
+                <div class="w-full lg:w-1/3">
+                    <div class="sticky top-28">
+                        <!-- Service Card -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+                            <div class="p-6 text-center">
+                                <div class="bg-gray-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-primary text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-secondary mb-2">Academic Assignments</h3>
+                                <p class="text-gray-600 mb-6">Expert assistance for all your academic writing needs</p>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                                    <h4 class="font-semibold text-secondary mb-3">What We Offer:</h4>
+                                    <ul class="space-y-2 text-left">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span class="text-gray-700">Research Papers & Essays</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span class="text-gray-700">Case Studies & Reports</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span class="text-gray-700">Literature Reviews</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span class="text-gray-700">Dissertations & Theses</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span class="text-gray-700">Presentations & Projects</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <a href="/Slot/bookmyslot.php.html" class="bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-md font-semibold transition block">
+                                    <i class="fas fa-calendar-check mr-2"></i> Book Your Slot
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Other Services -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-secondary mb-4">Other Services</h3>
+                                
+                                <div class="space-y-4">
+                                    <a href="/Lb-File/labFile.html" class="service-card flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                                        <div class="bg-blue-100 p-3 rounded-full mr-3">
+                                            <i class="fas fa-flask text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-secondary">Lab Files</h4>
+                                            <p class="text-sm text-gray-600">Practical lab reports and documentation</p>
+                                        </div>
+                                    </a>
+                                    
+                                    <a href="/graphic/g&d.html" class="service-card flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                                        <div class="bg-purple-100 p-3 rounded-full mr-3">
+                                            <i class="fas fa-paint-brush text-purple-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-secondary">Graphic Design</h4>
+                                            <p class="text-sm text-gray-600">Creative design projects and portfolios</p>
+                                        </div>
+                                    </a>
+                                    
+                                    <a href="#" class="service-card flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                                        <div class="bg-green-100 p-3 rounded-full mr-3">
+                                            <i class="fas fa-code text-green-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-secondary">Programming Help</h4>
+                                            <p class="text-sm text-gray-600">Coding assignments and projects</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-gradient-to-r from-secondary to-primary text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Excel in Your Academics?</h2>
+            <p class="text-xl mb-6 max-w-3xl mx-auto">Book your slot today and let our experts help you achieve academic success with high-quality assignments.</p>
+            <a href="/Slot/bookmyslot.php.html" class="bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-md font-semibold text-lg transition inline-block">
+                <i class="fas fa-calendar-check mr-2"></i> Book Your Slot Now
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="/assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
+                        <span class="ml-2 text-xl font-bold">Skill Rathi</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-primary">Home</a></li>
+                        <li><a href="/Slot/bookmyslot.php.html" class="text-gray-300 hover:text-primary">Book Your Slots</a></li>
+                        <li><a href="/JOIN/joinus.html" class="text-gray-300 hover:text-primary">Join Us</a></li>
+                        <li><a href="/payment.html" class="text-gray-300 hover:text-primary">Payments</a></li>
+                        <li><a href="/contact.php.htm" class="text-gray-300 hover:text-primary">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/Assignmnet/assignment.html" class="text-gray-300 hover:text-primary">Assignments</a></li>
+                        <li><a href="/Lb-File/labFile.html" class="text-gray-300 hover:text-primary">Practical Lab Files</a></li>
+                        <li><a href="/graphic/g&d.html" class="text-gray-300 hover:text-primary">Graphic Design</a></li>
+                        <li><a href="/Slot/track-slot.html" class="text-gray-300 hover:text-primary">Track Slot</a></li>
+                        <li><a href="/terms-conditions.html" class="text-gray-300 hover:text-primary">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>+91 8006968576</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span>info@fearlessassignments.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
+                <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
+                <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- JavaScript -->
+    <script>
+        // Check if user is logged in
+        function isLoggedIn() {
+            return localStorage.getItem('fearlessUser') !== null;
+        }
+        
+        // Update UI based on login status
+        function updateUIForUser() {
+            if (isLoggedIn()) {
+                const user = JSON.parse(localStorage.getItem('fearlessUser'));
+                
+                // Update desktop UI
+                document.getElementById('loginBtn').classList.add('hidden');
+                document.getElementById('profileDropdown').classList.remove('hidden');
+                document.getElementById('profileName').textContent = user.name;
+                document.getElementById('avatarImg').src = user.profilePhoto || '/placeholder.svg?height=40&width=40';
+                
+                // Update mobile UI
+                document.getElementById('mobileLoginBtn').classList.add('hidden');
+                document.getElementById('mobileProfileDropdown').classList.remove('hidden');
+                document.getElementById('mobileProfileName').textContent = user.name;
+                document.getElementById('mobileAvatarImg').src = user.profilePhoto || '/placeholder.svg?height=40&width=40';
+                
+                // Update profile modal
+                document.getElementById('profileFullName').textContent = user.name;
+                document.getElementById('profileNameInput').value = user.name;
+                document.getElementById('profileEmailInput').value = user.email;
+                document.getElementById('maskedPassword').textContent = '••••••••';
+                document.getElementById('profilePhotoPreview').src = user.profilePhoto || '/placeholder.svg?height=100&width=100';
+            } else {
+                // Update desktop UI
+                document.getElementById('loginBtn').classList.remove('hidden');
+                document.getElementById('profileDropdown').classList.add('hidden');
+                
+                // Update mobile UI
+                document.getElementById('mobileLoginBtn').classList.remove('hidden');
+                document.getElementById('mobileProfileDropdown').classList.add('hidden');
+            }
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUIForUser();
+            
+            // Mobile menu toggle
+            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.toggle('hidden');
+            });
+            
+            // Login modal
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                document.getElementById('authModal').classList.remove('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('signupForm').classList.add('hidden');
+            });
+            
+            document.getElementById('mobileLoginBtn').addEventListener('click', function() {
+                document.getElementById('authModal').classList.remove('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('signupForm').classList.add('hidden');
+            });
+            
+            // Toggle between login and signup forms
+            document.getElementById('showSignupBtn').addEventListener('click', function() {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('signupForm').classList.remove('hidden');
+            });
+            
+            document.getElementById('showLoginBtn').addEventListener('click', function() {
+                document.getElementById('signupForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+            });
+            
+            // Close modal when clicking outside
+            document.getElementById('authModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+            
+            document.getElementById('profileModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+            
+            // Login form submission
+            document.getElementById('loginSubmitBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simple validation
+                if (!email || !password) {
+                    const loginError = document.getElementById('loginError');
+                    loginError.textContent = "Please enter both email and password.";
+                    loginError.classList.remove('hidden');
+                    return;
+                }
+                
+                // Check if user exists in localStorage
+                const users = JSON.parse(localStorage.getItem('fearlessUsers') || '[]');
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Store logged in user
+                    localStorage.setItem('fearlessUser', JSON.stringify({
+                        name: user.name,
+                        email: user.email,
+                        profilePhoto: user.profilePhoto || null
+                    }));
+                    
+                    // Update UI
+                    updateUIForUser();
+                    
+                    // Close modal
+                    document.getElementById('authModal').classList.add('hidden');
+                } else {
+                    const loginError = document.getElementById('loginError');
+                    loginError.textContent = "Invalid email or password.";
+                    loginError.classList.remove('hidden');
+                }
+            });
+            
+            // Signup form submission
+            document.getElementById('signupSubmitBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                
+                // Simple validation
+                if (!name || !email || !password) {
+                    const signupError = document.getElementById('signupError');
+                    signupError.textContent = "Please fill in all fields.";
+                    signupError.classList.remove('hidden');
+                    return;
+                }
+                
+                // Get existing users or create empty array
+                const users = JSON.parse(localStorage.getItem('fearlessUsers') || '[]');
+                
+                // Check if email already exists
+                if (users.some(user => user.email === email)) {
+                    const signupError = document.getElementById('signupError');
+                    signupError.textContent = "Email already registered. Please login.";
+                    signupError.classList.remove('hidden');
+                    return;
+                }
+                
+                // Add new user
+                users.push({
+                    name,
+                    email,
+                    password,
+                    profilePhoto: null
+                });
+                
+                // Save users
+                localStorage.setItem('fearlessUsers', JSON.stringify(users));
+                
+                // Store logged in user
+                localStorage.setItem('fearlessUser', JSON.stringify({
+                    name,
+                    email,
+                    profilePhoto: null
+                }));
+                
+                // Update UI
+                updateUIForUser();
+                
+                // Close modal
+                document.getElementById('authModal').classList.add('hidden');
+            });
+            
+            // Profile dropdown toggle
+            if (document.getElementById('profileBtn')) {
+                document.getElementById('profileBtn').addEventListener('click', function() {
+                    document.getElementById('dropdownMenu').classList.toggle('hidden');
+                });
+            }
+            
+            // Mobile profile button
+            if (document.getElementById('mobileProfileBtn')) {
+                document.getElementById('mobileProfileBtn').addEventListener('click', function() {
+                    document.getElementById('mobileMenu').classList.toggle('hidden');
+                    document.getElementById('mobileProfileMenu').classList.toggle('hidden');
+                });
+            }
+            
+            // View profile
+            if (document.getElementById('viewProfileBtn')) {
+                document.getElementById('viewProfileBtn').addEventListener('click', function() {
+                    document.getElementById('dropdownMenu').classList.add('hidden');
+                    document.getElementById('profileModal').classList.remove('hidden');
+                });
+            }
+            
+            if (document.getElementById('mobileViewProfileBtn')) {
+                document.getElementById('mobileViewProfileBtn').addEventListener('click', function() {
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                    document.getElementById('profileModal').classList.remove('hidden');
+                });
+            }
+            
+            // Close profile modal
+            if (document.getElementById('closeProfileBtn')) {
+                document.getElementById('closeProfileBtn').addEventListener('click', function() {
+                    document.getElementById('profileModal').classList.add('hidden');
+                });
+            }
+            
+            // Logout
+            if (document.getElementById('logoutBtn')) {
+                document.getElementById('logoutBtn').addEventListener('click', function() {
+                    localStorage.removeItem('fearlessUser');
+                    updateUIForUser();
+                    document.getElementById('dropdownMenu').classList.add('hidden');
+                });
+            }
+            
+            if (document.getElementById('mobileLogoutBtn')) {
+                document.getElementById('mobileLogoutBtn').addEventListener('click', function() {
+                    localStorage.removeItem('fearlessUser');
+                    updateUIForUser();
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                });
+            }
+            
+            // Profile photo upload
+            if (document.getElementById('profilePhotoUpload')) {
+                document.getElementById('profilePhotoUpload').addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const photoUrl = event.target.result;
+                            document.getElementById('profilePhotoPreview').src = photoUrl;
+                            
+                            // Store the photo URL for later saving
+                            document.getElementById('profilePhotoPreview').dataset.newPhoto = photoUrl;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+            
+            // Save profile
+            if (document.getElementById('saveProfileBtn')) {
+                document.getElementById('saveProfileBtn').addEventListener('click', function() {
+                    const user = JSON.parse(localStorage.getItem('fearlessUser'));
+                    const newName = document.getElementById('profileNameInput').value;
+                    const newPhotoUrl = document.getElementById('profilePhotoPreview').dataset.newPhoto;
+                    
+                    // Update user data
+                    user.name = newName;
+                    if (newPhotoUrl) {
+                        user.profilePhoto = newPhotoUrl;
+                    }
+                    
+                    // Save updated user
+                    localStorage.setItem('fearlessUser', JSON.stringify(user));
+                    
+                    // Update users array
+                    const users = JSON.parse(localStorage.getItem('fearlessUsers') || '[]');
+                    const userIndex = users.findIndex(u => u.email === user.email);
+                    if (userIndex !== -1) {
+                        users[userIndex].name = newName;
+                        if (newPhotoUrl) {
+                            users[userIndex].profilePhoto = newPhotoUrl;
+                        }
+                        localStorage.setItem('fearlessUsers', JSON.stringify(users));
+                    }
+                    
+                    // Update UI
+                    updateUIForUser();
+                    
+                    // Close modal
+                    document.getElementById('profileModal').classList.add('hidden');
+                });
+            }
+            
+            // Change password toggle
+            if (document.getElementById('changePasswordBtn')) {
+                document.getElementById('changePasswordBtn').addEventListener('click', function() {
+                    document.getElementById('changePasswordSection').classList.toggle('hidden');
+                });
+            }
+            
+            // Save password
+            if (document.getElementById('savePasswordBtn')) {
+                document.getElementById('savePasswordBtn').addEventListener('click', function() {
+                    const user = JSON.parse(localStorage.getItem('fearlessUser'));
+                    const oldPassword = document.getElementById('oldPassword').value;
+                    const newPassword = document.getElementById('newPassword').value;
+                    const repeatPassword = document.getElementById('repeatPassword').value;
+                    const passwordError = document.getElementById('passwordError');
+                    
+                    // Get users array
+                    const users = JSON.parse(localStorage.getItem('fearlessUsers') || '[]');
+                    const userIndex = users.findIndex(u => u.email === user.email);
+                    
+                    // Validate old password
+                    if (users[userIndex].password !== oldPassword) {
+                        passwordError.textContent = "Current password is incorrect.";
+                        passwordError.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    // Validate new password
+                    if (newPassword !== repeatPassword) {
+                        passwordError.textContent = "New passwords do not match.";
+                        passwordError.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    // Update password
+                    users[userIndex].password = newPassword;
+                    localStorage.setItem('fearlessUsers', JSON.stringify(users));
+                    
+                    // Hide password section and show success
+                    document.getElementById('changePasswordSection').classList.add('hidden');
+                    alert("Password updated successfully!");
+                });
+            }
+        });
+    </script>
+</body>
+</html>
