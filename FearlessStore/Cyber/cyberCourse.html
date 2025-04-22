@@ -3,27 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Security Course - Skill Rathi</title>
+    <title>Offensive Hacking Course - Skill Rathi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="shortcut icon" href="/assests/img/favicon.png" type="image/x-icon">
-    <!-- QR Code Generator Library -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#e11d48',
-                        secondary: '#0f172a',
-                        accent: '#f97316',
-                        light: '#f8fafc',
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
     <style>
+        /* All your existing styles remain exactly the same */
         .modal {
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
@@ -31,7 +18,7 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-        .modal-content::-webkit-scrollbar {
+         .modal-content::-webkit-scrollbar {
             width: 8px;
         }
         .modal-content::-webkit-scrollbar-track {
@@ -44,10 +31,6 @@
         }
         .modal-content::-webkit-scrollbar-thumb:hover {
             background: #c81e44;
-        }
-        #timer {
-            font-family: monospace;
-            font-size: 24px;
         }
         #result {
             display: none;
@@ -64,7 +47,6 @@
             background-color: #fee2e2;
             color: #b91c1c;
         }
-        /* PHP-like popup style */
         .php-popup {
             position: fixed;
             top: 50%;
@@ -93,43 +75,97 @@
             text-align: center;
             margin-top: 10px;
         }
+        .gift-box {
+            border: 1px dashed #e11d48;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .gift-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .gift-icon {
+            color: #e11d48;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .free-course-badge {
+            background-color: #10b981;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        #receiptPreview {
+            max-height: 300px;
+            object-fit: contain;
+        }
+        .ocr-processing {
+            position: relative;
+            height: 100px;
+        }
+        .ocr-progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+        }
+        .whatsapp-verify {
+            background: #f5fff5;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #e0f0e0;
+            margin: 10px 0;
+        }
+        .secure-payment-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        /* ... rest of your styles ... */
     </style>
 </head>
-<body class="font-sans bg-light">
-    <!-- Navbar -->
+<body class="font-sans bg-gray-50">
+     <!-- Navbar -->
     <nav class="bg-white shadow-md fixed w-full z-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex items-center">
                     <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-12">
-                    <span class="ml-2 text-xl font-bold text-secondary md:block hidden">Skill Rathi</span>
+                    <span class="ml-2 text-xl font-bold text-gray-800 md:block hidden">Skill Rathi</span>
                 </div>
                 
                 <!-- Navigation Links - Desktop -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a class='text-secondary hover:text-primary font-medium' href='/'>Home</a>
-                    <a class='text-secondary hover:text-primary font-medium' href='/slot/bookmyslot.php'>Book Your Slots</a>
-                    <a class='text-secondary hover:text-primary font-medium' href='/join/joinus'>Join Us</a>
-                    <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
-                    <a class='text-secondary hover:text-primary font-medium' href='/payment'>Payments</a>
-                    <a class='text-secondary hover:text-primary font-medium' href='/contact.php'>Contact Us</a>
-                    <a class='text-secondary hover:text-primary font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                    <a class='text-gray-800 hover:text-rose-600 font-medium' href='/'>Home</a>
+                    <a class='text-gray-800 hover:text-rose-600 font-medium' href='/slot/bookmyslot.php'>Book Your Slots</a>
+                    <a class='text-gray-800 hover:text-rose-600 font-medium' href='/join/joinus'>Join Us</a>
+                    <a class='text-gray-800 hover:text-rose-600 font-medium' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                    <a class='text-gray-800 hover:text-rose-600 font-medium' href='/payment'>Payments</a>
+                    <a class='text-gray-800 hover:text-rose-600 font-medium' href='/contact.php'>Contact Us</a>
                 </div>
                 
                 <!-- Cart and Login - Desktop -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <a class='text-primary font-medium border-b-2 border-primary' href='/fearlessstore/fearlessstore'>
+                    <a class='text-rose-600 font-medium border-b-2 border-rose-600' href='/fearlessstore/fearlessstore'>
                         <i class="fas fa-shopping-cart text-xl"></i>
                     </a>
                 </div>
                 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center space-x-4">
-                    <a href="/FearlessStore/fearlessStore.html" class="text-secondary hover:text-primary">
+                    <a href="/FearlessStore/fearlessStore.html" class="text-gray-800 hover:text-rose-600">
                         <i class="fas fa-shopping-cart text-xl"></i>
                     </a>
-                    <button id="mobileMenuBtn" class="text-secondary focus:outline-none">
+                    <button id="mobileMenuBtn" class="text-gray-800 focus:outline-none">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -137,13 +173,12 @@
             
             <!-- Mobile Navigation Menu (hidden by default) -->
             <div id="mobileMenu" class="hidden md:hidden pb-4">
-                <a class='block py-2 text-secondary hover:text-primary' href='/'>Home</a>
-                <a class='block py-2 text-secondary hover:text-primary' href='/slot/bookmyslot.php'>Book Your Slots</a>
-                <a class='block py-2 text-secondary hover:text-primary' href='/join/joinus'>Join Us</a>
-                <a class='block py-2 text-primary' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
-                <a class='block py-2 text-secondary hover:text-primary' href='/payment'>Payments</a>
-                <a class='block py-2 text-primary' href='/contact.php'>Contact Us</a>
-                
+                <a class='block py-2 text-gray-800 hover:text-rose-600' href='/'>Home</a>
+                <a class='block py-2 text-gray-800 hover:text-rose-600' href='/slot/bookmyslot.php'>Book Your Slots</a>
+                <a class='block py-2 text-gray-800 hover:text-rose-600' href='/join/joinus'>Join Us</a>
+                <a class='block py-2 text-rose-600' href='/FearlessStore/enrolled-courses.html'>Enrolled Courses</a>
+                <a class='block py-2 text-gray-800 hover:text-rose-600' href='/payment'>Payments</a>
+                <a class='block py-2 text-rose-600' href='/contact.php'>Contact Us</a>
             </div>
         </div>
     </nav>
@@ -156,76 +191,76 @@
                 <div class="w-full lg:w-2/3">
                     <div class="bg-white rounded-lg shadow-md overflow-hidden">
                         <!-- Course Thumbnail -->
-                        <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-full h-64 object-cover">
+                        <img src="/assests/img/cyber.webp" alt="Offensive Hacking Course" class="w-full h-64 object-cover">
                         
                         <!-- Course Title -->
                         <div class="p-6">
-                            <h1 class="text-3xl font-bold text-secondary mb-4">Cyber Security Full Course</h1>
+                            <h1 class="text-3xl font-bold text-gray-800 mb-4">Offensive Hacking Course</h1>
                             
                             <!-- Course Description -->
                             <div class="mb-8">
-                                <h2 class="text-xl font-bold text-secondary mb-4">About This Course</h2>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">About This Course</h2>
                                 <p class="text-gray-700 mb-4">
-                                    This comprehensive Cyber Security course is designed to take you from beginner to professional level. You'll learn essential skills to protect systems, networks, and data from digital attacks. Our expert instructors will guide you through practical, hands-on exercises that simulate real-world scenarios.
+                                    This intensive Offensive Hacking Course transforms beginners into skilled ethical hackers through hands-on training in penetration testing and cybersecurity. You'll master real-world hacking techniques while learning to protect systems against digital attacks.
                                 </p>
                                 <p class="text-gray-700 mb-4">
-                                    Cyber security is one of the fastest-growing fields in the tech industry, with a critical shortage of qualified professionals. By completing this course, you'll be well-positioned to enter this high-demand career path or enhance your existing IT skills with crucial security knowledge.
+                                    With cyber threats evolving rapidly, offensive security skills are in high demand. This course prepares you for red team operations, vulnerability assessment, and ethical hacking careers, with practical exercises mirroring actual security challenges.
                                 </p>
                             </div>
                             
                             <!-- Course Highlights -->
                             <div class="mb-8">
-                                <h2 class="text-xl font-bold text-secondary mb-4">What You'll Learn</h2>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">What You'll Learn</h2>
                                 <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                                    <li>Fundamentals of network security and common vulnerabilities</li>
-                                    <li>Ethical hacking techniques and penetration testing</li>
-                                    <li>Cryptography principles and implementation</li>
-                                    <li>Security policies and compliance frameworks</li>
-                                    <li>Incident response and digital forensics</li>
-                                    <li>Cloud security and virtualization security</li>
-                                    <li>Web application security testing</li>
-                                    <li>Mobile device security</li>
+                                    <li>Ethical hacking fundamentals and legal frameworks</li>
+                                    <li>Kali Linux setup and advanced system exploitation</li>
+                                    <li>Malware development (keyloggers, spyware, viruses)</li>
+                                    <li>Social engineering attacks (phishing, RATs)</li>
+                                    <li>Network penetration (WiFi cracking, MITM attacks)</li>
+                                    <li>Web application and mobile device hacking</li>
+                                    <li>Python scripting for custom security tools</li>
+                                    <li>Dark web security and anonymous operations</li>
                                 </ul>
                             </div>
                             
                             <!-- Course Requirements -->
                             <div class="mb-8">
-                                <h2 class="text-xl font-bold text-secondary mb-4">Requirements</h2>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Requirements</h2>
                                 <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                                    <li>Basic understanding of computer networks</li>
-                                    <li>Familiarity with operating systems (Windows, Linux)</li>
-                                    <li>No prior security experience required</li>
-                                    <li>A computer with internet access</li>
+                                    <li>Basic computer and networking knowledge</li>
+                                    <li>8GB+ RAM computer for virtualization</li>
+                                    <li>Willingness to learn offensive techniques ethically</li>
+                                    <li>No prior hacking experience required</li>
                                 </ul>
                             </div>
                             
                             <!-- Course Curriculum -->
                             <div>
-                                <h2 class="text-xl font-bold text-secondary mb-4">Course Curriculum</h2>
+                                <h2 class="text-xl font-bold text-gray-800 mb-4">Course Curriculum</h2>
                                 
                                 <!-- Module 1 -->
                                 <div class="border border-gray-200 rounded-md mb-4">
                                     <div class="flex justify-between items-center p-4 cursor-pointer bg-gray-50 hover:bg-gray-100" onclick="toggleModule(this)">
-                                        <h3 class="font-semibold text-secondary">Module 1: Introduction to Cyber Security</h3>
+                                        <h3 class="font-semibold text-gray-800">Module 1: Ethical Hacking Foundations (Days 1-3)</h3>
                                         <i class="fas fa-chevron-down text-gray-500"></i>
                                     </div>
                                     <div class="p-4 border-t border-gray-200 hidden">
                                         <ul class="space-y-2 text-gray-700">
                                             <li class="flex items-center">
-                                                <i class="fas fa-play-circle text-primary mr-2"></i>
-                                                <span>Understanding the Cyber Security Landscape</span>
+                                                <i class="fas fa-play-circle text-rose-600 mr-2"></i>
+                                                <span>Cyber security principles and hacker types</span>
                                             </li>
                                             <li class="flex items-center">
-                                                <i class="fas fa-play-circle text-primary mr-2"></i>
-                                                <span>Common Cyber Threats and Attacks</span>
+                                                <i class="fas fa-play-circle text-rose-600 mr-2"></i>
+                                                <span>Kali Linux lab setup and configuration</span>
                                             </li>
                                             <li class="flex items-center">
                                                 <i class="fas fa-file-alt text-blue-500 mr-2"></i>
-                                                <span>Security Principles and Frameworks</span>
+                                                <span>Advanced Linux commands for penetration testing</span>
                                             </li>
                                             <li class="flex items-center">
                                                 <i class="fas fa-tasks text-green-500 mr-2"></i>
-                                                <span>Module 1 Assessment</span>
+                                                <span>System vulnerabilities and privilege escalation</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -234,26 +269,26 @@
                                 <!-- Module 2 -->
                                 <div class="border border-gray-200 rounded-md mb-4">
                                     <div class="flex justify-between items-center p-4 cursor-pointer bg-gray-50 hover:bg-gray-100" onclick="toggleModule(this)">
-                                        <h3 class="font-semibold text-secondary">Module 2: Network Security Fundamentals</h3>
+                                        <h3 class="font-semibold text-gray-800">Module 2: Malware Development (Days 4-5)</h3>
                                         <i class="fas fa-chevron-down text-gray-500"></i>
                                     </div>
                                     <div class="p-4 border-t border-gray-200 hidden">
                                         <ul class="space-y-2 text-gray-700">
                                             <li class="flex items-center">
-                                                <i class="fas fa-play-circle text-primary mr-2"></i>
-                                                <span>Network Architecture and Vulnerabilities</span>
+                                                <i class="fas fa-play-circle text-rose-600 mr-2"></i>
+                                                <span>Keylogger creation and deployment</span>
                                             </li>
                                             <li class="flex items-center">
-                                                <i class="fas fa-play-circle text-primary mr-2"></i>
-                                                <span>Firewalls and Intrusion Detection Systems</span>
+                                                <i class="fas fa-play-circle text-rose-600 mr-2"></i>
+                                                <span>Spyware monitoring techniques</span>
                                             </li>
                                             <li class="flex items-center">
-                                                <i class="fas fa-play-circle text-primary mr-2"></i>
-                                                <span>VPNs and Secure Network Design</span>
+                                                <i class="fas fa-play-circle text-rose-600 mr-2"></i>
+                                                <span>Virus binding and payload delivery</span>
                                             </li>
                                             <li class="flex items-center">
                                                 <i class="fas fa-tasks text-green-500 mr-2"></i>
-                                                <span>Hands-on Lab: Network Security Tools</span>
+                                                <span>Hands-on Lab: Creating undetectable malware</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -262,26 +297,26 @@
                                 <!-- Module 3 -->
                                 <div class="border border-gray-200 rounded-md mb-4">
                                     <div class="flex justify-between items-center p-4 cursor-pointer bg-gray-50 hover:bg-gray-100" onclick="toggleModule(this)">
-                                        <h3 class="font-semibold text-secondary">Module 3: Ethical Hacking and Penetration Testing</h3>
+                                        <h3 class="font-semibold text-gray-800">Module 3: System Exploitation (Days 6-8)</h3>
                                         <i class="fas fa-chevron-down text-gray-500"></i>
                                     </div>
                                     <div class="p-4 border-t border-gray-200 hidden">
                                         <ul class="space-y-2 text-gray-700">
                                             <li class="flex items-center">
-                                                <i class="fas fa-play-circle text-primary mr-2"></i>
-                                                <span>Ethical Hacking Methodology</span>
+                                                <i class="fas fa-play-circle text-rose-600 mr-2"></i>
+                                                <span>Metasploit Framework fundamentals</span>
                                             </li>
                                             <li class="flex items-center">
-                                                <i class="fas fa-play-circle text-primary mr-2"></i>
-                                                <span>Reconnaissance and Scanning Techniques</span>
+                                                <i class="fas fa-play-circle text-rose-600 mr-2"></i>
+                                                <span>Windows/Linux/Mac OS exploitation</span>
                                             </li>
                                             <li class="flex items-center">
-                                                <i class="fas fa-play-circle text-primary mr-2"></i>
-                                                <span>Vulnerability Assessment</span>
+                                                <i class="fas fa-play-circle text-rose-600 mr-2"></i>
+                                                <span>Mobile device hacking (Android/iOS)</span>
                                             </li>
                                             <li class="flex items-center">
                                                 <i class="fas fa-tasks text-green-500 mr-2"></i>
-                                                <span>Practical Penetration Testing</span>
+                                                <span>Practical system penetration testing</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -290,29 +325,28 @@
                                 <!-- More modules (collapsed) -->
                                 <div class="border border-gray-200 rounded-md">
                                     <div class="flex justify-between items-center p-4 cursor-pointer bg-gray-50 hover:bg-gray-100" onclick="toggleModule(this)">
-                                        <h3 class="font-semibold text-secondary">+ 7 More Modules</h3>
+                                        <h3 class="font-semibold text-gray-800">+ 4 More Modules</h3>
                                         <i class="fas fa-chevron-down text-gray-500"></i>
                                     </div>
                                     <div class="p-4 border-t border-gray-200 hidden">
                                         <p class="text-gray-700">
-                                            Additional modules cover advanced topics including:
+                                            Additional modules cover advanced offensive security topics:
                                         </p>
                                         <ul class="list-disc pl-5 space-y-2 text-gray-700 mt-2">
-                                            <li>Cryptography and Secure Communications</li>
-                                            <li>Web Application Security</li>
-                                            <li>Mobile Security</li>
-                                            <li>Cloud Security</li>
-                                            <li>Incident Response and Digital Forensics</li>
-                                            <li>Security Governance and Compliance</li>
-                                            <li>Career Preparation and Certification Paths</li>
+                                            <li>Social Engineering Attacks (Days 9-12)</li>
+                                            <li>Dark Web Operations (Days 13-15)</li>
+                                            <li>Network Penetration (Days 16-18)</li>
+                                            <li>Python Tool Development (Days 23-30)</li>
                                         </ul>
+                                        <p class="text-sm text-gray-500 mt-3">
+                                            <strong>Note:</strong> Full schedule available after course purchase.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
+                </div>                
                 <!-- Right Column - Price Card -->
                 <div class="w-full lg:w-1/3">
                     <div class="sticky top-28">
@@ -320,7 +354,7 @@
                         <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
                             <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-full h-48 object-cover">
                             <div class="p-4">
-                                <h3 class="text-xl font-bold text-secondary mb-2">Cyber Security Full Course</h3>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Offensive Hacking Course</h3>
                                 <p class="text-gray-600 mb-2">Comprehensive training from basics to advanced</p>
                                 <div class="flex items-center mb-2">
                                     <div class="flex text-yellow-400 mr-2">
@@ -346,7 +380,7 @@
                         <!-- Price Card -->
                         <div class="bg-white rounded-lg shadow-md overflow-hidden">
                             <div class="p-6">
-                                <h3 class="text-2xl font-bold text-secondary mb-6">Course Pricing</h3>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-6">Course Pricing</h3>
                                 
                                 <!-- Price Breakdown -->
                                 <div class="mb-6">
@@ -355,17 +389,21 @@
                                         <span class="font-semibold">₹2499</span>
                                     </div>
                                     <div class="flex justify-between items-center mb-2">
-                                        <span class="text-gray-700">Tax (0%):</span>
-                                        <span class="font-semibold">₹0.00</span>
+                                        <span class="text-gray-700">Tax:</span>
+                                        <span class="font-semibold">Incluse of All Taxes</span>
                                     </div>
                                     <div id="discountRow" class="flex justify-between items-center mb-2 hidden">
                                         <span class="text-green-600">Discount flat (₹500):</span>
                                         <span class="font-semibold text-green-600">-₹500</span>
                                     </div>
+                                    <div id="fullDiscountRow" class="flex justify-between items-center mb-2 hidden">
+                                        <span class="text-green-600">Discount (100%):</span>
+                                        <span class="font-semibold text-green-600">-₹2499</span>
+                                    </div>
                                     <div class="border-t border-gray-200 my-2"></div>
                                     <div class="flex justify-between items-center">
                                         <span class="text-gray-800 font-bold">Total Price:</span>
-                                        <span id="totalPrice" class="text-xl font-bold text-primary">₹2623.95</span>
+                                        <span id="totalPrice" class="text-xl font-bold text-rose-600">₹2499</span>
                                     </div>
                                 </div>
                                 
@@ -373,47 +411,169 @@
                                 <div class="mb-6">
                                     <label for="couponCode" class="block text-gray-700 mb-2">Have a coupon?</label>
                                     <div class="flex">
-                                        <input type="text" id="couponCode" placeholder="Enter coupon code" class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary">
-                                        <button id="applyCouponBtn" class="bg-secondary text-white px-4 py-2 rounded-r-md hover:bg-gray-800 transition">Apply</button>
+                                        <input type="text" id="couponCode" placeholder="Enter coupon code" class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-rose-600">
+                                        <button id="applyCouponBtn" class="bg-gray-800 text-white px-4 py-2 rounded-r-md hover:bg-gray-700 transition">Apply</button>
                                     </div>
                                     <p id="couponMessage" class="text-sm mt-1 hidden"></p>
                                 </div>
                                 
                                 <!-- Buy Now Button -->
-                                <button id="buyNowBtn" class="w-full bg-primary text-white py-3 rounded-md hover:bg-red-700 transition text-lg font-semibold">Buy Now</button>
+                                <button id="buyNowBtn" class="w-full bg-rose-600 text-white py-3 rounded-md hover:bg-rose-700 transition text-lg font-semibold">Buy Now</button>
                                 <div id="purchaseStatus" class="hidden mt-3 bg-green-100 text-green-800 p-2 rounded-md text-center">
-                                    <i class="fas fa-check-circle mr-2"></i> You Purchased this course
-                                     </div>
-                                <div id="purchaseStatus" class="hidden mt-3 bg-green-100 text-green-800 p-2 rounded-md text-center">
+                                    <i class="fas fa-check-circle mr-2"></i> You Purchased this course, Access Your Course <hr><br>
+                                    <small><center><button  class="w-full bg-rose-600 text-white py-1 rounded-md hover:bg-rose-700 transition text-lg font-semibold"><a href="#" id="downloadReceiptBtn" class="bg-primary text-white px-2 py-2 rounded-md hover:bg-red-700 transition inline-block">Download Receipt</a></button></center></small> <br>
                                     
-                                    <i class="fas fa-check-circle mr-2"></i> Go to Enrolled Coureses to Access your Course
+                                    <!--Verification Card-->
+                    <div class="whatsapp-verify">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 10px;">
+                            <div style="background: #25D366; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0;">
+                                <svg width="12" height="12" viewBox="0 0 16 16" fill="white">
+                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                </svg>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; color: #333; line-height: 1.4;">
+                                Send payment receipt of (Google Pay, Paytm, PhonePay etc.) via WhatsApp for instant verification and private group access
+                            </p>
+                        </div>
+                        
+                        <a href="https://wa.me/6396081309" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: #25D366; color: white; text-decoration: none; border-radius: 6px; padding: 6px 12px; font-size: 13px; font-weight: 500; transition: all 0.2s; width: fit-content;">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="white" style="margin-right: 6px;">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                                </svg>
+                                Send Receipt to Server end
+                        </a> <br><br>
+                        <p style="margin: 0; font-size: 13px; color: #333; line-height: 1.4;">
+                            <span>Note:</span> <span style="color: #c81e44;">If You have already sent then ignore it</span> </p>
+                    </div> <!--End Card-->
+
+                                    <br>
                                 </div>
-                                
+                              
                                 <!-- Features -->
                                 <div class="mt-6">
-                                    <h4 class="font-semibold text-secondary mb-3">This course includes:</h4>
+                                    <h4 class="font-semibold text-gray-800 mb-3">This course includes:</h4>
                                     <ul class="space-y-2">
                                         <li class="flex items-start">
-                                            <i class="fas fa-video text-primary mt-1 mr-2"></i>
+                                            <i class="fas fa-video text-rose-600 mt-1 mr-2"></i>
                                             <span class="text-gray-700">40+ hours on-demand video</span>
                                         </li>
                                         <li class="flex items-start">
-                                            <i class="fas fa-file-alt text-primary mt-1 mr-2"></i>
+                                            <i class="fas fa-file-alt text-rose-600 mt-1 mr-2"></i>
                                             <span class="text-gray-700">25 downloadable resources</span>
                                         </li>
                                         <li class="flex items-start">
-                                            <i class="fas fa-code text-primary mt-1 mr-2"></i>
+                                            <i class="fas fa-code text-rose-600 mt-1 mr-2"></i>
                                             <span class="text-gray-700">15 hands-on practical labs</span>
                                         </li>
                                         <li class="flex items-start">
-                                            <i class="fas fa-certificate text-primary mt-1 mr-2"></i>
+                                            <i class="fas fa-certificate text-rose-600 mt-1 mr-2"></i>
                                             <span class="text-gray-700">Certificate of completion</span>
                                         </li>
                                         <li class="flex items-start">
-                                            <i class="fas fa-infinity text-primary mt-1 mr-2"></i>
+                                            <i class="fas fa-infinity text-rose-600 mt-1 mr-2"></i>
                                             <span class="text-gray-700">Lifetime access</span>
                                         </li>
                                     </ul>
+                                </div>
+<!--This Section is Hidden by default-->
+                                <div hidden class="max-w-md mx-auto bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden mt-6">
+                                    <!-- Certificate Header -->
+                                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
+                                      <h4 class="font-bold text-white text-center">Course Completion Certificate</h4>
+                                    </div>
+                                    
+                                    <!-- Certificate Content -->
+                                    <div class="p-4">
+                                      <div class="flex items-start mb-4">
+                                        <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                          </svg>
+                                        </div>
+                                        <div>
+                                          <h5 class="font-semibold text-gray-800">Udemy Verified Certificate</h5>
+                                          <p class="text-sm text-gray-500">Issued upon successful course completion</p>
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="space-y-2 mb-4">
+                                        <div class="flex items-center">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                          </svg>
+                                          <span class="text-sm text-gray-700">Valid certificate with unique ID</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                          </svg>
+                                          <span class="text-sm text-gray-700">Shareable on LinkedIn</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                          </svg>
+                                          <span class="text-sm text-gray-700">Downloadable PDF format</span>
+                                        </div>
+                                      </div>
+                                      
+                                      <!-- View Certificate Button -->
+                                      <button class="w-full mt-3 bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium py-2 px-4 rounded-md transition duration-200 flex items-center justify-center" onclick="openCertificateModal()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                        View Certificate Sample
+                                      </button>
+                                      
+                                      <p class="text-xs text-center mt-3 text-gray-500">Certificate will be available after course completion</p>
+                                    </div>
+                                  </div>
+                                  
+                                  <!-- Certificate Modal (hidden by default) -->
+                                  <div id="certificateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                                    <div class="bg-white rounded-lg max-w-2xl w-full p-6 mx-4">
+                                      <div class="flex justify-between items-center mb-4">
+                                        <h3 class="text-lg font-bold">Your Course Certificate</h3>
+                                        <button onclick="closeCertificateModal()" class="text-gray-500 hover:text-gray-700">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                          </svg>
+                                        </button>
+                                      </div>
+                                      <div class="border-2 border-dashed border-gray-300 p-4 rounded-lg">
+                                        <!-- Certificate Image Placeholder -->
+                                        <div class="bg-gray-100 h-64 flex items-center justify-center">
+                                          <p class="text-gray-500">Certificate Preview</p>
+                                        </div>
+                                      </div>
+                                      <div class="mt-4 flex justify-end space-x-3">
+                                        <button class="px-4 py-2 border border-gray-300 rounded-md">Download</button>
+                                        <button class="px-4 py-2 bg-blue-600 text-white rounded-md">Share</button>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                <!-- Additional Gifts -->
+                                <div class="gift-box mt-6">
+                                    <h4 class="font-semibold text-gray-800 mb-3 text-center">Additional ₹10000 Worth Gifts</h4>
+                                    <div class="gift-item">
+                                        <i class="fas fa-gift gift-icon"></i>
+                                        <span>Integrated Python Course - ₹2000</span>
+                                    </div>
+                                    <div class="gift-item">
+                                        <i class="fas fa-gift gift-icon"></i>
+                                        <span>Integrated Linux Course - ₹1000</span>
+                                    </div>
+                                    <div class="gift-item">
+                                        <i class="fas fa-gift gift-icon"></i>
+                                        <span>6TB of Recorded Courses - ₹5000</span>
+                                    </div>
+                                    <div class="gift-item">
+                                        <i class="fas fa-gift gift-icon"></i>
+                                        <span>Udemy Certificate - ₹2999</span>
+                                    </div>
+                                    <p class="text-sm text-center mt-3 text-gray-600">All these bonuses will be provided after course enrollment</p>
                                 </div>
                             </div>
                         </div>
@@ -427,7 +587,7 @@
     <div id="alreadyPurchasedPopup" class="php-popup-overlay hidden">
         <div class="php-popup">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-secondary">Course Already Purchased</h3>
+                <h3 class="text-xl font-bold text-gray-800">Course Already Purchased</h3>
                 <button id="closePopupBtn" class="text-gray-500 hover:text-gray-700">
                     <i class="fas fa-times"></i>
                 </button>
@@ -454,56 +614,58 @@
                 </div>
             </div>
             <div class="text-center">
-                <a class='bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition inline-block' href='/fearlessstore/cyber/receipt'>View Receipt</a>
+                <a class='bg-rose-600 text-white px-4 py-2 rounded-md hover:bg-rose-700 transition inline-block' href='/fearlessstore/cyber/receipt'>View Receipt</a>
             </div>
         </div>
     </div>
 
-  <!-- User Information Modal -->
-<div id="userInfoModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
-        <!-- Modal Header with Close Button -->
-        <div class="flex justify-between items-center p-4 border-b border-gray-200">
-            <h2 class="text-2xl font-bold text-secondary">User Information</h2>
-            <button id="closeUserInfoModal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-        </div>
-        
-        <div class="p-6 modal-content">
-            <div class="flex justify-center mb-4">
-                <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-16">
+    <!-- User Information Modal (updated with coupon field) -->
+    <div id="userInfoModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-4 border-b border-gray-200">
+                <h2 class="text-2xl font-bold text-gray-800">User Information</h2>
+                <button id="closeUserInfoModal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
             </div>
             
-            <form method="POST" id="userInfoForm">
-                <!-- Web3Forms Access Key -->
-                <input type="hidden" name="access_key" value="4de5c301-630f-4366-beb2-60b9fbff7ab6">
-                <input type="hidden" name="subject" value="Cyber Security Course Enrollment">
-                <input type="hidden" name="course" value="Cyber Security Full Course">
-                <input type="hidden" name="amount" id="formAmount" value="2623.95">
-                <input type="hidden" name="couponApplied" id="couponApplied" value="No">
-                
-                <!-- Result container -->
-                <div id="result"></div>
-                
-                <div class="mb-4">
-                    <label for="fullName" class="block text-gray-700 mb-2">Full Name <span class="text-red-500">*</span></label>
-                    <input type="text" id="fullName" name="full_name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                </div>
-                
-                <div class="mb-4">
+            <div class="p-6 modal-content">
+                <form method="POST" id="userInfoForm">
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="8f00bc0f-0f56-4764-8c09-10b05fa240ce">
+                    <input type="hidden" name="subject" value="Cyber Security Course Enrollment">
+                    <input type="hidden" name="course" value="Offensive Hacking Course">
+                    <input type="hidden" name="amount" id="formAmount" value="2499">
+                    <input type="hidden" name="couponApplied" id="couponApplied" value="No">
+                    <input type="hidden" name="discountType" id="discountType" value="None">
+                    <input type="hidden" name="couponCode" id="formCouponCode" value="">
+                    
+                    
+                    
+
+                    
+                    <!-- Rest of your form fields -->
+                    <div class="mb-4">
+                        <label for="fullName" class="block text-gray-700 mb-2">Full Name <span class="text-red-500">*</span></label>
+                        <input type="text" id="fullName" name="full_name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-600">
+                    </div>
+                    
+                   
+                    
+                    <div class="mb-4">
                     <label for="email" class="block text-gray-700 mb-2">Email Address <span class="text-red-500">*</span></label>
-                    <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-600">
                 </div>
                 
                 <div class="mb-4">
                     <label for="college" class="block text-gray-700 mb-2">College <span class="text-red-500">*</span></label>
-                    <input type="text" id="college" name="college" required placeholder="Enter college name full" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    <input type="text" id="college" name="college" required placeholder="Enter college name full" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-600">
                 </div>
                 
                 <div class="mb-4">
                     <label for="degree" class="block text-gray-700 mb-2">Course <span class="text-red-500">*</span></label>
-                    <select id="degree" name="degree" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    <select id="degree" name="degree" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-600">
                         <option value="" disabled selected>Select your course</option>
                         <option value="B.Tech">B.Tech</option>
                         <option value="BCA">BCA</option>
@@ -518,60 +680,101 @@
                     <label for="phone" class="block text-gray-700 mb-2">Phone Number <span class="text-red-500">*</span></label>
                     <div class="flex">
                         <div class="bg-gray-100 px-3 py-2 border border-gray-300 rounded-l-md text-gray-700">+91</div>
-                        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" maxlength="10" class="flex-1 px-3 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" maxlength="10" class="flex-1 px-3 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-rose-600">
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
                         <label for="city" class="block text-gray-700 mb-2">City <span class="text-red-500">*</span></label>
-                        <input type="text" id="city" name="city" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        <input type="text" id="city" name="city" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-600">
                     </div>
                     
                     <div>
                         <label for="state" class="block text-gray-700 mb-2">State <span class="text-red-500">*</span></label>
-                        <input type="text" id="state" name="state" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        <input type="text" id="state" name="state" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-600">
                     </div>
                 </div>
                 
                 <div class="mb-4">
                     <label for="pincode" class="block text-gray-700 mb-2">Pincode <span class="text-red-500">*</span></label>
-                    <input type="text" id="pincode" name="pincode" required pattern="[0-9]{6}" maxlength="6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                    <input type="text" id="pincode" name="pincode" required pattern="[0-9]{6}" maxlength="6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-600">
                 </div>
+                
+                 
+                                        <!-- Coupon Display Field -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Coupon Applied</label>
+                        <div class="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 font-semibold">
+                            <span id="couponDisplayText">None</span>
+                        </div>
+                    </div>
+                    
+                    
                 
                 <div class="mb-6">
                     <label class="block text-gray-700 mb-2">Total Price</label>
-                    <div id="modalTotalPrice" class="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 font-semibold">₹2623.95</div>
+                    <div id="modalTotalPrice" class="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 font-semibold">₹2499</div>
                 </div>
                 
                 <div class="flex space-x-4">
                     <button type="button" id="cancelBtn" class="flex-1 bg-gray-300 text-gray-800 py-2 rounded-md hover:bg-gray-400 transition">Cancel</button>
-                    <button type="submit" id="submitUserInfoBtn" class="flex-1 bg-primary text-white py-2 rounded-md hover:bg-red-700 transition">Submit Details</button>
+                    <button type="submit" id="submitUserInfoBtn" class="flex-1 bg-rose-600 text-white py-2 rounded-md hover:bg-rose-700 transition">Submit Details</button>
                 </div>
-            </form>
+                <br>
+                    <!-- Result container -->
+                    <div id="result"></div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-    <!-- Payment Modal -->
+   <!-- Payment Modal -->
     <div id="paymentModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
             <div class="p-6 modal-content">
                 <div class="flex justify-center mb-4">
                     <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-16">
                 </div>
-                <h2 class="text-2xl font-bold text-center text-secondary mb-2">Fearless Payment</h2>
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Fearless Payment</h2>
                 
                 <!-- UPI Banner -->
-                <div class="bg-blue-50 p-4 rounded-md flex items-center justify-center mb-6">
-                    <img src="/assests/img/favicon.png" alt="UPI" class="h-10 mr-3">
-                    <span class="text-blue-800 font-semibold">Pay securely with UPI</span>
-                </div>
+                <div class="w-full max-w-md bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg p-3 flex items-center justify-between mb-4">
+                    <!-- Left: UPI Info -->
+                    <div class="flex items-center gap-2">
+                      <div class="bg-white p-1.5 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                        </svg>
+                      </div>
+                      <p class="text-white font-medium text-sm">Pay via UPI</p>
+                    </div>
+                  
+                    <!-- Right: App Icons -->
+                    <div class="flex gap-2">
+                      <!-- GPay Icon -->
+                      <div class="bg-white p-1 rounded-full">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                          <path fill="#4285F4" d="M3 12c0-1.7.5-3.3 1.5-4.6l7.1 7.1V7.5c0-4.6 5.7-6.8 8.9-3.6 1.6 1.6 2.4 3.8 2.4 6.1 0 5.5-4.5 10-10 10S2 17.5 2 12z"/>
+                          <path fill="#34A853" d="M12 20.5c2.5 0 4.8-1 6.4-2.6l-7.1-7.1H12v4.7c0 1.9 1.5 3.4 3.4 3.4 1.9 0 3.4-1.5 3.4-3.4v-.6h3v.6c0 3.5-2.9 6.4-6.4 6.4-3.6 0-6.5-2.9-6.5-6.5 0-.3 0-.6.1-.9h3v3z"/>
+                          <path fill="#FBBC05" d="M6.5 12c0-.8.3-1.6.8-2.1l-3.3-3.3C2.5 7.8 2 9.8 2 12s.5 4.2 1.5 6l3.8-3.8c-.5-.5-.8-1.3-.8-2.2z"/>
+                          <path fill="#EA4335" d="M12 3.5c1.9 0 3.6.7 5 1.9l3.4-3.4C17.8.5 15 .5 12 .5 6.5.5 2 5 2 10.5c0 1.7.5 3.3 1.5 4.6l3.8-3.8c.5-.5.8-1.3.8-2.1 0-2.2 1.8-4 4-4z"/>
+                        </svg>
+                      </div>
+                      
+                      <!-- Paytm Icon -->
+                      <div class="bg-[#203f96] p-1 rounded-full">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                          <path fill="#00B9F1" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.5 16.3c0 .4-.3.7-.7.7h-1.5c-.4 0-.7-.3-.7-.7v-4.8h-2.5v4.8c0 .4-.3.7-.7.7H8.2c-.4 0-.7-.3-.7-.7V7.7c0-.4.3-.7.7-.7h1.5c.4 0 .7.3.7.7v4.8h2.5V7.7c0-.4.3-.7.7-.7h1.5c.4 0 .7.3.7.7v8.6z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 
                 <form id="paymentForm">
                     <div class="mb-6">
                         <label for="paymentAmount" class="block text-gray-700 mb-2">Amount</label>
-                        <div id="paymentAmount" class="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 font-semibold">₹2623.95</div>
+                        <div id="paymentAmount" class="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 font-semibold">₹2499</div>
                     </div>
                     
                     <div id="qrCodeContainer" class="mb-6">
@@ -588,8 +791,51 @@
                         </button>
                     </div>
                     
-                    <button type="button" id="payBtn" class="w-full bg-primary text-white py-2 rounded-md hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>PAY</button>
-                    <p class="payment-note" id="paymentNote">Scan and Pay with Payment Gateway app then button will enable</p>
+                    <button type="button" id="verifyPaymentBtn" class="w-full bg-rose-600 text-white py-2 rounded-md hover:bg-rose-700 transition">Verify Payment</button>
+                    <p class="payment-note" id="paymentNote">Scan and Pay with Payment Gateway app then click Verify Payment</p>
+
+                    <!--SSL Secure -->
+                    <div class="secure-payment-footer">
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+                            <!-- SSL Secure -->
+                            <div style="display: flex; align-items: center; gap: 5px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="#2e8b57">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11V11.99z"/>
+                                </svg>
+                                <span style="font-size: 12px; color: #555;">SSL Secure</span>
+                            </div>
+                            
+                            <!-- Encrypted Payment -->
+                            <div style="display: flex; align-items: center; gap: 5px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="#4169e1">
+                                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                </svg>
+                                <span style="font-size: 12px; color: #555;">Encrypted</span>
+                            </div>
+                            
+                            <!-- Verified Payment -->
+                            <div style="display: flex; align-items: center; gap: 5px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff8c00">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                                </svg>
+                                <span style="font-size: 12px; color: #555;">Verified</span>
+                            </div>
+                            
+                            <!-- PCI Compliant -->
+                            <div style="display: flex; align-items: center; gap: 5px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="#4CAF50">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/>
+                                </svg>
+                                <span style="font-size: 12px; color: #555;">PCI Compliant</span>
+                            </div>
+                        </div>
+                        
+                        <p style="margin-top: 10px; font-size: 11px; color: #777; line-height: 1.4;">
+                            Your payment is securely processed. We don't store your credit card information.
+                        </p>
+                    </div><!--end SSL-->
+
+                    
                 </form>
                 
                 <!-- Transaction Success Message (hidden by default) -->
@@ -598,7 +844,7 @@
                         <i class="fas fa-check-circle text-green-500 text-4xl mb-2"></i>
                         <h3 class="text-xl font-bold text-green-700 mb-2">Transaction Completed Successfully!</h3>
                         <p class="text-green-600 mb-4">Your payment has been processed successfully.</p>
-                        <a href="#" id="downloadReceiptBtn" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition inline-block">Download Receipt</a>
+                        <a href="#" id="downloadReceiptBtn" class="bg-rose-600 text-white px-4 py-2 rounded-md hover:bg-rose-700 transition inline-block">Download Receipt</a>
                     </div>
                 </div>
                 
@@ -608,82 +854,819 @@
                         <i class="fas fa-times-circle text-red-500 text-4xl mb-2"></i>
                         <h3 class="text-xl font-bold text-red-700 mb-2">Transaction Failed!</h3>
                         <p class="text-red-600 mb-4">Your payment could not be processed. Please try again.</p>
-                        <button id="retryPaymentBtn" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition">Retry Payment</button>
+                        <button id="retryPaymentBtn" class="bg-rose-600 text-white px-4 py-2 rounded-md hover:bg-rose-700 transition">Retry Payment</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Verification Modal -->
+    <div id="verificationModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div class="flex justify-between items-center p-4 border-b border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800">Verify Your Payment</h2>
+                <button id="closeVerificationModal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 modal-content">
+                <p class="text-gray-700 mb-4">Please upload your payment receipt from Google Pay, Paytm, PhonePay, etc. Upload Half Screenshot of important Like date and Id's</p>
+                <p class="text-gray-700 mb-4">Sample of Screenshot to upload here</p>
+                <center><p class="text-gray-700 mb-4"><img src="/assests/img/sample.png" width="350vh" alt=""></p></center>
+                <center><p class="text-gray-700 mb-4">If You face any issue on verification, then contact to the whatsapp direclty<a href="https://wa.me/6396081309" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; background: #25D366; color: white; text-decoration: none; border-radius: 6px; padding: 6px 12px; font-size: 13px; font-weight: 500; transition: all 0.2s; width: fit-content;">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="white" style="margin-right: 6px;">
+                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                        </svg>
+                        Whatsapp
+                </a></p></center>
+                
+                
+                <!-- Upload Receipt Option -->
+                <div class="mb-6">
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-rose-600 transition-colors cursor-pointer" id="receiptDropArea">
+                        <input type="file" id="receiptUpload" accept="image/*" class="hidden">
+                        <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-2"></i>
+                        <p class="text-gray-600">Drag & drop your receipt here or <span class="text-rose-600">browse</span></p>
+                        <p class="text-gray-500 text-sm mt-1">Supports: JPG, PNG, JPEG</p>
+                    </div>
+                </div>
+                
+                <!-- Preview Area -->
+                <div id="previewArea" class="mb-6 hidden">
+                    <h3 class="font-medium text-gray-700 mb-2">Receipt Preview</h3>
+                    <div class="relative border border-gray-200 rounded-lg overflow-hidden">
+                        <img id="receiptPreview" src="#" alt="Receipt Preview" class="w-full h-auto max-h-64 object-contain">
+                        <button id="removePreview" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Processing Indicator -->
+                <div id="processingIndicator" class="hidden text-center py-4 mb-4">
+                    <div class="ocr-processing">
+                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-600 mx-auto"></div>
+                        <div class="ocr-progress-text">
+                            <p class="text-gray-700">Verifying your receipt...</p>
+                            <p class="text-sm text-gray-500">This may take a moment</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Verification Result -->
+                <div id="verificationResult" class="hidden mb-6">
+                    <!-- Success Result -->
+                    <div id="verificationSuccess" class="hidden bg-green-50 p-4 rounded-md text-center">
+                        <i class="fas fa-check-circle text-green-500 text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold text-green-700 mb-2">Verified Successfully!</h3>
+                        <p class="text-green-600">Your payment has been confirmed.</p>
+                    </div>
+                    
+                    <!-- Failed Result -->
+                    <div id="verificationFailed" class="hidden bg-red-50 p-4 rounded-md text-center">
+                        <i class="fas fa-times-circle text-red-500 text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold text-red-700 mb-2">Verification Failed</h3>
+                        <p class="text-red-600 mb-2" id="verificationFailedMessage">We couldn't verify your payment. Please try again with a clearer image.</p>
+                        <p class="text-sm text-gray-600">Make sure the UPI ID, Transaction ID is visible in the receipt</p>
+                    </div>
+                    
+                    <!-- Fraud Detection Result -->
+                    <div id="fraudDetection" class="hidden bg-red-100 p-4 rounded-md text-center border border-red-300">
+                        <i class="fas fa-user-slash text-red-600 text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold text-red-800 mb-2">Fraud Detected!</h3>
+                        <p class="text-red-700 font-semibold mb-2">Fake/Screenshots Not Accepted</p>
+                        <p class="text-sm text-red-600">You will be banned from this site for lifetime.</p>
+                        <p class="text-xs text-gray-600 mt-2">Reason: Receipt date doesn't match current date</p>
+                        <p class="text-xs text-gray-600 mt-2">Reason: Receipt Trnasaction ID, UPI ID dosn't matched</p>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button id="cancelVerificationBtn" class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition">Cancel</button>
+                    <button id="verifyReceiptBtn" class="px-4 py-2 bg-rose-600 text-white rounded-md hover:bg-rose-700 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>Verify Receipt</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
      <!-- Footer -->
-     <footer class="bg-secondary text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
-                        <span class="ml-2 text-xl font-bold">Skill Rathi</span>
-                    </div>
-                    <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+   <footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
+                    <span class="ml-2 text-xl font-bold">Skill Rathi</span>
                 </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/index.html" class="text-gray-300 hover:text-primary">Home</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='/slot/bookmyslot.php'>Book Your Slots</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='/join/joinus'>Join Us</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='/payment'>Payments</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='/contact.php'>Contact Us</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='enrolled-courses.html'>Enrolled Courses</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Services</h3>
-                    <ul class="space-y-2">
-                        <li><a class='text-gray-300 hover:text-primary' href='/assignmnet/assignment'>Assignments</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='/lb-file/labfile'>Practical Lab Files</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='/graphic/g&d'>Graphic Design</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='/slot/track-slot'>Track Slot</a></li>
-                        <li><a class='text-gray-300 hover:text-primary' href='/terms-conditions'>Terms & Conditions</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
-                            <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
-                            <span>+91 8006968576</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope mt-1 mr-2"></i>
-                            <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6dfd8d0d9f6d0d3d7c4dad3c5c5d7c5c5dfd1d8dbd3d8c2c598d5d9db">[email&#160;protected]</a></span>
-                        </li>
-                    </ul>
+                <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-rose-600"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white hover:text-rose-600"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white hover:text-rose-600"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white hover:text-rose-600"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
-                <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
-                <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="/index.html" class="text-gray-300 hover:text-rose-600">Home</a></li>
+                    <li><a href="/Slot/bookmyslot.php.html" class="text-gray-300 hover:text-rose-600">Book Your Slots</a></li>
+                    <li><a href="/JOIN/joinus.html" class="text-gray-300 hover:text-rose-600">Join Us</a></li>
+                    <li><a href="/payment.html" class="text-gray-300 hover:text-rose-600">Payments</a></li>
+                    <li><a href="/contact.php.htm" class="text-gray-300 hover:text-rose-600">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Services</h3>
+                <ul class="space-y-2">
+                    <li><a href="/Assignmnet/assignment.html" class="text-gray-300 hover:text-rose-600">Assignments</a></li>
+                    <li><a href="/Lb-File/labFile.html" class="text-gray-300 hover:text-rose-600">Practical Lab Files</a></li>
+                    <li><a href="/graphic/g&d.html" class="text-gray-300 hover:text-rose-600">Graphic Design</a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-rose-600">Programming Help</a></li>
+                    <li><a href="/terms-conditions.html" class="text-gray-300 hover:text-rose-600">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                        <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span><a href="tel:+918006968576">+91 8006968576</a></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span><a href="tel:+918920729358">+91 8920729358</a></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span><a href="tel:+916306372172">+91 6306372172</a></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span><a href="tel:+916396081309">+91 6396081309</a></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-envelope mt-1 mr-2"></i>
+                        <span><a href="mailto:skillrathi@gmail.com">skillrathi@gmail.com</a></span>
+                    </li>
+                </ul>
             </div>
         </div>
-    </footer>
+        
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+            <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
+            <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #e11d48;">Codee Camp</a></p>
+            <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #e11d48;">Ayush Srivastava</a></p>
+        </div>
+    </div>
+</footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Constants
+           const BASE_PRICE = 2499;
+    const UPI_ID = "8920729358@ptaxis";
+            const validCoupons = {
+        'CYBER500': { type: 'partial', amount: 500 },
+        'SKILLC500': { type: 'partial', amount: 500 },
+        'INDIA500': { type: 'partial', amount: 500 },
+        'HACK500': { type: 'partial', amount: 500 },
+        'RATH500': { type: 'partial', amount: 500 },
+        'GICRISE': { type: 'full', amount: BASE_PRICE }
+    };
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="/assests/JS/cyberCourse.js"></script>
+             // ========== DOM ELEMENTS ========== //
+    const buyNowBtn = document.getElementById('buyNowBtn');
+    const userInfoModal = document.getElementById('userInfoModal');
+    const paymentModal = document.getElementById('paymentModal');
+    const verificationModal = document.getElementById('verificationModal');
+    const userInfoForm = document.getElementById('userInfoForm');
+    const paymentForm = document.getElementById('paymentForm');
+    const transactionSuccess = document.getElementById('transactionSuccess');
+    const transactionFailed = document.getElementById('transactionFailed');
+    const downloadReceiptBtn = document.getElementById('downloadReceiptBtn');
+    const retryPaymentBtn = document.getElementById('retryPaymentBtn');
+    const verifyPaymentBtn = document.getElementById('verifyPaymentBtn');
+    const result = document.getElementById('result');
+    const applyCouponBtn = document.getElementById('applyCouponBtn');
+    const couponCode = document.getElementById('couponCode');
+    const couponMessage = document.getElementById('couponMessage');
+    const discountRow = document.getElementById('discountRow');
+    const fullDiscountRow = document.getElementById('fullDiscountRow');
+    const totalPrice = document.getElementById('totalPrice');
+    const modalTotalPrice = document.getElementById('modalTotalPrice');
+    const paymentAmount = document.getElementById('paymentAmount');
+    const formAmount = document.getElementById('formAmount');
+    const upiPayContainer = document.getElementById('upiPayContainer');
+    const openUpiAppBtn = document.getElementById('openUpiAppBtn');
+    const qrCodeContainer = document.getElementById('qrCodeContainer');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const alreadyPurchasedPopup = document.getElementById('alreadyPurchasedPopup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const popupName = document.getElementById('popupName');
+    const popupEmail = document.getElementById('popupEmail');
+    const popupAmount = document.getElementById('popupAmount');
+    const paymentNote = document.getElementById('paymentNote');
+    const purchaseStatus = document.getElementById('purchaseStatus');
+    const couponApplied = document.getElementById('couponApplied');
+    const discountType = document.getElementById('discountType');
+    const receiptDropArea = document.getElementById('receiptDropArea');
+    const receiptUpload = document.getElementById('receiptUpload');
+    const previewArea = document.getElementById('previewArea');
+    const receiptPreview = document.getElementById('receiptPreview');
+    const removePreview = document.getElementById('removePreview');
+    const processingIndicator = document.getElementById('processingIndicator');
+    const verificationResult = document.getElementById('verificationResult');
+    const verificationSuccess = document.getElementById('verificationSuccess');
+    const verificationFailed = document.getElementById('verificationFailed');
+    const verificationFailedMessage = document.getElementById('verificationFailedMessage');
+    const fraudDetection = document.getElementById('fraudDetection');
+    const verifyReceiptBtn = document.getElementById('verifyReceiptBtn');
+    const cancelVerificationBtn = document.getElementById('cancelVerificationBtn');
+    const closeVerificationModal = document.getElementById('closeVerificationModal');
+    const closeUserInfoModal = document.getElementById('closeUserInfoModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const certificateModal = document.getElementById('certificateModal');
+    
+       // ========== INITIALIZATION ========== //
+    function init() {
+        // Check purchase status on page load
+        const purchaseData = checkPurchaseStatus();
+        if (purchaseData) {
+            buyNowBtn.textContent = "Access Course";
+            purchaseStatus.classList.remove('hidden');
+        }
+
+        // Initialize price display
+        const initialPriceInfo = calculateTotalPrice(BASE_PRICE, null, 0);
+        updatePriceDisplays(initialPriceInfo, null);
+    }
+
+    // ========== HELPER FUNCTIONS ========== //
+
+    // Toggle mobile menu
+    mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Toggle module content
+    window.toggleModule = function(moduleHeader) {
+        const moduleContent = moduleHeader.nextElementSibling;
+        const chevron = moduleHeader.querySelector('i');
+        moduleContent.classList.toggle('hidden');
+        chevron.classList.toggle('fa-chevron-down');
+        chevron.classList.toggle('fa-chevron-up');
+    }
+
+    // Certificate modal functions
+    window.openCertificateModal = function() {
+        certificateModal.classList.remove('hidden');
+    }
+
+    window.closeCertificateModal = function() {
+        certificateModal.classList.add('hidden');
+    }
+
+    // Check if device is mobile
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    // Generate QR Code for payment
+    function generateQRCode(amount) {
+        const qrCodeContainer = document.getElementById('qrcode');
+        qrCodeContainer.innerHTML = '';
+        const upiLink = `upi://pay?pa=${UPI_ID}&pn=Skill%20Rathi&am=${amount}&cu=INR`;
+        const qr = qrcode(0, 'L');
+        qr.addData(upiLink);
+        qr.make();
+        qrCodeContainer.innerHTML = qr.createImgTag(5);
+    }
+
+    // Calculate total price with discounts
+    function calculateTotalPrice(basePrice, discountType, discountAmount) {
+        const tax = 0; // 0% tax
+        let total = basePrice + tax;
+        let discount = 0;
+
+        if (discountType === 'partial') {
+            discount = discountAmount;
+            total -= discount;
+        } else if (discountType === 'full') {
+            discount = discountAmount;
+            total = 0;
+        }
+
+        return { basePrice, tax, discount, total };
+    }
+    
+    
+            // Apply Coupon Button Click
+            applyCouponBtn.addEventListener('click', function() {
+                const code = couponCode.value.trim().toUpperCase();
+                
+                if (!code) {
+                    showMessage('Please enter a coupon code', false);
+                    return;
+                }
+
+                if (validCoupons[code]) {
+                    const coupon = validCoupons[code];
+                    const priceInfo = calculateTotalPrice(BASE_PRICE, coupon.type, coupon.amount);
+                    updatePriceDisplays(priceInfo, coupon.type, code);
+                    
+                    couponDisplayText.textContent = code;
+                    formCouponCode.value = code;
+                    
+                    const message = coupon.type === 'full' ? 
+                        '100% discount applied! Course is now FREE' : 
+                        `Coupon applied! ₹${coupon.amount} discount added`;
+                    showMessage(message, true);
+                } else {
+                    couponDisplayText.textContent = 'None';
+                    formCouponCode.value = '';
+                    showMessage('Invalid coupon code', false);
+                }
+            });
+
+            // Update all price displays
+    function updatePriceDisplays(priceInfo, discountTypeValue) {
+        // Update discount rows
+        discountRow.classList.toggle('hidden', discountTypeValue !== 'partial');
+        fullDiscountRow.classList.toggle('hidden', discountTypeValue !== 'full');
+        
+        // Update form values
+        couponApplied.value = discountTypeValue ? "Yes" : "No";
+        discountType.value = discountTypeValue || "None";
+
+        // Format price display
+        const formattedPrice = priceInfo.total === 0 ? 
+            '₹0 <span class="free-course-badge">FREE</span>' : 
+            `₹${priceInfo.total.toFixed(2)}`;
+
+        totalPrice.innerHTML = formattedPrice;
+        modalTotalPrice.innerHTML = formattedPrice;
+        paymentAmount.innerHTML = formattedPrice;
+        formAmount.value = priceInfo.total.toFixed(2);
+    }
+
+    // Check purchase status from localStorage
+    function checkPurchaseStatus() {
+        const purchaseData = localStorage.getItem('cyberSecurityPurchase');
+        return purchaseData ? JSON.parse(purchaseData) : null;
+    }
+
+    // Show message for coupon application
+    function showMessage(message, isSuccess) {
+        couponMessage.textContent = message;
+        couponMessage.className = 'text-sm mt-1 ' + (isSuccess ? 'text-green-600' : 'text-red-600');
+        couponMessage.classList.remove('hidden');
+        setTimeout(() => couponMessage.classList.add('hidden'), 5000);
+    }
+
+    // Show result message in forms
+    function showResult(message, isSuccess) {
+        result.textContent = message;
+        result.className = isSuccess ? "success" : "error";
+        result.style.display = "block";
+    }
+
+    // Show already purchased popup
+    function showAlreadyPurchasedPopup(data) {
+        popupName.textContent = data.name;
+        popupEmail.textContent = data.email;
+        popupAmount.textContent = data.amount;
+        alreadyPurchasedPopup.classList.remove('hidden');
+    }
+
+    // Get current date in Indian format (DD/MM/YYYY)
+    function getCurrentIndianDate() {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    // Check if date in receipt matches current date
+function checkReceiptDate(text) {
+    const currentDate = getCurrentIndianDate();
+    const currentDateParts = currentDate.split('/');
+    const currentDay = currentDateParts[0];
+    const currentMonth = currentDateParts[1];
+    const currentYear = currentDateParts[2];
+    
+    // Month names and abbreviations
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const monthAbbreviations = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+    
+    // Build regex patterns for month names and abbreviations
+    const monthNamesPattern = monthNames.join("|");
+    const monthAbbrPattern = monthAbbreviations.join("|");
+    
+    const datePatterns = [
+        // DD/MM/YYYY
+        new RegExp(`(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(20[0-9]{2})`),
+        // DD-MM-YYYY
+        new RegExp(`(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(20[0-9]{2})`),
+        // DD.MM.YYYY
+        new RegExp(`(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(20[0-9]{2})`),
+        // DD Month YYYY (e.g., 02 April 2025)
+        new RegExp(`(0[1-9]|[12][0-9]|3[01])\\s+(${monthNamesPattern})\\s+(20[0-9]{2})`, 'i'),
+        // DD Mon YYYY (e.g., 02 Apr 2025)
+        new RegExp(`(0[1-9]|[12][0-9]|3[01])\\s+(${monthAbbrPattern})\\s+(20[0-9]{2})`, 'i')
+    ];
+
+    // Check if current date exists in the text in Indian format (DD/MM/YYYY)
+    if (text.includes(currentDate)) {
+        return true;
+    }
+
+    // Check for other date formats
+    for (const pattern of datePatterns) {
+        const matches = text.match(pattern);
+        if (matches && matches[0]) {
+            let foundDay, foundMonth, foundYear;
+            
+            // Extract date components based on pattern
+            if (pattern === datePatterns[3] || pattern === datePatterns[4]) {
+                // For month name or abbreviation patterns
+                foundDay = matches[1];
+                foundMonth = matches[2];
+                foundYear = matches[3];
+                
+                // Convert month name/abbreviation to number
+                const monthIndex = monthNames.findIndex(m => m.toLowerCase() === foundMonth.toLowerCase()) + 1 ||
+                                   monthAbbreviations.findIndex(m => m.toLowerCase() === foundMonth.toLowerCase()) + 1;
+                
+                if (monthIndex > 0) {
+                    foundMonth = String(monthIndex).padStart(2, '0');
+                } else {
+                    continue; // Skip if month not recognized
+                }
+            } else {
+                // For numeric date patterns
+                foundDay = matches[1];
+                foundMonth = matches[2];
+                foundYear = matches[3];
+            }
+            
+            // Compare with current date
+            if (foundDay === currentDay && foundMonth === currentMonth && foundYear === currentYear) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+    // ========== EVENT HANDLERS ========== //
+
+    // Apply coupon button click
+    applyCouponBtn.addEventListener('click', function() {
+        const code = couponCode.value.trim().toUpperCase();
+        
+        if (!code) {
+            showMessage('Please enter a coupon code', false);
+            return;
+        }
+
+        if (validCoupons[code]) {
+            const coupon = validCoupons[code];
+            const priceInfo = calculateTotalPrice(BASE_PRICE, coupon.type, coupon.amount);
+            updatePriceDisplays(priceInfo, coupon.type);
+            
+            const message = coupon.type === 'full' ? 
+                '100% discount applied! Course is now FREE' : 
+                `Coupon applied! ₹${coupon.amount} discount added`;
+            showMessage(message, true);
+        } else {
+            showMessage('Invalid coupon code', false);
+        }
+    });
+
+    // Buy Now button click
+    buyNowBtn.addEventListener('click', function() {
+        const purchaseData = checkPurchaseStatus();
+        if (purchaseData) {
+            if (buyNowBtn.textContent === "Access Course") {
+                window.location.href = "/FearlessStore/enrolled-courses.html";
+            } else {
+                showAlreadyPurchasedPopup(purchaseData);
+            }
+        } else {
+            userInfoModal.classList.remove('hidden');
+        }
+    });
+
+    // Close modals
+    closeUserInfoModal.addEventListener('click', () => userInfoModal.classList.add('hidden'));
+    cancelBtn.addEventListener('click', () => userInfoModal.classList.add('hidden'));
+    closePopupBtn.addEventListener('click', () => alreadyPurchasedPopup.classList.add('hidden'));
+    closeVerificationModal.addEventListener('click', () => verificationModal.classList.add('hidden'));
+    cancelVerificationBtn.addEventListener('click', () => verificationModal.classList.add('hidden'));
+
+    // Close when clicking outside modal
+    [userInfoModal, alreadyPurchasedPopup, verificationModal, certificateModal].forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) modal.classList.add('hidden');
+        });
+    });
+
+    // User info form submission
+    userInfoForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (!validateForm()) return;
+        
+        submitFormData(new FormData(userInfoForm));
+    });
+
+    // Validate form inputs
+    function validateForm() {
+        const fields = {
+            phone: { value: document.getElementById('phone').value, regex: /^\d{10}$/, message: "10-digit phone number" },
+            pincode: { value: document.getElementById('pincode').value, regex: /^\d{6}$/, message: "6-digit pincode" },
+            email: { value: document.getElementById('email').value, regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "valid email" }
+        };
+
+        for (const [field, { value, regex, message }] of Object.entries(fields)) {
+            if (!regex.test(value)) {
+                showResult(`Please enter a ${message}`, false);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Submit form data to Web3Forms
+    function submitFormData(formData) {
+        showResult("Processing...", true);
+        
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(formData))
+        })
+        .then(async response => {
+            const json = await response.json();
+            if (response.ok) {
+                showResult("Details submitted!", true);
+                setTimeout(initiatePayment, 2000);
+            } else {
+                showResult(json.message || "Error submitting form", false);
+            }
+        })
+        .catch(() => showResult("Network error", false));
+    }
+
+    // Initiate payment after form submission
+    function initiatePayment() {
+        userInfoModal.classList.add('hidden');
+        paymentModal.classList.remove('hidden');
+        
+        const amount = parseFloat(formAmount.value);
+        
+        if (amount > 0) {
+            generateQRCode(amount);
+            setupPaymentOptions();
+        } else {
+            completePurchase(); // Free course
+        }
+    }
+
+    // Setup payment options based on device
+    function setupPaymentOptions() {
+        if (isMobile()) {
+            qrCodeContainer.classList.add('hidden');
+            upiPayContainer.classList.remove('hidden');
+        } else {
+            qrCodeContainer.classList.remove('hidden');
+            upiPayContainer.classList.add('hidden');
+        }
+    }
+
+    // Open UPI app button click
+    openUpiAppBtn.addEventListener('click', function() {
+        const amount = parseFloat(formAmount.value);
+        window.location.href = `upi://pay?pa=${UPI_ID}&pn=Skill%20Rathi&am=${amount}&cu=INR`;
+        setTimeout(() => window.open(`https://upi.link/pay?pa=${UPI_ID}&pn=Skill%20Rathi&am=${amount}&cu=INR`, '_blank'), 500);
+    });
+
+    // Verify Payment button click
+    verifyPaymentBtn.addEventListener('click', function() {
+        paymentModal.classList.add('hidden');
+        verificationModal.classList.remove('hidden');
+        resetVerificationModal();
+    });
+
+    // Receipt Drop Area events
+    receiptDropArea.addEventListener('click', function() {
+        receiptUpload.click();
+    });
+
+    receiptDropArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('border-rose-600');
+    });
+
+    receiptDropArea.addEventListener('dragleave', function() {
+        this.classList.remove('border-rose-600');
+    });
+
+    receiptDropArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('border-rose-600');
+        
+        if (e.dataTransfer.files.length) {
+            handleReceiptFile(e.dataTransfer.files[0]);
+        }
+    });
+
+    // Receipt Upload change event
+    receiptUpload.addEventListener('change', function() {
+        if (this.files.length) {
+            handleReceiptFile(this.files[0]);
+        }
+    });
+
+    // Handle receipt file upload
+    function handleReceiptFile(file) {
+        if (!file.type.match('image.*')) {
+            alert('Please upload an image file (JPG, PNG, JPEG)');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            receiptPreview.src = e.target.result;
+            previewArea.classList.remove('hidden');
+            verifyReceiptBtn.disabled = false;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Remove preview button click
+    removePreview.addEventListener('click', function() {
+        previewArea.classList.add('hidden');
+        receiptPreview.src = '#';
+        receiptUpload.value = '';
+        verifyReceiptBtn.disabled = true;
+    });
+
+    // Verify Receipt button click
+    verifyReceiptBtn.addEventListener('click', function() {
+        processingIndicator.classList.remove('hidden');
+        verifyReceiptBtn.disabled = true;
+        
+        // Simulate OCR processing with Tesseract.js
+        setTimeout(function() {
+            verifyReceipt(receiptPreview.src);
+        }, 2000);
+    });
+
+    // Verify Receipt with OCR
+    function verifyReceipt(imageUrl) {
+        Tesseract.recognize(
+            imageUrl,
+            'eng',
+            { logger: m => console.log(m) }
+        ).then(({ data: { text } }) => {
+            processingIndicator.classList.add('hidden');
+            verificationResult.classList.remove('hidden');
+            
+            // Check if UPI ID is in the text
+            const hasUpiId = text.includes(UPI_ID);
+            
+            // Check if date matches current date
+            const hasValidDate = checkReceiptDate(text);
+            
+            if (hasUpiId && hasValidDate) {
+                showVerificationSuccess();
+            } else if (!hasUpiId) {
+                verificationFailedMessage.textContent = "We couldn't verify your payment. Please try again with a clearer image.";
+                showVerificationFailure();
+            } else if (!hasValidDate) {
+                verificationFailed.classList.add('hidden');
+                fraudDetection.classList.remove('hidden');
+                
+                // Ban the user by storing in localStorage
+                localStorage.setItem('bannedUser', 'true');
+            }
+        }).catch(error => {
+            console.error("OCR error:", error);
+            processingIndicator.classList.add('hidden');
+            verificationFailedMessage.textContent = "Error processing receipt. Please try again.";
+            showVerificationFailure();
+        });
+    }
+
+    // Show verification success
+    function showVerificationSuccess() {
+        verificationSuccess.classList.remove('hidden');
+        verificationFailed.classList.add('hidden');
+        fraudDetection.classList.add('hidden');
+        
+        // Auto close after 3 seconds and complete purchase
+        setTimeout(function() {
+            verificationModal.classList.add('hidden');
+            completePurchase();
+        }, 3000);
+    }
+
+    // Show verification failure
+    function showVerificationFailure() {
+        verificationSuccess.classList.add('hidden');
+        verificationFailed.classList.remove('hidden');
+        fraudDetection.classList.add('hidden');
+        verifyReceiptBtn.disabled = false;
+    }
+
+    // Reset verification modal
+    function resetVerificationModal() {
+        previewArea.classList.add('hidden');
+        processingIndicator.classList.add('hidden');
+        verificationResult.classList.add('hidden');
+        verificationSuccess.classList.add('hidden');
+        verificationFailed.classList.add('hidden');
+        fraudDetection.classList.add('hidden');
+        receiptUpload.value = '';
+        receiptPreview.src = '#';
+        verifyReceiptBtn.disabled = true;
+    }
+
+    // Complete purchase and save data
+    function completePurchase() {
+        paymentForm.classList.add('hidden');
+        transactionSuccess.classList.remove('hidden');
+        
+        const userData = {
+            name: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            college: document.getElementById('college').value,
+            city: document.getElementById('city').value,
+            state: document.getElementById('state').value,
+            pincode: document.getElementById('pincode').value,
+            course: "Cyber Security Full Course",
+            amount: formAmount.value,
+            date: new Date().toLocaleDateString('en-IN'),
+            time: new Date().toLocaleTimeString('en-IN'),
+            transactionId: 'TXN' + Math.floor(Math.random() * 1000000000),
+            couponApplied: couponApplied.value,
+            discountType: discountType.value
+        };
+
+        localStorage.setItem('receiptData', JSON.stringify(userData));
+        localStorage.setItem('cyberSecurityPurchase', JSON.stringify({
+            name: userData.name,
+            email: userData.email,
+            amount: userData.amount,
+            date: userData.date
+        }));
+
+        buyNowBtn.textContent = "Access Course";
+        purchaseStatus.classList.remove('hidden');
+    }
+
+    // Retry payment button click
+    retryPaymentBtn.addEventListener('click', function() {
+        transactionFailed.classList.add('hidden');
+        paymentForm.classList.remove('hidden');
+    });
+
+    // Download receipt button click
+    downloadReceiptBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = '/FearlessStore/Cyber/receipt.html';
+    });
+
+    // Check if user is banned on page load
+    if (localStorage.getItem('bannedUser') === 'true') {
+        // Show banned message or redirect
+        alert('You have been banned from this site for submitting fake receipts.');
+        window.location.href = '/FearlessStore/Cyber/banned.html'; // Create this page if needed
+    }
+
+    // Initialize the page
+    init();
+});
+</script>
 </body>
 </html>

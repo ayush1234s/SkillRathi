@@ -67,6 +67,159 @@
             object-fit: cover;
         }
     </style>
+    <!--Hero Section Style-->
+    <style>
+        /* Animated Gradient Text */
+        .animated-gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        /* Gradient Animation */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Typewriter animation */
+        .typewriter {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .typewriter::after {
+            content: "|";
+            position: absolute;
+            right: -10px;
+            color: #3b82f6; /* Matching gradient color */
+            animation: blink 0.7s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Fade-in animation */
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fade-in 1s ease-out forwards;
+        }
+        
+        /* Gradient Button with Hover Effect */
+        .gradient-hover-btn {
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .gradient-hover-btn span:last-child {
+            transition: background-position 0.5s ease;
+            background-size: 200% auto;
+        }
+        
+        .gradient-hover-btn:hover span:last-child {
+            background-position: right center;
+        }
+    </style>
+
+    <!--Style for Course section-->
+    <style>
+        /* Course Card Styles */
+        .course-card {
+            perspective: 1000px;
+            height: 220px;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .course-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 16px;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        /* Search Bar Animation */
+        #courseSearch {
+            transition: all 0.3s ease;
+        }
+        
+        #courseSearch:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+
+    <!--Testimonial-->
+    <style>
+        .testimonial-carousel {
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .testimonial-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .testimonial-carousel > * {
+            scroll-snap-align: start;
+        }
+        
+        .dot-indicator {
+            transition: all 0.3s ease;
+        }
+        
+        .dot-indicator.active {
+            background-color: #4f46e5;
+            transform: scale(1.2);
+        }
+    </style>
 </head>
 <body class="font-sans bg-light">
     <!-- Navbar -->
@@ -136,21 +289,38 @@
 
     
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-16 bg-gradient-to-r from-gray-50 to-gray-100">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0">
-                    <h1 class="text-4xl md:text-5xl font-bold text-secondary mb-4">Welcome to Skill Rathi</h1>
-                    <p class="text-xl text-gray-600 mb-8">Assignments Made Easy Now! Invest your time and get valuable output.</p>
-                    <a href="Slot/bookmyslot.php.html" class="bg-primary text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-red-700 transition inline-block">Book Your Slots Now</a>
-                </div>
-                <div class="md:w-1/2 hidden md:flex justify-center">
-                    <img src="assests/img/hero.avif" alt="Books and College" class="max-w-full h-auto rounded-lg shadow-lg">
-                </div>
+   <!-- Modern Hero Section with Animated Gradient Text & Button -->
+<section class="min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="container mx-auto px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <!-- Animated Gradient Typewriter heading -->
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="animated-gradient-text typewriter" 
+                      data-text='["Welcome to Skill Rathi", "Assignments Made Easy", "Invest Your Time Wisely", "Get Valuable Output"]'></span>
+            </h1>
+            
+            <!-- Gradient Animated Subtitle -->
+            <p class="text-xl md:text-2xl mb-8 opacity-0 animate-fade-in [animation-delay:3.5s] bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+                Your academic success starts here
+            </p>
+            
+            <!-- Gradient Button with Hover Animation -->
+            <div class="opacity-0 animate-fade-in [animation-delay:4s]">
+                <a href="Slot/bookmyslot.php.html" class="gradient-hover-btn relative inline-block text-white px-8 py-4 rounded-full text-lg font-medium overflow-hidden group">
+                    <span class="relative z-10 flex items-center">
+                        Book Your Slots Now
+                        <span class="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    </span>
+                    <span class="absolute inset-0 bg-gradient-to-r from-primary to-red-600 group-hover:from-indigo-600 group-hover:to-primary transition-all duration-500"></span>
+                </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
+
+
 
     <!-- Features Section -->
     <section class="py-16 bg-white">
@@ -197,181 +367,258 @@
         </div>
     </section>
 
-    <!-- Courses Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-secondary mb-2">Courses</h2>
-                <p class="text-xl text-gray-600">Explore Our Offerings</p>
-                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">We offer a wide range of courses to help you excel in your academic journey.</p>
+   <!-- Modern Courses Section with Search -->
+<section class="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent mb-4">Our Learning Resources</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Find exactly what you need to excel in your academic journey</p>
+            
+            <!-- Search Bar -->
+            <div class="mt-8 max-w-md mx-auto relative">
+                <input type="text" id="courseSearch" placeholder="Search: Assignments, Lab Files, Graphic Design..." 
+                       class="w-full px-6 py-3 rounded-full border-0 shadow-md focus:ring-2 focus:ring-primary focus:outline-none transition-all">
+                <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white p-2 rounded-full hover:bg-red-600 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Courses Grid -->
+        <div id="coursesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Assignment Card -->
+            <div class="course-card" data-courses="assignments">
+                <div class="card-inner">
+                    <div class="card-front bg-gradient-to-br from-blue-50 to-blue-100">
+                        <div class="icon-circle bg-blue-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Assignments</h3>
+                        <p class="text-gray-600">Professional assignment solutions</p>
+                    </div>
+                    <div class="card-back bg-gradient-to-br from-blue-100 to-blue-200">
+                        <p class="text-gray-700 mb-4">Get high-quality assignment solutions tailored to your requirements.</p>
+                        <a href="Assignmnet/assignment.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">
+                            Explore <span class="ml-1">→</span>
+                        </a>
+                    </div>
+                </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-                    <img src="assests/img/assignments.png" alt="Assignments" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-secondary mb-4">Assignments</h3>
-                        <a href="Assignmnet/assignment.html" class="text-primary hover:underline " data-course="assignments">Learn More</a>
+            <!-- Lab Files Card -->
+            <div class="course-card" data-courses="lab-files">
+                <div class="card-inner">
+                    <div class="card-front bg-gradient-to-br from-green-50 to-green-100">
+                        <div class="icon-circle bg-green-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Lab Files</h3>
+                        <p class="text-gray-600">Complete practical lab documentation</p>
+                    </div>
+                    <div class="card-back bg-gradient-to-br from-green-100 to-green-200">
+                        <p class="text-gray-700 mb-4">Well-documented lab files with accurate results and analysis.</p>
+                        <a href="Lb-File/labFile.html" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition">
+                            Explore <span class="ml-1">→</span>
+                        </a>
                     </div>
                 </div>
-                
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-                    <img src="assests/img/lab-file (1).png" alt="Practical Lab files" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-secondary mb-4">Practical Lab files</h3>
-                        <a href="Lb-File/labFile.html" class="text-primary hover:underline " data-course="lab-files">Learn More</a>
+            </div>
+            
+            <!-- Graphic Design Card -->
+            <div class="course-card" data-courses="graphic-design">
+                <div class="card-inner">
+                    <div class="card-front bg-gradient-to-br from-purple-50 to-purple-100">
+                        <div class="icon-circle bg-purple-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Graphic Design</h3>
+                        <p class="text-gray-600">Creative design lab files</p>
                     </div>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-                    <img src="assests/img/lab-file (1).png" alt="Graphic Design Lab file" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-secondary mb-4">Graphic Design Lab file</h3>
-                        <a href="graphic/g&d.html" class="text-primary hover:underline " data-course="graphic-design">Learn More</a>
+                    <div class="card-back bg-gradient-to-br from-purple-100 to-purple-200">
+                        <p class="text-gray-700 mb-4">Professional graphic design projects and lab documentation.</p>
+                        <a href="graphic/g&d.html" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">
+                            Explore <span class="ml-1">→</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <!-- No Results Message (Hidden by Default) -->
+        <div id="noResults" class="hidden text-center py-12">
+            <div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="text-xl font-bold text-gray-700 mt-4">No Content Available</h3>
+                <p class="text-gray-600 mt-2">We couldn't find any resources matching "<span id="searchTerm" class="font-medium"></span>"</p>
+                <button id="resetSearch" class="mt-4 px-6 py-2 bg-primary text-white rounded-full hover:bg-red-600 transition">
+                    Show All Resources
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Testimonials Section -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-secondary mb-2">What Our Students Say</h2>
-                <p class="text-xl text-gray-600">Hear from our satisfied customers</p>
-            </div>
+
+
+    <!-- Modern Testimonials Section -->
+<section class="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
             
-            <div class="relative overflow-hidden">
-                <div class="testimonial-slider flex">
-                    <!-- Testimonial 1 -->
-                    <div class="min-w-[300px] md:min-w-[400px] p-6 mx-4 bg-gray-50 rounded-lg shadow-md">
-                        <div class="flex items-center mb-4">
-                            <img src="assests/img/avtaar.png" alt="Rahul Sharma" class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-secondary">Rahul Sharma</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+            <h2 class="text-4xl font-bold text-gray-900 mb-3">
+                <span class="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">Trusted by Students</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Hear what our community says about their learning journey</p>
+        </div>
+        
+        <div class="relative">
+            <!-- Testimonial Cards -->
+            <div class="testimonial-carousel flex overflow-x-auto pb-8 scrollbar-hide space-x-6 px-4">
+                <!-- Testimonial 1 -->
+                <div class="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transform transition-all hover:scale-[1.02]">
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <img src="assests/img/avtaar.png" alt="Rahul Sharma" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-gray-900">Rahul Sharma</h4>
+                                <p class="text-sm text-gray-500">Engineering Student</p>
+                                <div class="flex mt-1">
+                                    <div class="flex text-yellow-400">
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    </div>
+                                    <span class="ml-2 text-xs text-gray-500">2 days ago</span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-gray-600">The quality of assignments I received was exceptional. The team was very professional and delivered before the deadline.</p>
+                        <p class="text-gray-600 italic relative pl-6 before:content-'"' before:absolute before:left-0 before:text-3xl before:text-primary/30 before:font-serif before:top-0">
+                            The quality of assignments I received was exceptional. The team was very professional and delivered before the deadline.
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-gray-500">
+                            <svg class="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            Assignment Help
+                        </div>
                     </div>
-                    
-                    <!-- Testimonial 2 -->
-                    <div class="min-w-[300px] md:min-w-[400px] p-6 mx-4 bg-gray-50 rounded-lg shadow-md">
-                        <div class="flex items-center mb-4">
-                            <img src="assests/img/author2.png" alt="Priya Patel" class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-secondary">Priya Patel</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transform transition-all hover:scale-[1.02]">
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <img src="assests/img/author2.png" alt="Priya Patel" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-gray-900">Priya Patel</h4>
+                                <p class="text-sm text-gray-500">Engineering Student</p>
+                                <div class="flex mt-1">
+                                    <div class="flex text-yellow-400">
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    </div>
+                                    <span class="ml-2 text-xs text-gray-500">1 week ago</span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-gray-600">I was struggling with my assignments until I found Skill Rathi. Their support team is amazing and always available.</p>
+                        <p class="text-gray-600 italic relative pl-6 before:content-'"' before:absolute before:left-0 before:text-3xl before:text-primary/30 before:font-serif before:top-0">
+                            I was struggling with my assignments until I found Skill Rathi. Their support team is amazing and always available.
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-gray-500">
+                            <svg class="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            Academic Support
+                        </div>
                     </div>
-                    
-                    <!-- Testimonial 3 -->
-                    <div class="min-w-[300px] md:min-w-[400px] p-6 mx-4 bg-gray-50 rounded-lg shadow-md">
-                        <div class="flex items-center mb-4">
-                            <img src="assests/img/avtaar.png" alt="Vikram Singh" class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-secondary">Vikram Singh</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transform transition-all hover:scale-[1.02]">
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <img src="assests/img/avtaar.png" alt="Vikram Singh" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-gray-900">Vikram Singh</h4>
+                                <p class="text-sm text-gray-500">Engineering Student</p>
+                                <div class="flex mt-1">
+                                    <div class="flex text-yellow-400">
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    </div>
+                                    <span class="ml-2 text-xs text-gray-500">3 weeks ago</span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-gray-600">The lab files they provided were perfect and helped me score top grades in my practical exams. Highly recommended!</p>
+                        <p class="text-gray-600 italic relative pl-6 before:content-'"' before:absolute before:left-0 before:text-3xl before:text-primary/30 before:font-serif before:top-0">
+                            The lab files they provided were perfect and helped me score top grades in my practical exams. Highly recommended!
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-gray-500">
+                            <svg class="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            Lab Files
+                        </div>
                     </div>
-                    
-                    <!-- Testimonial 4 -->
-                    <div class="min-w-[300px] md:min-w-[400px] p-6 mx-4 bg-gray-50 rounded-lg shadow-md">
-                        <div class="flex items-center mb-4">
-                            <img src="assests/img/author2.png" alt="Neha Gupta" class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-secondary">Neha Gupta</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                </div>
+                
+                <!-- Testimonial 4 -->
+                <div class="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transform transition-all hover:scale-[1.02]">
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <img src="assests/img/author2.png" alt="Neha Gupta" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-gray-900">Neha Gupta</h4>
+                                <p class="text-sm text-gray-500">Engineering Student</p>
+                                <div class="flex mt-1">
+                                    <div class="flex text-yellow-400">
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    </div>
+                                    <span class="ml-2 text-xs text-gray-500">1 month ago</span>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-gray-600">The graphic design lab files were exactly what I needed. The team understood my requirements perfectly.</p>
-                    </div>
-                    
-                    <!-- Testimonial 5 -->
-                    <div class="min-w-[300px] md:min-w-[400px] p-6 mx-4 bg-gray-50 rounded-lg shadow-md">
-                        <div class="flex items-center mb-4">
-                            <img src="assests/img/avtaar.png" alt="Arjun Reddy" class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-secondary">Arjun Singh</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                            </div>
+                        <p class="text-gray-600 italic relative pl-6 before:content-'"' before:absolute before:left-0 before:text-3xl before:text-primary/30 before:font-serif before:top-0">
+                            The graphic design lab files were exactly what I needed. The team understood my requirements perfectly.
+                        </p>
+                        <div class="mt-4 flex items-center text-sm text-gray-500">
+                            <svg class="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                            Graphic Design
                         </div>
-                        <p class="text-gray-600">Fast delivery and excellent quality. The assignments were well-researched and properly formatted.</p>
-                    </div>
-                    
-                    <!-- Duplicate testimonials for continuous scrolling -->
-                    <div class="min-w-[300px] md:min-w-[400px] p-6 mx-4 bg-gray-50 rounded-lg shadow-md">
-                        <div class="flex items-center mb-4">
-                            <img src="assests/img/avtaar.png" alt="Rahul Sharma" class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-secondary">Rahul Sharma</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-600">The quality of assignments I received was exceptional. The team was very professional and delivered before the deadline.</p>
-                    </div>
-                    
-                    <div class="min-w-[300px] md:min-w-[400px] p-6 mx-4 bg-gray-50 rounded-lg shadow-md">
-                        <div class="flex items-center mb-4">
-                            <img src="assests/img/author2.png" alt="Priya Patel" class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-secondary">Prateeksha Katiyaar</h4>
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-600">I was struggling with my assignments until I found Skill Rathi. Their support team is amazing and always available.</p>
                     </div>
                 </div>
             </div>
+            
+            <!-- Navigation Dots -->
+            <div class="flex justify-center mt-8 space-x-2">
+                <button class="w-3 h-3 rounded-full bg-primary/30 dot-indicator"></button>
+                <button class="w-3 h-3 rounded-full bg-gray-300 dot-indicator"></button>
+                <button class="w-3 h-3 rounded-full bg-gray-300 dot-indicator"></button>
+                <button class="w-3 h-3 rounded-full bg-gray-300 dot-indicator"></button>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
+
+
 
     <!-- Footer -->
     <footer class="bg-secondary text-white py-12">
@@ -422,11 +669,23 @@
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-phone-alt mt-1 mr-2"></i>
-                            <span>+91 8006968576</span>
+                            <span><a href="tel:+91 8006968576">+91 8006968576</a></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span><a href="tel:+91 8920729358">+91 8920729358</a></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span><a href="tel:+91 6306372172">+91 6306372172</a></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span><a href="tel:+91 6396081309">+91 6396081309</a></span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-envelope mt-1 mr-2"></i>
-                            <span>info@fearlessassignments.com</span>
+                            <span>skillrathi@gmail.com</span>
                         </li>
                     </ul>
                 </div>
@@ -442,5 +701,145 @@
 
     <!-- JavaScript -->
     <script src="assests/JS/main.js"></script>
+<!--Course Section script-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('courseSearch');
+        const coursesContainer = document.getElementById('coursesContainer');
+        const noResults = document.getElementById('noResults');
+        const searchTerm = document.getElementById('searchTerm');
+        const resetSearch = document.getElementById('resetSearch');
+        const courseCards = document.querySelectorAll('.course-card');
+        
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchValue = this.value.toLowerCase().trim();
+            
+            if (searchValue === '') {
+                coursesContainer.classList.remove('hidden');
+                noResults.classList.add('hidden');
+                courseCards.forEach(card => card.classList.remove('hidden'));
+                return;
+            }
+            
+            let hasResults = false;
+            
+            courseCards.forEach(card => {
+                const cardType = card.getAttribute('data-courses').toLowerCase();
+                if (cardType.includes(searchValue) || 
+                    card.textContent.toLowerCase().includes(searchValue)) {
+                    card.classList.remove('hidden');
+                    hasResults = true;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            if (!hasResults) {
+                coursesContainer.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                searchTerm.textContent = searchValue;
+            } else {
+                coursesContainer.classList.remove('hidden');
+                noResults.classList.add('hidden');
+            }
+        });
+        
+        // Reset search
+        resetSearch.addEventListener('click', function() {
+            searchInput.value = '';
+            coursesContainer.classList.remove('hidden');
+            noResults.classList.add('hidden');
+            courseCards.forEach(card => card.classList.remove('hidden'));
+        });
+    });
+</script>
+
+<!--Testmonial-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.querySelector('.testimonial-carousel');
+        const dots = document.querySelectorAll('.dot-indicator');
+        let currentIndex = 0;
+        
+        // Update dot indicators
+        function updateDots(index) {
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('bg-primary', 'active');
+                    dot.classList.remove('bg-gray-300');
+                } else {
+                    dot.classList.remove('bg-primary', 'active');
+                    dot.classList.add('bg-gray-300');
+                }
+            });
+        }
+        
+        // Click handler for dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                const scrollPosition = index * (320 + 24); // card width + gap
+                carousel.scrollTo({
+                    left: scrollPosition,
+                    behavior: 'smooth'
+                });
+                updateDots(index);
+            });
+        });
+        
+        // Auto-scroll (optional)
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % 4;
+            const scrollPosition = currentIndex * (320 + 24);
+            carousel.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+            updateDots(currentIndex);
+        }, 5000);
+    });
+</script>
+
+    <!--Hero Section Script-->
+    <script>
+        // Typewriter effect implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            const typewriterElement = document.querySelector('.typewriter');
+            const texts = JSON.parse(typewriterElement.getAttribute('data-text'));
+            let currentTextIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+            
+            function typeWriter() {
+                const currentText = texts[currentTextIndex];
+                
+                if (isDeleting) {
+                    typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    typingSpeed = 50;
+                } else {
+                    typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    typingSpeed = 100;
+                }
+                
+                if (!isDeleting && charIndex === currentText.length) {
+                    isDeleting = true;
+                    typingSpeed = 1500;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    currentTextIndex = (currentTextIndex + 1) % texts.length;
+                    typingSpeed = 500;
+                }
+                
+                setTimeout(typeWriter, typingSpeed);
+            }
+            
+            // Start the typewriter effect after a brief delay
+            setTimeout(typeWriter, 1000);
+        });
+    </script>
 </body>
 </html>

@@ -67,6 +67,41 @@
             }
         }
     </style>
+
+    <!--Course Style-->
+    <style>
+        .course-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .course-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #4f46e5, #ec4899);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .course-card:hover::after {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body class="font-sans bg-light">
  <!-- Navbar -->
@@ -153,7 +188,7 @@
                 <div class="min-w-full md:min-w-[50%] px-4">
                     <div class="bg-gradient-to-r from-primary to-red-800 text-white rounded-lg p-6 h-40 flex items-center">
                         <div class="w-2/3">
-                            <h3 class="text-xl md:text-2xl font-bold mb-2">Cyber Security Course</h3>
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">Offensive Hacking Course</h3>
                             <p class="text-sm md:text-base mb-4">Learn from industry experts. Limited time offer!</p>
                             <a href="/FearlessStore/Cyber/cyberCourse.html" class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">Explore Now</a>
                         </div>
@@ -225,31 +260,91 @@
         </div>
     </div>
 
-    <!-- Courses Grid -->
-    <div class="py-8 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold text-secondary mb-6">Available Courses</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Cyber Security Course Card -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition course-card" data-category="cyber">
-                    <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold text-secondary">Cyber Security Full Course</h3>
-                            <div class="text-primary font-bold">
-                                <i class="fas fa-rupee-sign"></i> <strike style="color: blueviolet;">2999</strike>&nbsp; 2499
-                            </div>
-                        </div>
-                        <p class="text-gray-600 mb-4">Comprehensive course covering all aspects of cyber security from basics to advanced topics.</p>
-                        <a href="/FearlessStore/Cyber/cyberCourse.html" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition inline-block">Access Course</a>
-                    </div>
+    <!-- Premium Courses Section -->
+<div class="py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">
+            <span class="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                Available Courses
+            </span>
+            <span class="block mt-2 text-sm font-normal text-gray-500">Master in-demand skills with our expert-led courses</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Cyber Security Course Card -->
+            <div class="course-card group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-primary/20 relative">
+                <!-- Popular Badge -->
+                <div class="absolute top-4 right-4 z-10">
+                    <span class="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
+                        </svg>
+                        Popular
+                    </span>
                 </div>
                 
+                <!-- Course Image -->
+                <div class="relative h-40 overflow-hidden">
+                    <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 text-white font-bold text-lg drop-shadow-md">Offensive Hacking</div>
+                </div>
                 
+                <!-- Course Details -->
+                <div class="p-5">
+                    <!-- Rating and Price -->
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center bg-gray-100 px-2 py-1 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <span class="ml-1 text-xs font-medium text-gray-700">4.9</span>
+                            <span class="mx-1 text-gray-400">|</span>
+                            <span class="text-xs text-gray-500">128 reviews</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-400 line-through">₹2999</span>
+                            <span class="ml-2 font-bold text-primary">₹2499</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Description -->
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+                        Master ethical hacking with hands-on labs covering penetration testing, vulnerability assessment, and security tools used by professionals.
+                    </p>
+                    
+                    <!-- Metadata -->
+                    <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            32 Hours
+                        </div>
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            Lifetime Access
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <!-- CTA Button -->
+                    <a href="/FearlessStore/Cyber/cyberCourse.html" class="w-full block text-center px-4 py-2 bg-gradient-to-r from-primary to-red-600 text-white text-sm font-medium rounded-lg hover:shadow-md transition-all hover:from-primary/90 hover:to-red-600/90">
+                        Enroll Now
+                    </a>
+                </div>
             </div>
+            
+            <!-- Additional Course Cards Would Go Here -->
         </div>
     </div>
+</div>
+
+
 
    
      <!-- Footer -->
@@ -305,7 +400,7 @@
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-envelope mt-1 mr-2"></i>
-                            <span>info@fearlessassignments.com</span>
+                            <span>skillrathi@gmail.com</span>
                         </li>
                     </ul>
                 </div>

@@ -1,21 +1,35 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
+    // ========== CONSTANTS ========== //
+    const BASE_PRICE = 2499;
+    const UPI_ID = "8920729358@ptaxis";
+    const validCoupons = {
+        'CYBER500': { type: 'partial', amount: 500 },
+        'SKILLC500': { type: 'partial', amount: 500 },
+        'INDIA500': { type: 'partial', amount: 500 },
+        'HACK500': { type: 'partial', amount: 500 },
+        'RATH500': { type: 'partial', amount: 500 },
+        'GICRISE': { type: 'full', amount: BASE_PRICE }
+    };
+
+    // ========== DOM ELEMENTS ========== //
     const buyNowBtn = document.getElementById('buyNowBtn');
     const userInfoModal = document.getElementById('userInfoModal');
     const paymentModal = document.getElementById('paymentModal');
+    const verificationModal = document.getElementById('verificationModal');
     const userInfoForm = document.getElementById('userInfoForm');
     const paymentForm = document.getElementById('paymentForm');
     const transactionSuccess = document.getElementById('transactionSuccess');
     const transactionFailed = document.getElementById('transactionFailed');
     const downloadReceiptBtn = document.getElementById('downloadReceiptBtn');
     const retryPaymentBtn = document.getElementById('retryPaymentBtn');
-    const payBtn = document.getElementById('payBtn');
+    const verifyPaymentBtn = document.getElementById('verifyPaymentBtn');
     const result = document.getElementById('result');
     const applyCouponBtn = document.getElementById('applyCouponBtn');
     const couponCode = document.getElementById('couponCode');
     const couponMessage = document.getElementById('couponMessage');
     const discountRow = document.getElementById('discountRow');
+    const fullDiscountRow = document.getElementById('fullDiscountRow');
     const totalPrice = document.getElementById('totalPrice');
     const modalTotalPrice = document.getElementById('modalTotalPrice');
     const paymentAmount = document.getElementById('paymentAmount');
@@ -33,282 +47,409 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentNote = document.getElementById('paymentNote');
     const purchaseStatus = document.getElementById('purchaseStatus');
     const couponApplied = document.getElementById('couponApplied');
-    
-    // Check if user already purchased the course
-    function checkPurchaseStatus() {
-        const purchaseData = localStorage.getItem('cyberSecurityPurchase');
+    const discountType = document.getElementById('discountType');
+    const receiptDropArea = document.getElementById('receiptDropArea');
+    const receiptUpload = document.getElementById('receiptUpload');
+    const previewArea = document.getElementById('previewArea');
+    const receiptPreview = document.getElementById('receiptPreview');
+    const removePreview = document.getElementById('removePreview');
+    const processingIndicator = document.getElementById('processingIndicator');
+    const verificationResult = document.getElementById('verificationResult');
+    const verificationSuccess = document.getElementById('verificationSuccess');
+    const verificationFailed = document.getElementById('verificationFailed');
+    const verifyReceiptBtn = document.getElementById('verifyReceiptBtn');
+    const cancelVerificationBtn = document.getElementById('cancelVerificationBtn');
+    const closeVerificationModal = document.getElementById('closeVerificationModal');
+    const closeUserInfoModal = document.getElementById('closeUserInfoModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const certificateModal = document.getElementById('certificateModal');
+
+    // ========== INITIALIZATION ========== //
+    function init() {
+        // Check purchase status on page load
+        const purchaseData = checkPurchaseStatus();
         if (purchaseData) {
-            return JSON.parse(purchaseData);
+            buyNowBtn.textContent = "Access Course";
+            purchaseStatus.classList.remove('hidden');
         }
-        return null;
+
+        // Initialize price display
+        const initialPriceInfo = calculateTotalPrice(BASE_PRICE, null, 0);
+        updatePriceDisplays(initialPriceInfo, null);
     }
-    
-    // Check and update purchase status on page load
-    const purchaseData = checkPurchaseStatus();
-    if (purchaseData) {
-        buyNowBtn.textContent = "Access Course";
-        purchaseStatus.classList.remove('hidden');
-    }
-    
+
+    // ========== HELPER FUNCTIONS ========== //
+
     // Toggle mobile menu
     mobileMenuBtn.addEventListener('click', function() {
         mobileMenu.classList.toggle('hidden');
     });
-    
+
     // Toggle module content
     window.toggleModule = function(moduleHeader) {
         const moduleContent = moduleHeader.nextElementSibling;
         const chevron = moduleHeader.querySelector('i');
-        
-        if (moduleContent.classList.contains('hidden')) {
-            moduleContent.classList.remove('hidden');
-            chevron.classList.remove('fa-chevron-down');
-            chevron.classList.add('fa-chevron-up');
-        } else {
-            moduleContent.classList.add('hidden');
-            chevron.classList.remove('fa-chevron-up');
-            chevron.classList.add('fa-chevron-down');
-        }
+        moduleContent.classList.toggle('hidden');
+        chevron.classList.toggle('fa-chevron-down');
+        chevron.classList.toggle('fa-chevron-up');
     }
-    
-    // Valid coupon codes with flat ₹500 discount
-    const validCoupons = [
-        'CYBER500', 
-        'SKILLC500',
-        'INDIA500',
-        'CYBERI500',
-        'RATH500'
-    ];
-    
+
+    // Certificate modal functions
+    window.openCertificateModal = function() {
+        certificateModal.classList.remove('hidden');
+    }
+
+    window.closeCertificateModal = function() {
+        certificateModal.classList.add('hidden');
+    }
+
     // Check if device is mobile
     function isMobile() {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
-    
-    // Generate QR Code
+
+    // Generate QR Code for payment
     function generateQRCode(amount) {
         const qrCodeContainer = document.getElementById('qrcode');
         qrCodeContainer.innerHTML = '';
-        
-        // Create QR code for UPI payment
-        const upiId = "7895896594@ptyes";
-        const merchantName = "Skill Rathi";
-        const upiLink = `upi://pay?pa=${upiId}&pn=${merchantName}&am=${amount}&cu=INR`;
-        
-        // Generate QR code
+        const upiLink = `upi://pay?pa=${UPI_ID}&pn=Skill%20Rathi&am=${amount}&cu=INR`;
         const qr = qrcode(0, 'L');
         qr.addData(upiLink);
         qr.make();
         qrCodeContainer.innerHTML = qr.createImgTag(5);
     }
-    
-    // Calculate total price
-    function calculateTotalPrice(basePrice, hasDiscount) {
-        const tax = basePrice * 0.00; // 5% tax
-        let totalPrice = basePrice + tax;
-        
-        if (hasDiscount) {
-            totalPrice -= 500; // Flat ₹500 discount
+
+    // Calculate total price with discounts
+    function calculateTotalPrice(basePrice, discountType, discountAmount) {
+        const tax = 0; // 0% tax
+        let total = basePrice + tax;
+        let discount = 0;
+
+        if (discountType === 'partial') {
+            discount = discountAmount;
+            total -= discount;
+        } else if (discountType === 'full') {
+            discount = discountAmount;
+            total = 0;
         }
-        
-        return {
-            basePrice: basePrice,
-            tax: tax,
-            discount: hasDiscount ? 500 : 0,
-            total: totalPrice
-        };
+
+        return { basePrice, tax, discount, total };
     }
-    
-    // Update price displays
-    function updatePriceDisplays(priceInfo, hasDiscount) {
-        // Update discount row visibility
-        if (hasDiscount) {
-            discountRow.classList.remove('hidden');
-            couponApplied.value = "Yes";
-        } else {
-            discountRow.classList.add('hidden');
-            couponApplied.value = "No";
-        }
+
+    // Update all price displays
+    function updatePriceDisplays(priceInfo, discountTypeValue) {
+        // Update discount rows
+        discountRow.classList.toggle('hidden', discountTypeValue !== 'partial');
+        fullDiscountRow.classList.toggle('hidden', discountTypeValue !== 'full');
         
-        // Update total price displays
-        totalPrice.textContent = `₹${priceInfo.total.toFixed(2)}`;
-        modalTotalPrice.textContent = `₹${priceInfo.total.toFixed(2)}`;
-        paymentAmount.textContent = `₹${priceInfo.total.toFixed(2)}`;
+        // Update form values
+        couponApplied.value = discountTypeValue ? "Yes" : "No";
+        discountType.value = discountTypeValue || "None";
+
+        // Format price display
+        const formattedPrice = priceInfo.total === 0 ? 
+            '₹0 <span class="free-course-badge">FREE</span>' : 
+            `₹${priceInfo.total.toFixed(2)}`;
+
+        totalPrice.innerHTML = formattedPrice;
+        modalTotalPrice.innerHTML = formattedPrice;
+        paymentAmount.innerHTML = formattedPrice;
         formAmount.value = priceInfo.total.toFixed(2);
     }
-    
-    // Apply coupon code
+
+    // Check purchase status from localStorage
+    function checkPurchaseStatus() {
+        const purchaseData = localStorage.getItem('cyberSecurityPurchase');
+        return purchaseData ? JSON.parse(purchaseData) : null;
+    }
+
+    // Show message for coupon application
+    function showMessage(message, isSuccess) {
+        couponMessage.textContent = message;
+        couponMessage.className = 'text-sm mt-1 ' + (isSuccess ? 'text-green-600' : 'text-red-600');
+        couponMessage.classList.remove('hidden');
+        setTimeout(() => couponMessage.classList.add('hidden'), 5000);
+    }
+
+    // Show result message in forms
+    function showResult(message, isSuccess) {
+        result.textContent = message;
+        result.className = isSuccess ? "success" : "error";
+        result.style.display = "block";
+    }
+
+    // Show already purchased popup
+    function showAlreadyPurchasedPopup(data) {
+        popupName.textContent = data.name;
+        popupEmail.textContent = data.email;
+        popupAmount.textContent = data.amount;
+        alreadyPurchasedPopup.classList.remove('hidden');
+    }
+
+    // ========== EVENT HANDLERS ========== //
+
+    // Apply coupon button click
     applyCouponBtn.addEventListener('click', function() {
         const code = couponCode.value.trim().toUpperCase();
         
-        if (code === '') {
-            showCouponMessage('Please enter a coupon code', false);
+        if (!code) {
+            showMessage('Please enter a coupon code', false);
             return;
         }
-        
-        if (validCoupons.includes(code)) {
-            // Apply ₹500 discount
-            const priceInfo = calculateTotalPrice(2499, true);
-            updatePriceDisplays(priceInfo, true);
+
+        if (validCoupons[code]) {
+            const coupon = validCoupons[code];
+            const priceInfo = calculateTotalPrice(BASE_PRICE, coupon.type, coupon.amount);
+            updatePriceDisplays(priceInfo, coupon.type);
             
-            showCouponMessage('Coupon applied successfully! Flat ₹500 discount added.', true);
+            const message = coupon.type === 'full' ? 
+                '100% discount applied! Course is now FREE' : 
+                `Coupon applied! ₹${coupon.amount} discount added`;
+            showMessage(message, true);
         } else {
-            showCouponMessage('Invalid coupon code', false);
+            showMessage('Invalid coupon code', false);
         }
     });
-    
-    function showCouponMessage(message, isSuccess) {
-        couponMessage.textContent = message;
-        couponMessage.classList.remove('hidden');
-        if (isSuccess) {
-            couponMessage.classList.remove('text-red-600');
-            couponMessage.classList.add('text-green-600');
-        } else {
-            couponMessage.classList.remove('text-green-600');
-            couponMessage.classList.add('text-red-600');
-        }
-    }
-    
-    // Open user info modal when Buy Now is clicked
+
+    // Buy Now button click
     buyNowBtn.addEventListener('click', function() {
-        // Check if user already purchased the course
         const purchaseData = checkPurchaseStatus();
         if (purchaseData) {
-            // Show already purchased popup or redirect to enrolled courses
             if (buyNowBtn.textContent === "Access Course") {
-                window.location.href = "enrolled-courses.html";
+                window.location.href = "/FearlessStore/enrolled-courses.html";
             } else {
-                popupName.textContent = purchaseData.name;
-                popupEmail.textContent = purchaseData.email;
-                popupAmount.textContent = purchaseData.amount;
-                alreadyPurchasedPopup.classList.remove('hidden');
+                showAlreadyPurchasedPopup(purchaseData);
             }
         } else {
             userInfoModal.classList.remove('hidden');
         }
     });
 
-    // Close User Info Modal
-    const closeUserInfoModal = document.getElementById('closeUserInfoModal');
-    const cancelBtn = document.getElementById('cancelBtn');
+    // Close modals
+    closeUserInfoModal.addEventListener('click', () => userInfoModal.classList.add('hidden'));
+    cancelBtn.addEventListener('click', () => userInfoModal.classList.add('hidden'));
+    closePopupBtn.addEventListener('click', () => alreadyPurchasedPopup.classList.add('hidden'));
+    closeVerificationModal.addEventListener('click', () => verificationModal.classList.add('hidden'));
+    cancelVerificationBtn.addEventListener('click', () => verificationModal.classList.add('hidden'));
 
-    function closeModal() {
-        userInfoModal.classList.add('hidden');
-    }
+    // Close when clicking outside modal
+    [userInfoModal, alreadyPurchasedPopup, verificationModal, certificateModal].forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) modal.classList.add('hidden');
+        });
+    });
 
-    closeUserInfoModal.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
-    
-    // Close modal when clicking outside
-    userInfoModal.addEventListener('click', function(e) {
-        if (e.target === userInfoModal) {
-            closeModal();
-        }
-    });
-    
-    // Close already purchased popup
-    closePopupBtn.addEventListener('click', function() {
-        alreadyPurchasedPopup.classList.add('hidden');
-    });
-    
-    // Submit user information form
+    // User info form submission
     userInfoForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const formData = new FormData(userInfoForm);
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
+        if (!validateForm()) return;
+        
+        submitFormData(new FormData(userInfoForm));
+    });
 
-        result.innerHTML = "Please wait..."
-        result.style.display = "block";
-        result.className = "";
-        result.classList.add("success");
+    // Validate form inputs
+    function validateForm() {
+        const fields = {
+            phone: { value: document.getElementById('phone').value, regex: /^\d{10}$/, message: "10-digit phone number" },
+            pincode: { value: document.getElementById('pincode').value, regex: /^\d{6}$/, message: "6-digit pincode" },
+            email: { value: document.getElementById('email').value, regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "valid email" }
+        };
 
+        for (const [field, { value, regex, message }] of Object.entries(fields)) {
+            if (!regex.test(value)) {
+                showResult(`Please enter a ${message}`, false);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Submit form data to Web3Forms
+    function submitFormData(formData) {
+        showResult("Processing...", true);
+        
         fetch('https://api.web3forms.com/submit', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: json
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(formData))
         })
-        .then(async (response) => {
-            let json = await response.json();
-            if (response.status == 200) {
-                result.innerHTML = "Details submitted successfully! Redirecting to payment...";
-                result.className = "";
-                result.classList.add("success");
-                
-                setTimeout(() => {
-                    userInfoModal.classList.add('hidden');
-                    paymentModal.classList.remove('hidden');
-                    
-                    // Generate QR code with the amount
-                    const amount = paymentAmount.textContent.replace('₹', '');
-                    generateQRCode(amount);
-                    
-                    // Show appropriate payment option based on device
-                    if (isMobile()) {
-                        qrCodeContainer.classList.add('hidden');
-                        upiPayContainer.classList.remove('hidden');
-                        payBtn.classList.add('hidden');
-                        paymentNote.classList.add('hidden');
-                    } else {
-                        qrCodeContainer.classList.remove('hidden');
-                        upiPayContainer.classList.add('hidden');
-                        payBtn.classList.remove('hidden');
-                        paymentNote.classList.remove('hidden');
-                        
-                        // Enable pay button after 2 minutes
-                        setTimeout(() => {
-                            payBtn.disabled = false;
-                            paymentNote.textContent = "Payment button is now enabled. Click PAY to complete your purchase.";
-                        }, 120000); // 2 minutes = 120000 milliseconds
-                    }
-                }, 2000);
+        .then(async response => {
+            const json = await response.json();
+            if (response.ok) {
+                showResult("Details submitted!", true);
+                setTimeout(initiatePayment, 2000);
             } else {
-                console.log(response);
-                result.innerHTML = json.message;
-                result.className = "";
-                result.classList.add("error");
+                showResult(json.message || "Error submitting form", false);
             }
         })
-        .catch(error => {
-            console.log(error);
-            result.innerHTML = "Something went wrong!";
-            result.className = "";
-            result.classList.add("error");
-        });
-    });
-    
-    // Open UPI app on mobile
+        .catch(() => showResult("Network error", false));
+    }
+
+    // Initiate payment after form submission
+    function initiatePayment() {
+        userInfoModal.classList.add('hidden');
+        paymentModal.classList.remove('hidden');
+        
+        const amount = parseFloat(formAmount.value);
+        
+        if (amount > 0) {
+            generateQRCode(amount);
+            setupPaymentOptions();
+        } else {
+            completePurchase(); // Free course
+        }
+    }
+
+    // Setup payment options based on device
+    function setupPaymentOptions() {
+        if (isMobile()) {
+            qrCodeContainer.classList.add('hidden');
+            upiPayContainer.classList.remove('hidden');
+        } else {
+            qrCodeContainer.classList.remove('hidden');
+            upiPayContainer.classList.add('hidden');
+        }
+    }
+
+    // Open UPI app button click
     openUpiAppBtn.addEventListener('click', function() {
-        const amount = paymentAmount.textContent.replace('₹', '');
-        const upiLink = `upi://pay?pa=7895896594@ptyes&pn=Fearless%20Assignments&am=${amount}&cu=INR`;
-        
-        // Try to open UPI app
-        window.location.href = upiLink;
-        
-        // Fallback if UPI app not installed
-        setTimeout(function() {
-            window.open(`https://upi.link/pay?pa=7895896594@ptyes&pn=Fearless%20Assignments&am=${amount}&cu=INR`, '_blank');
-        }, 500);
-        
-        // Listen for payment status when user returns to the page
-        window.addEventListener('focus', function() {
-            // In a real implementation, you would check payment status with your backend
-            // For demo purposes, we'll assume payment was successful
-            showPaymentSuccess();
-        }, { once: true });
+        const amount = parseFloat(formAmount.value);
+        window.location.href = `upi://pay?pa=${UPI_ID}&pn=Skill%20Rathi&am=${amount}&cu=INR`;
+        setTimeout(() => window.open(`https://upi.link/pay?pa=${UPI_ID}&pn=Skill%20Rathi&am=${amount}&cu=INR`, '_blank'), 500);
     });
-    
-    // Show payment success
-    function showPaymentSuccess() {
+
+    // Verify Payment button click
+    verifyPaymentBtn.addEventListener('click', function() {
+        paymentModal.classList.add('hidden');
+        verificationModal.classList.remove('hidden');
+        resetVerificationModal();
+    });
+
+    // Receipt Drop Area events
+    receiptDropArea.addEventListener('click', function() {
+        receiptUpload.click();
+    });
+
+    receiptDropArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('border-rose-600');
+    });
+
+    receiptDropArea.addEventListener('dragleave', function() {
+        this.classList.remove('border-rose-600');
+    });
+
+    receiptDropArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('border-rose-600');
+        
+        if (e.dataTransfer.files.length) {
+            handleReceiptFile(e.dataTransfer.files[0]);
+        }
+    });
+
+    // Receipt Upload change event
+    receiptUpload.addEventListener('change', function() {
+        if (this.files.length) {
+            handleReceiptFile(this.files[0]);
+        }
+    });
+
+    // Handle receipt file upload
+    function handleReceiptFile(file) {
+        if (!file.type.match('image.*')) {
+            alert('Please upload an image file (JPG, PNG, JPEG)');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            receiptPreview.src = e.target.result;
+            previewArea.classList.remove('hidden');
+            verifyReceiptBtn.disabled = false;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Remove preview button click
+    removePreview.addEventListener('click', function() {
+        previewArea.classList.add('hidden');
+        receiptPreview.src = '#';
+        receiptUpload.value = '';
+        verifyReceiptBtn.disabled = true;
+    });
+
+    // Verify Receipt button click
+    verifyReceiptBtn.addEventListener('click', function() {
+        processingIndicator.classList.remove('hidden');
+        verifyReceiptBtn.disabled = true;
+        
+        // Simulate OCR processing with Tesseract.js
+        setTimeout(function() {
+            verifyReceipt(receiptPreview.src);
+        }, 2000);
+    });
+
+    // Verify Receipt with OCR
+    function verifyReceipt(imageUrl) {
+        Tesseract.recognize(
+            imageUrl,
+            'eng',
+            { logger: m => console.log(m) }
+        ).then(({ data: { text } }) => {
+            processingIndicator.classList.add('hidden');
+            verificationResult.classList.remove('hidden');
+            
+            // Check if UPI ID is in the text
+            if (text.includes(UPI_ID)) {
+                showVerificationSuccess();
+            } else {
+                showVerificationFailure();
+            }
+        }).catch(error => {
+            console.error("OCR error:", error);
+            processingIndicator.classList.add('hidden');
+            showVerificationFailure();
+        });
+    }
+
+    // Show verification success
+    function showVerificationSuccess() {
+        verificationSuccess.classList.remove('hidden');
+        verificationFailed.classList.add('hidden');
+        
+        // Auto close after 3 seconds and complete purchase
+        setTimeout(function() {
+            verificationModal.classList.add('hidden');
+            completePurchase();
+        }, 3000);
+    }
+
+    // Show verification failure
+    function showVerificationFailure() {
+        verificationSuccess.classList.add('hidden');
+        verificationFailed.classList.remove('hidden');
+        verifyReceiptBtn.disabled = false;
+    }
+
+    // Reset verification modal
+    function resetVerificationModal() {
+        previewArea.classList.add('hidden');
+        processingIndicator.classList.add('hidden');
+        verificationResult.classList.add('hidden');
+        verificationSuccess.classList.add('hidden');
+        verificationFailed.classList.add('hidden');
+        receiptUpload.value = '';
+        receiptPreview.src = '#';
+        verifyReceiptBtn.disabled = true;
+    }
+
+    // Complete purchase and save data
+    function completePurchase() {
         paymentForm.classList.add('hidden');
         transactionSuccess.classList.remove('hidden');
-        transactionFailed.classList.add('hidden');
         
-        // Store user data in localStorage for receipt and purchase status
         const userData = {
             name: document.getElementById('fullName').value,
             email: document.getElementById('email').value,
@@ -318,65 +459,38 @@ document.addEventListener('DOMContentLoaded', function() {
             state: document.getElementById('state').value,
             pincode: document.getElementById('pincode').value,
             course: "Cyber Security Full Course",
-            amount: paymentAmount.textContent,
-            date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+            amount: formAmount.value,
+            date: new Date().toLocaleDateString('en-IN'),
             time: new Date().toLocaleTimeString('en-IN'),
             transactionId: 'TXN' + Math.floor(Math.random() * 1000000000),
-            couponApplied: couponApplied.value
+            couponApplied: couponApplied.value,
+            discountType: discountType.value
         };
+
         localStorage.setItem('receiptData', JSON.stringify(userData));
-        
-        // Store purchase status
         localStorage.setItem('cyberSecurityPurchase', JSON.stringify({
             name: userData.name,
             email: userData.email,
             amount: userData.amount,
             date: userData.date
         }));
+
+        buyNowBtn.textContent = "Access Course";
+        purchaseStatus.classList.remove('hidden');
     }
-    
-    // Show payment failure
-    function showPaymentFailure() {
-        paymentForm.classList.add('hidden');
-        transactionSuccess.classList.add('hidden');
-        transactionFailed.classList.remove('hidden');
-    }
-    
-    // Simulate payment
-    payBtn.addEventListener('click', function() {
-        // Show processing state
-        payBtn.disabled = true;
-        payBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
-        
-        // Simulate payment processing (5 seconds for demo)
-        setTimeout(function() {
-            // Randomly determine if payment was successful or failed (for demo purposes)
-            const isSuccessful = Math.random() > 0.3; // 70% chance of success
-            
-            if (isSuccessful) {
-                showPaymentSuccess();
-            } else {
-                showPaymentFailure();
-            }
-        }, 5000);
-    });
-    
-    // Retry payment
+
+    // Retry payment button click
     retryPaymentBtn.addEventListener('click', function() {
         transactionFailed.classList.add('hidden');
         paymentForm.classList.remove('hidden');
-        payBtn.disabled = false;
-        payBtn.innerHTML = 'PAY';
     });
-    
-    // Download receipt
+
+    // Download receipt button click
     downloadReceiptBtn.addEventListener('click', function(e) {
         e.preventDefault();
         window.location.href = '/FearlessStore/Cyber/receipt.html';
     });
-    
-    // Initialize with base price and tax calculation
-    const initialPriceInfo = calculateTotalPrice(2499, false);
-    updatePriceDisplays(initialPriceInfo, false);
+
+    // Initialize the page
+    init();
 });
-    

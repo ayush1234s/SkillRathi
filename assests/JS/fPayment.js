@@ -45,9 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // UPI addresses
     const upiAddresses = [
-        'fearlessassignments@okhdfcbank',
-        'fearlessassignments@ybl',
-        'fearlessassignments@axl'
+        '8920729358@ptaxis'
     ];
     
     // Set random UPI address

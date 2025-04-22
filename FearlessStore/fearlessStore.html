@@ -130,252 +130,475 @@
             </div>
         </div>
     </nav>
-    <!-- Search Bar -->
-    <div class="pt-28 pb-6 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-center">
-                <div class="relative w-full max-w-2xl">
-                    <input type="text" placeholder="Search in Fearless Store..." class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-primary hover:text-red-700">
-                        <i class="fas fa-search text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+    
+    <br><br><br>
+
+   <!-- Banner Slider -->
+<div class="bg-white py-8 overflow-hidden relative">
+    <!-- Custom shape background -->
+    <div class="absolute inset-0 overflow-hidden -z-10">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-50 to-white opacity-90"></div>
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent"></div>
     </div>
 
-    <!-- Banner Slider -->
-    <div class="bg-white py-4 overflow-hidden">
+    <div class="container mx-auto px-4 relative">
+        <!-- Section Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
+                <span class="relative z-10">Featured Offers</span>
+                <span class="absolute bottom-0 left-0 w-full h-2 bg-primary/20 -rotate-1 z-0"></span>
+            </h2>
+            <div class="flex gap-2">
+                <button class="banner-prev-btn w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-primary hover:bg-primary hover:text-white transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button class="banner-next-btn w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-primary hover:bg-primary hover:text-white transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Banner Slider -->
         <div class="relative">
-            <div class="flex banner-slider">
-                <!-- Banner 1 -->
-                <div class="min-w-full md:min-w-[50%] px-4">
-                    <div class="bg-gradient-to-r from-primary to-red-800 text-white rounded-lg p-6 h-40 flex items-center">
-                        <div class="w-2/3">
-                            <h3 class="text-xl md:text-2xl font-bold mb-2">Cyber Security Course</h3>
-                            <p class="text-sm md:text-base mb-4">Learn from industry experts. Limited time offer!</p>
-                            <a href="courses.html" class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">Explore Now</a>
+            <div class="flex banner-slider space-x-6 overflow-x-auto snap-x snap-mandatory pb-6 -mx-4 px-4 scrollbar-hide">
+                <!-- Banner 1 - Hacking Course -->
+                <div class="min-w-[85%] md:min-w-[45%] lg:min-w-[30%] px-2 snap-center">
+                    <div class="relative bg-gradient-to-br from-red-700 to-primary text-white rounded-2xl p-6 h-48 flex items-center overflow-hidden group">
+                        <!-- Background pattern -->
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLW9wYWNpdHk9IjAuMiI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIvPjwvc3ZnPg==')]"></div>
                         </div>
-                        <div class="w-1/3 flex justify-end">
-                            <img src="/assests/img/cyber.webp" alt="Cyber Security" class="h-24 w-24 object-cover rounded-full">
+                        
+                        <!-- Content -->
+                        <div class="relative z-10 w-2/3 pr-4">
+                            <span class="inline-block bg-white/20 backdrop-blur-sm text-xs px-3 py-1 rounded-full mb-3">Limited Offer</span>
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">Offensive Hacking Masterclass</h3>
+                            <p class="text-sm md:text-base mb-4 text-white/90">Become a certified ethical hacker with hands-on training</p>
+                            <div class="flex items-center mb-4">
+                                <span class="line-through text-white/70 mr-2">₹2,999</span>
+                                <span class="text-xl font-bold">₹2,499</span>
+                                <span class="ml-2 bg-white/20 text-xs px-2 py-0.5 rounded">17% OFF</span>
+                            </div>
+                            <a href="courses.html" class="inline-flex items-center bg-white text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition group-hover:scale-105">
+                                Enroll Now
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Banner 2 -->
-                <div class="min-w-full md:min-w-[50%] px-4">
-                    <div class="bg-gradient-to-r from-blue-600 to-blue-900 text-white rounded-lg p-6 h-40 flex items-center">
-                        <div class="w-2/3">
-                            <h3 class="text-xl md:text-2xl font-bold mb-2">Electronics Projects</h3>
-                            <p class="text-sm md:text-base mb-4">Build your own projects with our kits!</p>
-                            <a href="#" class="bg-white text-blue-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">Shop Now</a>
-                        </div>
-                        <div class="w-1/3 flex justify-end">
-                            <img src="/assests/img/arduino.webp" alt="Electronics" class="h-24 w-24 object-cover rounded-full">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Banner 3 -->
-                <div class="min-w-full md:min-w-[50%] px-4">
-                    <div class="bg-gradient-to-r from-green-600 to-green-900 text-white rounded-lg p-6 h-40 flex items-center">
-                        <div class="w-2/3">
-                            <h3 class="text-xl md:text-2xl font-bold mb-2">College Projects</h3>
-                            <p class="text-sm md:text-base mb-4">Get ready-made projects for your college assignments!</p>
-                            <a href="#" class="bg-white text-green-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">View Projects</a>
-                        </div>
-                        <div class="w-1/3 flex justify-end">
-                            <img src="/assests/img/face.webp" alt="College Projects" class="h-24 w-24 object-cover rounded-full">
+                        
+                        <!-- Image -->
+                        <div class="absolute right-0 bottom-0 w-1/3 h-full flex items-end justify-end">
+                            <img src="/assests/img/cyber.webp" alt="Offensive Hacking Course" class="h-40 w-auto object-contain transform transition group-hover:scale-110">
                         </div>
                     </div>
                 </div>
                 
-                <!-- Duplicate banners for continuous scrolling -->
-                <div class="min-w-full md:min-w-[50%] px-4">
-                    <div class="bg-gradient-to-r from-primary to-red-800 text-white rounded-lg p-6 h-40 flex items-center">
-                        <div class="w-2/3">
-                            <h3 class="text-xl md:text-2xl font-bold mb-2">Cyber Security Course</h3>
-                            <p class="text-sm md:text-base mb-4">Learn from industry experts. Limited time offer!</p>
-                            <a href="courses.html" class="bg-white text-primary px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition">Explore Now</a>
+                <!-- Banner 2 - Electronics -->
+                <div class="min-w-[85%] md:min-w-[45%] lg:min-w-[30%] px-2 snap-center">
+                    <div class="relative bg-gradient-to-br from-blue-800 to-blue-600 text-white rounded-2xl p-6 h-48 flex items-center overflow-hidden group">
+                        <!-- Background pattern -->
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLW9wYWNpdHk9IjAuMiI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIvPjwvc3ZnPg==')]"></div>
                         </div>
-                        <div class="w-1/3 flex justify-end">
-                            <img src="/placeholder.svg?height=100&width=100" alt="Cyber Security" class="h-24 w-24 object-cover rounded-full">
+                        
+                        <!-- Content -->
+                        <div class="relative z-10 w-2/3 pr-4">
+                            <span class="inline-block bg-white/20 backdrop-blur-sm text-xs px-3 py-1 rounded-full mb-3">Starter Kits</span>
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">Electronics Lab Essentials</h3>
+                            <p class="text-sm md:text-base mb-4 text-white/90">Everything you need to start building circuits</p>
+                            <div class="flex items-center mb-4">
+                                <span class="text-xl font-bold">From ₹799</span>
+                            </div>
+                            <button onclick="showComingSoonPopup('electronics')" class="inline-flex items-center bg-white text-blue-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition group-hover:scale-105">
+                                Explore Kits
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Image -->
+                        <div class="absolute right-0 bottom-0 w-1/3 h-full flex items-end justify-end">
+                            <img src="/assests/img/arduino.webp" alt="Electronics" class="h-40 w-auto object-contain transform transition group-hover:scale-110">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Banner 3 - Projects -->
+                <div class="min-w-[85%] md:min-w-[45%] lg:min-w-[30%] px-2 snap-center">
+                    <div class="relative bg-gradient-to-br from-green-700 to-green-600 text-white rounded-2xl p-6 h-48 flex items-center overflow-hidden group">
+                        <!-- Background pattern -->
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLW9wYWNpdHk9IjAuMiI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIvPjwvc3ZnPg==')]"></div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="relative z-10 w-2/3 pr-4">
+                            <span class="inline-block bg-white/20 backdrop-blur-sm text-xs px-3 py-1 rounded-full mb-3">New Arrivals</span>
+                            <h3 class="text-xl md:text-2xl font-bold mb-2">College Project Kits</h3>
+                            <p class="text-sm md:text-base mb-4 text-white/90">Complete solutions for your academic projects</p>
+                            <div class="flex items-center mb-4">
+                                <span class="text-xl font-bold">From ₹499</span>
+                            </div>
+                            <button onclick="showComingSoonPopup('projects')" class="inline-flex items-center bg-white text-green-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition group-hover:scale-105">
+                                View Projects
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Image -->
+                        <div class="absolute right-0 bottom-0 w-1/3 h-full flex items-end justify-end">
+                            <img src="/assests/img/face.webp" alt="College Projects" class="h-40 w-auto object-contain transform transition group-hover:scale-110">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .banner-slider.active {
+        cursor: grabbing;
+        cursor: -webkit-grabbing;
+    }
+</style>
 
     <!-- Filters -->
-    <div class="py-6 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="relative w-full max-w-xs mx-auto md:mx-0">
-                <select id="categoryFilter" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary appearance-none">
+<div class="py-6 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-96">
+                <input type="text" id="searchInput" placeholder="Search products..." 
+                       class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Filter Dropdown -->
+            <div class="relative w-full md:w-48">
+                <select id="categoryFilter" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary appearance-none bg-white">
                     <option value="all">All Categories</option>
                     <option value="courses">Courses</option>
                     <option value="electronics">Electronics</option>
                     <option value="projects">College Projects</option>
                 </select>
-                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                    <i class="fas fa-chevron-down text-gray-500"></i>
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Products Grid -->
-    <div class="py-8 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold text-secondary mb-6">Featured Products</h2>
+<!-- Products Grid -->
+<div class="py-12 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center md:text-left">Featured Products</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- Hacking Course Card -->
+            <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 product-card" data-category="courses" data-search="offensive hacking course">
+                <div class="relative overflow-hidden h-56">
+                    <img src="/assests/img/cyber.webp" alt="Offensive Hacking Course" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full">HOT DEAL</span>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-blue-100/80 text-blue-800 text-xs px-2.5 py-1 rounded-full">coding</span>
+                        <span class="bg-purple-100/80 text-purple-800 text-xs px-2.5 py-1 rounded-full">cyber</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fearless Offensive Hacking Course</h3>
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-amber-400 mr-2">
+                            ★★★★★
+                        </div>
+                        <span class="text-gray-500 text-sm">(42 reviews)</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-gray-500 line-through mr-2">₹2,999</span>
+                        <span class="text-primary font-bold text-xl">₹2,499</span>
+                        <span class="ml-auto bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">17% OFF</span>
+                    </div><br>
+                    <a href="courses.html" class="block w-full bg-primary text-white text-center py-2.5 rounded-lg hover:bg-red-700 transition font-medium">
+                        Enroll Now
+                    </a>
+                </div>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Course Card 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="courses">
-                    <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-secondary mb-2">Fearless Cyber Security Course</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">coding</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">cyber</span>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">pdf</span>
-                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">videos</span>
-                        </div>
-                        <a href="courses.html"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
-                    </div>
+            
+            
+            <!-- Electronics Card 1 -->
+            <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 product-card" data-category="electronics" data-search="arduino kit">
+                <div class="relative overflow-hidden h-56">
+                    <img src="/assests/img/arduino.webp" alt="Arduino Kit" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 </div>
-                
-               
-                
-                <!-- Electronics Card 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="electronics">
-                    <img src="/assests/img/arduino.webp" alt="Arduino Kit" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-secondary mb-2">Arduino Starter Kit</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Arduino</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Breadboard</span>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Jumper wires</span>
-                        </div>
-                        <a href="#" onclick="alert('Not Available yet! Comming Soon...!')"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
+                <div class="p-5">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-blue-100/80 text-blue-800 text-xs px-2.5 py-1 rounded-full">Arduino</span>
+                        <span class="bg-yellow-100/80 text-yellow-800 text-xs px-2.5 py-1 rounded-full">Breadboard</span>
                     </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Arduino Starter Kit</h3>
+                    <p class="text-gray-600 text-sm mb-4">Complete kit with 25+ components for beginners</p>
+                    <div class="mb-4">
+                        <span class="text-primary font-bold text-xl">₹1,299</span>
+                    </div><br>
+                    <button onclick="showComingSoonPopup('electronics')" class="w-full bg-gray-200 text-gray-800 py-2.5 rounded-lg hover:bg-gray-300 transition font-medium">
+                        Notify Me
+                    </button>
                 </div>
-                
-                <!-- Electronics Card 2 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="electronics">
-                    <img src="/assests/img/Raspberry Pi 4 board.webp" alt="Raspberry Pi Kit" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-secondary mb-2">Raspberry Pi 4 Complete Kit</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Raspberry Pi</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">SD Card</span>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Power Supply</span>
-                        </div>
-                        <a href="#" onclick="alert('Not Available yet! Comming Soon...!')"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
-                    </div>
+            </div>
+            
+            <!-- Project Card 1 -->
+            <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 product-card" data-category="projects" data-search="iot project">
+                <div class="relative overflow-hidden h-56">
+                    <img src="/assests/img/iot.webp" alt="IoT Project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 </div>
-                
-                <!-- Project Card 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="projects">
-                    <img src="/assests/img/iot.webp" alt="IoT Project" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-secondary mb-2">IoT Home Automation Project</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">IoT</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Arduino</span>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Sensors</span>
-                        </div>
-                        <a href="#" onclick="alert('Not Available yet! Comming Soon...!')"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
+                <div class="p-5">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-blue-100/80 text-blue-800 text-xs px-2.5 py-1 rounded-full">IoT</span>
+                        <span class="bg-yellow-100/80 text-yellow-800 text-xs px-2.5 py-1 rounded-full">Arduino</span>
                     </div>
-                </div>
-                
-                <!-- Project Card 2 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition product-card" data-category="projects">
-                    <img src="/assests/img/face.webp" alt="AI Project" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-secondary mb-2">AI Face Recognition System</h3>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">AI</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Python</span>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">OpenCV</span>
-                        </div>
-                        <a href="#" onclick="alert('Not Available yet! Comming Soon...!')"><button class="view-btn bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition w-full">View</button></a>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">IoT Home Automation Project</h3>
+                    <p class="text-gray-600 text-sm mb-4">Step-by-step guide to build smart home system</p>
+                    <div class="mb-4">
+                        <span class="text-primary font-bold text-xl">₹899</span>
                     </div>
+                    <button onclick="showComingSoonPopup('projects')" class="w-full bg-gray-200 text-gray-800 py-2.5 rounded-lg hover:bg-gray-300 transition font-medium">
+                        Notify Me
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Coming Soon Popup (hidden by default) -->
+<div id="comingSoonPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold text-gray-800">Coming Soon!</h3>
+            <button onclick="document.getElementById('comingSoonPopup').classList.add('hidden')" class="text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <p class="text-gray-600 mb-6">We're working hard to bring this product to you soon. Subscribe to our newsletter to get notified when it's available!</p>
+        <div class="mb-4">
+            <input type="email" id="newsletterEmail" placeholder="Your email address" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+        </div>
+        <button onclick="subscribeNewsletter()" class="w-full bg-primary text-white py-2.5 rounded-lg hover:bg-red-700 transition font-medium">
+            Subscribe
+        </button>
+    </div>
+</div>
+
+
 
     
 
-     <!-- Footer -->
-     <footer class="bg-secondary text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <img src="/assests/img/Skill_Rathi_Logo.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
-                        <span class="ml-2 text-xl font-bold">Skill Rathi</span>
-                    </div>
-                    <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+    <!-- Footer -->
+   <footer class="bg-secondary text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-10 bg-white rounded-full p-1">
+                    <span class="ml-2 text-xl font-bold">Skill Rathi</span>
                 </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-300 hover:text-primary">Home</a></li>
-                        <li><a href="/Slot/bookmyslot.php.html" class="text-gray-300 hover:text-primary">Book Your Slots</a></li>
-                        <li><a href="/JOIN/joinus.html" class="text-gray-300 hover:text-primary">Join Us</a></li>
-                        <li><a href="/payment.html" class="text-gray-300 hover:text-primary">Payments</a></li>
-                        <li><a href="/contact.php.htm" class="text-gray-300 hover:text-primary">Contact Us</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Services</h3>
-                    <ul class="space-y-2">
-                        <li><a href="/Assignmnet/assignment.html" class="text-gray-300 hover:text-primary">Assignments</a></li>
-                        <li><a href="/Lb-File/labFile.html" class="text-gray-300 hover:text-primary">Practical Lab Files</a></li>
-                        <li><a href="/graphic/g&d.html" class="text-gray-300 hover:text-primary">Graphic Design</a></li>
-                        <li><a href="/Slot/track-slot.html" class="text-gray-300 hover:text-primary">Track Slot</a></li>
-                        <li><a href="/terms-conditions.html" class="text-gray-300 hover:text-primary">Terms & Conditions</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
-                            <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
-                            <span>+91 8006968576</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope mt-1 mr-2"></i>
-                            <span>info@fearlessassignments.com</span>
-                        </li>
-                    </ul>
+                <p class="text-gray-300 mb-4">Assignments Made Easy Now! Invest your time and get valuable output.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white hover:text-primary"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white hover:text-primary"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
-                <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
-                <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="/index.html" class="text-gray-300 hover:text-primary">Home</a></li>
+                    <li><a href="/Slot/bookmyslot.php.html" class="text-gray-300 hover:text-primary">Book Your Slots</a></li>
+                    <li><a href="/JOIN/joinus.html" class="text-gray-300 hover:text-primary">Join Us</a></li>
+                    <li><a href="/payment.html" class="text-gray-300 hover:text-primary">Payments</a></li>
+                    <li><a href="/contact.php.htm" class="text-gray-300 hover:text-primary">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Services</h3>
+                <ul class="space-y-2">
+                    <li><a href="/Assignmnet/assignment.html" class="text-gray-300 hover:text-primary">Assignments</a></li>
+                    <li><a href="/Lb-File/labFile.html" class="text-gray-300 hover:text-primary">Practical Lab Files</a></li>
+                    <li><a href="/graphic/g&d.html" class="text-gray-300 hover:text-primary">Graphic Design</a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-primary">Programming Help</a></li>
+                    <li><a href="/terms-conditions.html" class="text-gray-300 hover:text-primary">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                        <span>Stanza Living, Knowlege Park III, Gautam Buddh Nagar -  Greater Noida</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span><a href="tel:+91 8006968576">+91 8006968576</a></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span><a href="tel:+91 8920729358">+91 8920729358</a></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span><a href="tel:+91 6306372172">+91 6306372172</a></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                        <span><a href="tel:+91 6396081309">+91 6396081309</a></span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-envelope mt-1 mr-2"></i>
+                        <span><a href="mailto:skillrathi@gmail.com">skillrathi@gmail.com</a></span>
+                    </li>
+                </ul>
             </div>
         </div>
-    </footer>
+        
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+            <p class="text-gray-300">&copy; 2025 Skill Rathi. All rights reserved.</p>
+            <p class="text-gray-300">℗ Powered BY <a href="https://codeecamp.netlify.app" style="color: #c81e44;">Codee Camp</a></p>
+            <p class="text-gray-300"> Made BY <a href="https://ayushsrivastava.netlify.app" style="color: #c81e44;">Ayush Srivastava</a></p>
+        </div>
+    </div>
+</footer>
 
     <!-- JavaScript -->
     <script src="/assests/JS/store.js"></script>
+
+    <!--Banner-->
+    <script>
+        // Banner slider functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.banner-slider');
+            const prevBtn = document.querySelector('.banner-prev-btn');
+            const nextBtn = document.querySelector('.banner-next-btn');
+            
+            if (slider && prevBtn && nextBtn) {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                
+                // Mouse drag functionality
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    slider.classList.add('active');
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                });
+                
+                slider.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    slider.classList.remove('active');
+                });
+                
+                slider.addEventListener('mouseup', () => {
+                    isDown = false;
+                    slider.classList.remove('active');
+                });
+                
+                slider.addEventListener('mousemove', (e) => {
+                    if(!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    slider.scrollLeft = scrollLeft - walk;
+                });
+                
+                // Button controls
+                prevBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: -300, behavior: 'smooth' });
+                });
+                
+                nextBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: 300, behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+
+    <!--Course-->
+    <script>
+        // Filter and search functionality
+        document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+        document.getElementById('searchInput').addEventListener('input', filterProducts);
+        
+        function filterProducts() {
+            const category = document.getElementById('categoryFilter').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+                const productSearch = product.getAttribute('data-search').toLowerCase();
+                
+                const categoryMatch = category === 'all' || productCategory === category;
+                const searchMatch = productSearch.includes(searchTerm);
+                
+                if (categoryMatch && searchMatch) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+        
+        // Popup functions
+        let currentProductType = '';
+        
+        function showComingSoonPopup(type) {
+            currentProductType = type;
+            document.getElementById('comingSoonPopup').classList.remove('hidden');
+        }
+        
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletterEmail').value;
+            if (email) {
+                alert(`Thank you for subscribing! We'll notify you when our ${currentProductType} products are available.`);
+                document.getElementById('comingSoonPopup').classList.add('hidden');
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                alert('Please enter your email address');
+            }
+        }
+    </script>
 </body>
 </html>

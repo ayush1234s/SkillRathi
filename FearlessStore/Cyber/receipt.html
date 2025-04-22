@@ -3,25 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Receipt - Fearless Assignments</title>
+    <title>Payment Receipt - Skill Rathi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="shortcut icon" href="/assests/img/favicon.png" type="image/x-icon">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#e11d48',
-                        secondary: '#0f172a',
-                        accent: '#f97316',
-                        light: '#f8fafc',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        
+        .receipt-container {
+            background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .header-accent {
+            background: linear-gradient(135deg, #e11d48 0%, #f97316 100%);
+            height: 8px;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .verification-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .course-card {
+            background: linear-gradient(to right, #ffffff 0%, #f8fafc 100%);
+            border-left: 4px solid #e11d48;
+        }
+        
+        .watermark {
+            position: absolute;
+            opacity: 0.03;
+            font-size: 15rem;
+            font-weight: 800;
+            color: #0f172a;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
         @media print {
             .no-print {
                 display: none !important;
@@ -29,127 +53,212 @@
             body {
                 padding: 0;
                 margin: 0;
+                background: white !important;
             }
-            .print-container {
+            .receipt-container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
                 max-width: 100% !important;
                 width: 100% !important;
                 margin: 0 !important;
-                padding: 20px !important;
-                box-shadow: none !important;
+                padding: 0 !important;
+            }
+            .header-accent {
+                border-radius: 0 !important;
+            }
+            .watermark {
+                display: none;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100 py-8">
-    <div class="container mx-auto px-4">
-        <div class="print-container max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
-            <!-- Header -->
-            <div class="flex justify-between items-center mb-8 border-b pb-4">
-                <div class="flex items-center">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0rjmc9EGbFP1jS2sEtLtOkMhPal4C8.png" alt="Fearless Assignments Logo" class="h-16">
-                    <div class="ml-4">
-                        <h1 class="text-2xl font-bold text-secondary">Fearless Assignments</h1>
-                        <p class="text-gray-600">Payment Receipt</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="text-gray-600">Receipt #: <span id="receiptNumber">--</span></p>
-                    <p class="text-gray-600">Date: <span id="receiptDate">--</span></p>
-                </div>
-            </div>
+<body class="py-12">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="receipt-container relative overflow-hidden">
+            <!-- Watermark -->
+            <div class="watermark -top-20 -right-20 absolute">SKILL RATHI</div>
             
-            <!-- Customer Information -->
-            <div class="mb-8">
-                <h2 class="text-lg font-bold text-secondary mb-3">Customer Information</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <p class="text-gray-600">Name: <span id="customerName" class="font-semibold text-gray-800">--</span></p>
-                        <p class="text-gray-600">Email: <span id="customerEmail" class="font-semibold text-gray-800">--</span></p>
-                        <p class="text-gray-600">Phone: <span id="customerPhone" class="font-semibold text-gray-800">--</span></p>
+            <!-- Colored header accent -->
+            <div class="header-accent"></div>
+            
+            <!-- Main content -->
+            <div class="p-8 relative z-10">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
+                    <div class="flex items-center mb-6 md:mb-0">
+                        <img src="/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-14 w-14">
+                        <div class="ml-4">
+                            <h1 class="text-3xl font-bold text-gray-900">SKILL RATHI</h1>
+                            <p class="text-gray-500 uppercase tracking-wider text-sm">Payment Receipt</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-gray-600">College: <span id="customerCollege" class="font-semibold text-gray-800">--</span></p>
-                        <p class="text-gray-600">City: <span id="customerCity" class="font-semibold text-gray-800">--</span></p>
-                        <p class="text-gray-600">State: <span id="customerState" class="font-semibold text-gray-800">--</span></p>
+                    <div class="text-right">
+                        <div class="verification-badge text-white px-4 py-2 rounded-full inline-flex items-center">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span class="font-medium">Payment Verified</span>
+                        </div>
+                        <div class="mt-3">
+                            <p class="text-gray-600 text-sm">Receipt #: <span id="receiptNumber" class="font-medium text-gray-800">--</span></p>
+                            <p class="text-gray-600 text-sm">Date: <span id="receiptDate" class="font-medium text-gray-800">--</span></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Purchase Details -->
-            <div class="mb-8">
-                <h2 class="text-lg font-bold text-secondary mb-3">Purchase Details</h2>
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <div class="flex items-center mb-4">
-                        <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-16 h-16 object-cover rounded-md mr-4">
-                        <div>
-                            <h3 class="font-semibold text-secondary">Cyber Security Full Course</h3>
-                            <p class="text-gray-600 text-sm">Comprehensive training from basics to advanced</p>
+                
+                <!-- Customer & Payment Info -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <!-- Customer Info -->
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">Customer Information</h2>
+                        <div class="space-y-3">
+                            <div class="flex">
+                                <span class="text-gray-600 w-24">Name:</span>
+                                <span id="customerName" class="font-medium text-gray-800">--</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-gray-600 w-24">Email:</span>
+                                <span id="customerEmail" class="font-medium text-gray-800">--</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-gray-600 w-24">Phone:</span>
+                                <span id="customerPhone" class="font-medium text-gray-800">--</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-gray-600 w-24">College:</span>
+                                <span id="customerCollege" class="font-medium text-gray-800">--</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-gray-600 w-24">Location:</span>
+                                <span id="customerCity" class="font-medium text-gray-800">--</span>, <span id="customerState" class="font-medium text-gray-800">--</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="border-t border-gray-200 pt-4">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-600">Base Price:</span>
-                            <span class="font-semibold">₹2499.00</span>
-                        </div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-600">Tax (5%):</span>
-                            <span class="font-semibold">₹124.95</span>
-                        </div>
-                        <div id="discountRow" class="flex justify-between mb-2 hidden">
-                            <span class="text-green-600">Discount:</span>
-                            <span id="discountAmount" class="font-semibold text-green-600">-₹500.00</span>
-                        </div>
-                        <div class="flex justify-between font-bold text-lg border-t border-gray-200 pt-2 mt-2">
-                            <span>Total:</span>
-                            <span id="totalAmount">₹2623.95</span>
+                    <!-- Payment Info -->
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">Payment Information</h2>
+                        <div class="space-y-3">
+                            <div class="flex">
+                                <span class="text-gray-600 w-32">Transaction ID:</span>
+                                <span id="transactionId" class="font-medium text-gray-800">--</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-gray-600 w-32">Payment Method:</span>
+                                <span class="font-medium text-gray-800">UPI</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-gray-600 w-32">Payment Date:</span>
+                                <span id="paymentDate" class="font-medium text-gray-800">--</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-gray-600 w-32">Payment Time:</span>
+                                <span id="paymentTime" class="font-medium text-gray-800">--</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-gray-600 w-32">Status:</span>
+                                <span class="font-medium text-green-600">Completed</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Payment Information -->
-            <div class="mb-8">
-                <h2 class="text-lg font-bold text-secondary mb-3">Payment Information</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <p class="text-gray-600">Transaction ID: <span id="transactionId" class="font-semibold text-gray-800">--</span></p>
-                        <p class="text-gray-600">Payment Method: <span class="font-semibold text-gray-800">UPI</span></p>
-                    </div>
-                    <div>
-                        <p class="text-gray-600">Payment Date: <span id="paymentDate" class="font-semibold text-gray-800">--</span></p>
-                        <p class="text-gray-600">Payment Time: <span id="paymentTime" class="font-semibold text-gray-800">--</span></p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Footer -->
-            <div class="border-t border-gray-200 pt-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <p class="text-gray-600 mb-1">Thank you for your purchase!</p>
-                        <p class="text-gray-500 text-sm">For any queries, please contact us at <a href="mailto:support@fearlessassignments.com" class="text-primary">support@fearlessassignments.com</a></p>
-                    </div>
-                    <div class="text-right">
-                        <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                            <i class="fas fa-check-circle mr-1"></i> Paid
+                
+                <!-- Course Details -->
+                <div class="mb-10">
+                    <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">Course Details</h2>
+                    <div class="course-card rounded-lg p-5 shadow-sm">
+                        <div class="flex items-start">
+                            <img src="/assests/img/cyber.webp" alt="Cyber Security Course" class="w-20 h-20 object-cover rounded-md mr-5">
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-900 text-lg mb-1">Offensive Hacking Course</h3>
+                                <p class="text-gray-600 text-sm mb-3">Comprehensive training from basics to advanced</p>
+                                
+                                <div class="border-t border-gray-200 pt-3 mt-3">
+                                    <div class="flex justify-between py-1">
+                                        <span class="text-gray-600">Base Price:</span>
+                                        <span class="font-medium">₹2499.00</span>
+                                    </div>
+                                    <div class="flex justify-between py-1">
+                                        <span class="text-gray-600">Tax (0%):</span>
+                                        <span class="font-medium">₹0.00</span>
+                                    </div>
+                                    <div id="discountRow" class="flex justify-between py-1 hidden">
+                                        <span class="text-green-600">Discount:</span>
+                                        <span id="discountAmount" class="font-medium text-green-600">-₹500.00</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 mt-2 border-t border-gray-200">
+                                        <span class="font-bold">Total Amount:</span>
+                                        <span id="totalAmount" class="font-bold text-lg text-gray-900">₹2623.95</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Action Buttons -->
-            <div class="mt-8 flex justify-center space-x-4 no-print">
-                <button onclick="window.print()" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
-                    <i class="fas fa-print mr-2"></i> Print Receipt
-                </button>
-                <a href="/FearlessStore/enrolled-courses.html" class="bg-secondary text-white px-4 py-2 rounded-md hover:bg-gray-800 transition">
-                    <i class="fas fa-graduation-cap mr-2"></i> Go to Course
-                </a>
+                
+                <!-- Verification Section -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-10">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-full mr-4 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">Next Steps for Course Access</h3>
+                            <p class="text-gray-700 mb-4">To complete your registration and gain access to the private course group, please share this receipt with our support team via WhatsApp.</p>
+                            <div class="flex flex-col sm:flex-row items-center gap-3">
+                                <a href="https://wa.me/918920729358" target="_blank" class="no-print bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center w-full sm:w-auto">
+                                    <i class="fab fa-whatsapp mr-2 text-xl"></i>
+                                    Share on WhatsApp
+                                </a>
+                                <span class="text-sm text-gray-500 text-center sm:text-left">
+                                    Verification typically takes less than 1 hour during business hours
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mb-4 md:mb-0 text-center md:text-left">
+                            <p class="text-gray-600 mb-2">Need help with your purchase?</p>
+                            <div class="flex flex-col sm:flex-row items-center gap-2">
+                                <a href="mailto:skillrathi@grmail.com" class="text-blue-600 hover:text-blue-800 font-medium">
+                                    <i class="fas fa-envelope mr-1"></i> skillrathi@grmail.com
+                                </a>
+                                <span class="hidden sm:block text-gray-400">|</span>
+                                <a href="tel:+918920729358" class="text-blue-600 hover:text-blue-800 font-medium">
+                                    <i class="fas fa-phone-alt mr-1"></i> +91 89207 29358
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-gray-500 text-sm">Official Receipt</span>
+                            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4 no-print">
+                    <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center">
+                        <i class="fas fa-print mr-2"></i>
+                        Print Receipt
+                    </button>
+                    <a href="/fearlessstore/enrolled-courses" class="bg-gradient-to-r from-rose-600 to-orange-500 hover:from-rose-700 hover:to-orange-600 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        Access Your Course
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get receipt data from localStorage

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Restricted | Skill Rathi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glitch {
+            animation: glitch 1s linear infinite;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .form-popup {
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .success-popup {
+            animation: scaleIn 0.3s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <img src="https://skillrathi.com/assests/img/favicon.png" alt="Skill Rathi Logo" class="h-16 mx-auto mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-red-500 glitch">ACCESS RESTRICTED</h1>
+            <div class="w-24 h-1 bg-red-500 mx-auto mt-4"></div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="max-w-2xl w-full bg-gray-800 rounded-xl shadow-2xl overflow-hidden fade-in">
+            <div class="p-6 md:p-8">
+                <!-- Warning Icon -->
+                <div class="flex justify-center mb-6">
+                    <div class="bg-red-500/20 p-4 rounded-full">
+                        <i class="fas fa-ban text-red-500 text-4xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Ban Message -->
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">Account Suspended</h2>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        You have been caught after uploading fake payment screenshots 3 times or more. 
+                        As a result, your IP address has been permanently banned from our servers.
+                    </p>
+                    <p class="text-gray-400 italic">
+                        You will not be able to purchase any courses from skillrathi.com
+                    </p>
+                </div>
+                
+                <!-- Request Unban Button -->
+                <div class="text-center mb-6" id="requestSection">
+                    <button id="requestUnbanBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-unlock mr-2"></i> Request Unban
+                    </button>
+                </div>
+                
+                <!-- Unban Request Form (Hidden by default) -->
+                <div id="unbanForm" class="hidden form-popup">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Unban Request Form</h3>
+                    <form id="unbanRequestForm" class="space-y-4">
+                        <div>
+                            <label for="fullName" class="block text-gray-300 mb-2">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-300 mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-300 mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-300 mb-2">Gender</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="gender" value="Male" class="text-red-500" checked>
+                                    <span class="ml-2">Male</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="gender" value="Female" class="text-red-500">
+                                    <span class="ml-2">Female</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="gender" value="Other" class="text-red-500">
+                                    <span class="ml-2">Other</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="request" class="block text-gray-300 mb-2">Request Details</label>
+                            <textarea id="request" name="request" rows="4" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Explain why we should unban your account..."></textarea>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="terms" name="terms" type="checkbox" required class="w-4 h-4 bg-gray-700 border-gray-600 rounded text-red-500 focus:ring-red-500">
+                            </div>
+                            <label for="terms" class="ml-2 text-sm text-gray-300">
+                                I understand that submitting fake payment proofs is fraudulent activity and I promise not to repeat this behavior.
+                            </label>
+                        </div>
+                        
+                        <div class="flex justify-center pt-4">
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+                                <i class="fas fa-paper-plane mr-2"></i> Submit Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Footer Note -->
+            <div class="bg-gray-900/50 p-4 text-center text-sm text-gray-400">
+                <p>© 2025 Skill Rathi. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Popup (Hidden by default) -->
+    <div id="successPopup" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-800 rounded-xl p-8 max-w-md mx-4 text-center success-popup">
+            <div class="bg-green-500/20 p-4 rounded-full inline-block mb-4">
+                <i class="fas fa-check-circle text-green-500 text-4xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Request Submitted</h3>
+            <p class="text-gray-300 mb-6">
+                Your unban request has been sent to Skill Rathi at <span class="text-red-400">skillrathi@gmail.com</span>.
+                We will review your request and respond within 3-5 business days.
+            </p>
+            <button id="closePopupBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const requestUnbanBtn = document.getElementById('requestUnbanBtn');
+            const unbanForm = document.getElementById('unbanForm');
+            const requestSection = document.getElementById('requestSection');
+            const unbanRequestForm = document.getElementById('unbanRequestForm');
+            const successPopup = document.getElementById('successPopup');
+            const closePopupBtn = document.getElementById('closePopupBtn');
+            
+            // Show unban form when button is clicked
+            requestUnbanBtn.addEventListener('click', function() {
+                requestSection.classList.add('hidden');
+                unbanForm.classList.remove('hidden');
+                unbanForm.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Handle form submission
+            unbanRequestForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would normally send the form data to your server
+                // For this demo, we'll just show the success popup
+                
+                // Hide form and show success popup
+                unbanForm.classList.add('hidden');
+                successPopup.classList.remove('hidden');
+                
+                // In a real implementation, you would:
+                // 1. Collect form data
+                // 2. Send to your backend (PHP script)
+                // 3. Handle the response
+                // 4. Show success/error message
+            });
+            
+            // Close success popup
+            closePopupBtn.addEventListener('click', function() {
+                successPopup.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
